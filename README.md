@@ -13,6 +13,9 @@ VizDrive is an autonomous robot designed to navigate a closed-loop circuit, main
 
 We are participating in the **Future Engineers Category** to develop our skills and demonstrate the capabilities of young Panamanians in a competitive field like robotics.
 
+During the creation of our robot, we tried to push the **fundamentals of robotics** to the highest we could. As you go through this GitHub repository, you may notice that we worked with very basic sensors (the kind typically found in standard Arduino kits), and that we strived to optimize them to the best of our capacities. This is because we aimed to make our build accessible for everyone, and show that even with the simplest components, it is possible to create truly functional robotic systems.
+
+Please note that during this competition, we are constantly making modifications in the software and hardware of our robot. We are continually trying to update on all the changes we make, but if you notice any inconsistency between the pages of the documentation, please let us know! 
 ---
 
 ## General Project Index
@@ -104,4 +107,4 @@ Sensor Integration, <br>Firmware Architecture, <br>Code Logic, <br>Error Managem
 
 ---
 
-For any inquiry, question or recommendation, feel free to contact us via email: **vizdrive.wro@gmail.com**
+For any inquiry, question, or recommendation, feel free to contact us via email: **<vizdrive.wro@gmail.com>**
