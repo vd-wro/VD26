@@ -142,7 +142,7 @@ These functions allow external modules (e.g., `state_logic`) to interact with an
 
 Accurate MPU readings are fundamental for effective PID control. A dedicated calibration procedure is performed to account for manufacturing biases and environmental factors.
 
-* **Calibration Code**: A custom calibration code, located at `./../src/main_control/mpu_orientation_control/mpu_calibration.ino`, is used to collect data on the accumulated error from the MPU.
+* **Calibration Code**: A [custom calibration](src/mpu_orientation_control/mpu_calibration/mpu_calibration.ino) code, located at `src/mpu_orientation_control/mpu_calibration/mpu_calibration.ino`, is used to collect data on the accumulated error from the MPU.
 
 * **Data Collection**: This code collects gyroscope data over a measurement period (e.g., 10 seconds), testing various sample sizes to determine the optimal average correction.
 
