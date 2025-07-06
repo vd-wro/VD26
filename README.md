@@ -15,7 +15,8 @@ We are participating in the **Future Engineers Category** to develop our skills 
 
 During the creation of our robot, we tried to push the **fundamentals of robotics** to the highest we could. As you go through this GitHub repository, you may notice that we worked with very basic sensors (the kind typically found in standard Arduino kits), and that we strived to optimize them to the best of our capacities. This is because we aimed to make our build accessible for everyone, and show that even with the simplest components, it is possible to create truly functional robotic systems.
 
-Please note that during this competition, we are constantly making modifications in the software and hardware of our robot. We are continually trying to update on all the changes we make, but if you notice any inconsistency between the pages of the documentation, please let us know! 
+Please note that during this competition, we are constantly making modifications in the software and hardware of our robot. We are constantly trying to update on all the changes we make, but if you notice any inconsistency between the pages of the documentation, please let us know!
+
 ---
 
 ## General Project Index
