@@ -29,7 +29,7 @@ The robot's operation can be divided into three phases:
 
 ### 1. **Initialization Phase (Setup):**
 
-* **Power-Up**, **Self-Checks** and **Calibration:** upon power-up, the robot ensures all sensors and actuators are operational, and calibrates the MPU gyroscope yaw angle for orientation.
+* **Power-Up**, **Self-Checks** and **Calibration:** upon power-up, the robot ensures all sensors and actuators are operational, and calibrates the MPU gyroscope yaw angle for orientation. If a sensor is not initialized correctly, the program will not start.
 * **Waiting for Start:** when the robot is ready for operation a LED indicator illuminates to signal readiness, and the program starts upon a button press.
 
 ### 2. **Autonomous Navigation Phase:**
@@ -37,18 +37,19 @@ The robot's operation can be divided into three phases:
 This is the primary operational phase, a loop where the robot continuously checks and adapts to its environment:
 
 * **Orientation Correction (Continuous):**
-  * The **MPU-6050** provides real-time orientation data
+  * The **MPU-6050** provides real-time orientation data.
   * This data is fed into a dedicated PID (Proportional-Integral-Derivative) controller, which compensates for any rotational drift, ensuring the robot maintains a stable and straight heading throughout its trajectory.
+  * To correct the **MPU-6050's accumulated offset**, in the Obstacle Challenge, the robot uses the rear wall to reset its yaw angle. On the other hand, in the Open Challenge, it uses the robot's parallel distance to the wall.
 * **Obstacle Detection and Evasion (Conditional):**
   * While maintaining trajectory, the **PixyCam 2.1** constantly scans the path ahead for obstacles.
-  * If an obstacle is detected within the predefined **Region of Interest (ROI)** of the camera's field of view.
-    * **Evasion Maneuver:** the robot turns until the obstacle is no longer detected within the PixyCam's ROI. In conjunction, the front diagonal ultrasonic sensors may detect a short distance to a wall.
+  * If an obstacle is detected within the predefined **Region of Interest (ROI)** of the camera's field of view:
+    * **Evasion Maneuver:** the robot turns until the obstacle is no longer detected within the PixyCam's ROI.
     * **Re-acquisition of Trajectory:** following an evasion maneuver, the robot re-establishes its MPU-based trajectory correction. Concurrently, side ultrasonic sensors are utilized to assist in re-centering the robot on its intended path.
 
 ### 3. **Completion Phase:**
 
 * The robot transitions to this phase after completing the required number of laps.
-  * **Parking Maneuver:** the robot initiates a search for designated magenta walls that define the parking lot. Upon detection, it executes a pre-calculated parking maneuver to conclude the mission.
+  * **Parking Maneuver:** the robot initiates a search for designated magenta walls that define the parking lot. Upon detection, it executes a pre-calculated parking maneuver to conclude the challenge.
 
 ---
 
