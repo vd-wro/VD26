@@ -11,8 +11,7 @@ The following table summarizes the primary pin assignments for all the component
 | IR Encoder                   | `D2`                         | Encoder OUT signal                  |
 | DC Motor Driver (MX1508)     | `D4`, `D5`                   | IN1, IN2 (for motor control)        |
 | Servo Motor (SG90)           | `D6`                         | Servo control signal                |
-| Ultrasonic Front-Left        | `D37` (Trigger), `D35` (Echo) | Distance measurement                |
-| Ultrasonic Front-Right       | `D33` (Trigger), `A15` (Echo) | Distance measurement                |
+| Ultrasonic Front             | `D47` (Trigger), `28` (Echo) | Distance measurement                |
 | Ultrasonic Left              | `A9` (Trigger), `A11` (Echo) | Distance measurement                 |
 | Ultrasonic Right             | `D47` (Trigger), `D28` (Echo) | Distance measurement                |
 | PixyCam 2.1                    | SPI Interface (Default)      | Communication (MISO, 5V, SCLK, MOSI, RESET, GND) |
@@ -21,7 +20,7 @@ The following table summarizes the primary pin assignments for all the component
 | Left Color Sensor (TCS3200)  | `D51`, `D49`, `D50`, `D52` (S0, S1, S2, S3), `D48` (OUT) | Side color recognition         |
 | Right Color Sensor (TCS3200) | `D10`, `D8`, `D16`, `D14` (S0, S1, S2, S3), `D18` (OUT) | Side color recognition          |
 | Pushbutton                   | `A0`                         | Start program trigger              |
-| LED Indicator                | `D46`                        | Program readiness signal           |
+| LED Indicator                | `D30`                        | Program readiness signal           |
 
 **For the circuit design and electromechanical diagram:**
 
@@ -33,8 +32,8 @@ The following table summarizes the primary pin assignments for all the component
 ### Ultrasonic Sensors (HC-SR04)
 
 * **Functionality:** Operates on echolocation principles, emitting an ultrasonic pulse and measuring the time for its return echo to calculate distance. Used for obstacle avoidance.
-* **Role:** Four sensors are strategically placed:
-  * **Front-Left & Front-Right:** Primary for detecting short distances to walls during evasion and avoid collisions.
+* **Role:** Three sensors are strategically placed:
+  * **Front Ultrasonic Sensor:** Primary for detecting short distances to the wall during turns in the **Obstacle Challenge Round**. This helps execute the predefined turning maneuver.
   * **Left & Right:** Used to adjust the robot's position parallel to the walls, correcting MPU6050 large offsets after laps.
 * **Pin Configuration:**
   * `VCC`: Connected to Arduino `5V`.
