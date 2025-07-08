@@ -154,8 +154,13 @@ Accurate MPU readings are fundamental for effective PID control. A dedicated cal
 
 ![Accumulated error vs Number of samples](../assets/data_graphs/MPU_data_graph.png)
 
-Proper calibration of this sensor is essential and can significantly reduce offset, and we tried to reduce to the minimum the error. However, with the MPU-6050, it is not possible to achieve zero offset when working with accumulated yaw. For this reason, we implemented different angle correction strategies depending on the challenge.
-In the Open Challenge, where touching the walls is not allowed, we adapted a correction system based on ultrasonic sensors. In contrast, during the Obstacle Challenge, where contact with walls is permitted, we used the walls themselves as reference points to reset the accumulated yaw.
+Proper calibration of this sensor is essential and can significantly reduce offset, and we tried to reduce to the minimum the error. 
+However, with the MPU-6050, it is not possible to achieve zero offset when working with accumulated yaw. For this reason, we implemented different angle correction strategies depending on the challenge.
+In the Open Challenge, where touching the walls is not allowed, we adapted a correction system based on ultrasonic sensors. 
+In contrast, during the Obstacle Challenge, where contact with walls is permitted, we used the walls themselves as reference points to reset the accumulated yaw. 
+
+For more information about the difference between the Open Challenge and Obstacle Challenge Rounds correction logic, refer to: [Color Detection: 9.3 Turn Maneuver Logic()](./09_color_detection.md/#93-turn-maneuver-logic-void-handlecoloraction))
+
 At the end of the day, we are optimizing the performance of our sensors; but we have to acknowledge their limitations.
 
 ---
