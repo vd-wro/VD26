@@ -33,7 +33,7 @@ This module directs the robot's physical movement, including propulsion and dire
 * **`stopMotors()`**: Implements a "soft stop" by disabling motor PWM signals, allowing for natural deceleration.
 * **`stopBrake()`**: Executes a "hard stop" using short-circuit braking for immediate halts.
 * **`setSteeringAngle(angle)`**: Adjusts the front-wheel steering servo position. Angle values are bounded by `SERVO_LEFT` and `SERVO_RIGHT` constants to prevent mechanical interference.
-* **`performParking()`**: Manages the precise reverse maneuver required for parking, utilizing encoder feedback for distance control.
+* **`performParking()`**: Manages the precise reverse maneuver required for parking, utilizing encoder pulse count for distance control.
 * **`encoderISR()`**: An Interrupt Service Routine (ISR) that increments an internal counter (`encoderPulseCount`) for accurate distance tracking.
 
 **Key Constants:**
@@ -50,11 +50,15 @@ For detailed explanations of these functions, refer to [**Robot Mobility**](./05
 
 This module employs ultrasonic sensors to measure real-time distances to surrounding environmental features, primarily for maintaining optimal positioning relative to walls.
 
-* **`getDistance(sonar)`**: Computes and filters distance measurements from multiple pings using a `NewPing` object, effectively reducing noise and enhancing precision in measurements. It uses a median filter to refine readings, considering valid distances and ensuring stability.
-* **`avoidWall(correctionAmount)`**: Adjusts the robot's target yaw to correct its trajectory when the measured distance to the walls falls outside the expected maximum and minimum thresholds. This function prevents constant, repetitive corrections using a `correctionCooldown()` mechanism. Its boundaries are specifically designed to keep the robot near the outermost wall in the Open Round code, allowing it to adapt to various center wall configurations in the WRO Open Challenge.
-* **`correctionCooldown()`**: Manages a cooldown period for the `avoidWall()` function. It resets the `correctionState` flag to `false` after `correctionCooldownMillis` (1200 ms) have passed since the last correction, allowing new wall corrections to be made.
+* **`getDistance(sonar)`**: Calculates and filters distance measurements using a `NewPing` object. It performs multiple pings and applies a median-based filtering process to reduce noise and improve accuracy, considering only stable and valid readings within a defined range.
 
-For a more detailed analysis of the ultrasonic sensors integration and noise filtering, refer to [**Ultrasonic Distance Sensing**](./08_ultrasonic_distance_sensing.md).
+* **`avoidWall(correctionAmount)`**: In the **Open Challenge**, this function adjusts the robot’s orientation by modifying its target yaw when the distance to nearby walls falls outside expected thresholds. It uses the `correctionCooldown()` mechanism to prevent repeated or excessive corrections. The correction thresholds are tuned to keep the robot aligned near the outer wall, allowing adaptability to various center-wall configurations.
+  
+* **`recentreIfNeeded`**: During the **Obstacle Challenge**, this function sets the servo steering angle to recentre the robot into its intended trajectory. It considers the last detected PixyCam color signature to decide which ultrasonic sensor to use for re-centering, to distinguish between obstacles and walls.
+
+* **`correctionCooldown()`**: Controls the cooldown period for wall corrections. In the **Open Challenge**, it resets the `correctionState` flag after a fixed interval (`correctionCooldownMillis`, typically 1200 ms), enabling new corrections. In the **Obstacle Challenge**, the cooldown resets after every turn, ensuring that only one correction is made after each obstacle avoidance, to avoid misalignment caused by unnecessary adjustments.
+
+For a more detailed analysis of the ultrasonic sensors integration for each challenge and the noise filtering function, refer to [**Ultrasonic Distance Sensing**](./08_ultrasonic_distance_sensing.md).
 
 ---
 
@@ -62,10 +66,11 @@ For a more detailed analysis of the ultrasonic sensors integration and noise fil
 
 VizDrive uses the **PixyCam 2.1** to detect and react to colored obstacles in its path.
 
-* **`obstacleDetected()`**: Checks for the presence of any designated colored object within a predefined **Region of Interest (ROI)** in the camera's view. Returns `true` if an object is found, `false` otherwise.
-* **`handleEvasion()`**: Initiates and manages the evasion process. It identifies the largest obstacle within the ROI and adjusts the robot's steering based on the object's color signature:
+* **`obstacleDetected()`**: Determines whether an obstacle is within close proximity, based on its position in the camera's frame. Returns `true` if an object is found within a predefined vertical threshold, `false` otherwise.
+* **`handleEvasion()`**: Executes a blocking maneuver to steer the robot around an obstacle detected within close range. It identifies the largest obstacle within the ROI and adjusts the robot's steering based on the object's color signature:
     * **Signature 1 (Red)**: Triggers an evasion maneuver to the **right**.
     * **Signature 2 (Green)**: Triggers an evasion maneuver to the **left**.
+The function tracks the X-coordinate of the obstacle, and only considers the evasion maneuver complete if the obstacle is detected out of the robot's central path, according to the color signature (e.g., red to the left side, or green to the right side).
 
 **Debugging:**
 
@@ -93,7 +98,7 @@ This sensor, mounted underneath the robot, detects navigation cues on the track.
 Two digital TCS3200 sensors, positioned on the robot's sides, are used primarily for detecting the parking trigger.
 
 * **Magenta**: Detected after completing a specific number of laps (e.g., 4 laps), signaling the parking zone.
-* **`detectWallMagenta()`**: Reads filtered RGB values from the appropriate side sensor (selected based on the current turning `direction`) and compares them against magenta-specific thresholds. (Signature is `RGB readSideSensor(int S0, int S1, int S2, int S3, int OUT)` in the code, but `detectWallMagenta` is kept for consistency with your markdown).
+* **`detectWallMagenta()`**: Reads filtered RGB values from the appropriate side sensor (selected based on the current turning `direction`) and compares them against magenta-specific thresholds.
 
 **Thresholds:**
 
@@ -108,12 +113,12 @@ For an in-depth explanation of color sensor operation, calibration, and detectio
 This module ensures the robot maintains a stable trajectory and executes precise turns using an MPU6050 gyroscope and a Proportional-Derivative (PD) control loop.
 
 * The **MPU6050 gyroscope** provides angular velocity data (specifically from its Z-axis) which is integrated to track the robot's current yaw angle.
-* **`updateOrientation(dt)`**: Accumulates the robot's `yaw` angle by integrating the calibrated angular velocity (`gyroZ_deg`) over time (`dt`). It incorporates a `0.1` degree/second noise threshold.
+* **`updateOrientation(dt)`**: The time differential in this function is managed differently according to the challenge round. However, in general, it accumulates the robot's `yaw` angle by integrating the calibrated angular velocity (`gyroZ_deg`) over time (`dt`). And incorporates a `0.1` degree/second noise threshold.
 * **`keepOrientation()`**: Implements the PD controller. It calculates an `error` between the `targetYaw` and the current `yaw`, then applies a proportional (`Kp`) and derivative (`Kd`) correction to the steering servo angle (`SERVO_STRAIGHT - (int)(Kp * error + Kd * derivative)`) to guide the robot back to its target heading.
 * **`setTargetYaw(angle_deg)`**: Dynamically defines the desired yaw angle for the robot to maintain or achieve during maneuvers (e.g., setting a 90-degree turn target).
 * **`getCurrentYaw()`**: Returns the current accumulated `yaw` angle of the robot.
 * **`getAbsoluteYawError()`**: Calculates and returns the absolute difference between the `targetYaw` and the current `yaw`, used to determine if a turn has been completed.
-* **`completedTurn()`**: Checks if a turn is `turningInProgress` and if the `getAbsoluteYawError()` is below the `TURN_THRESHOLD`. If so, it signifies turn completion, turns off an LED, resets `turningInProgress` and `correctionState`, and reduces `motorSpeed` to `160` for subsequent color detection.
+* **`completedTurn()`**: Checks if a turn is `turningInProgress` and if the `getAbsoluteYawError()` is below the `TURN_THRESHOLD`. If so, it signifies turn completion, turns off an LED, resets `turningInProgress` and `correctionState`. In the Open Challenge, it reduces `motorSpeed` to `160` for subsequent color detection.
 * **Gyroscope Calibration**: An initial calibration routine at setup compensates for any inherent bias or drift in the MPU6050's Z-axis gyroscope readings by averaging `samples` (250) readings to determine `gyroZ_offset`.
 
 **Tuning Parameters:**
@@ -142,7 +147,7 @@ The `setup()` function executes once at program startup:
     * `initUltrasonic()`: Sets up ultrasonic distance sensors.
     * `initColorSensors()`: Initializes both I2C and digital color sensors.
     * `initStateLogic()`: Establishes initial state variables, including `direction` and `targetYaw`.
-3.  **Start Condition**: Enters a waiting loop (`waitForStartButton()`) until a physical button press signals the start of autonomous operations. An LED (`ledPin`) illuminates while waiting.
+3.  **Start Condition**: Enters a waiting loop (`waitForStartButton()`) until a physical button press signals the start of autonomous operations. A LED (`ledPin`) illuminates while waiting.
 4.  **Timing Baseline**: Records `lastUpdateTime` using `millis()` to establish a timestamp for loop timing.
 
 ### Main Loop (`loop()`)
@@ -178,13 +183,14 @@ The robot's dynamic operational state is managed through a set of global boolean
 | Variable          | Type           | Purpose                                                                                                                                                                                                 |
 | :---------------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `direction`       | `int`          | Defines the turning direction: -1 = counter-clockwise (left), +1 = clockwise (right). It's set during the first turn by `detectFloorColor()`.                                                              |
-| `lapTurnCount`    | `unsigned int` | Counts the number of turns completed in the current lap. A full lap is currently defined as having 4 turns.                                                                                                |                                                   |
+| `lapTurnCount`    | `unsigned int` | Counts the number of turns completed in the current lap. A full lap is defined as having 4 turns.                                                                                                |                                                   |
 | `SystemShutdown`  | `bool`         | When set to `true`, this flag triggers `checkForShutdown()`, which forcefully stops the motors (`stopBrake()`) and enters an infinite loop, effectively halting all robot activity.                      |
 | `turningInProgress` | `bool`         | Prevents re-triggering a turn while one is actively being executed. It is set to `true` upon floor color detection and turn initiation, and `false` when `getAbsoluteYawError()` is within `TURN_THRESHOLD`, signaling turn completion. |
-| `correctionState` | `bool`         | Flag used to manage a cooldown for ultrasonic corrections. It's set to `true` after an `avoidWall()` correction and reset to `false` by `correctionCooldown()` after a delay.                             |
+| `correctionState` | `bool`         | Flag used to manage a cooldown or limit for ultrasonic corrections. It's set to `true` after an `avoidWall()` correction and reset to `false` by `correctionCooldown()` after a delay in the **Open Round**. It is reset after every completed turn in the **Obstacle Challenge**.                             |
 | `lastCorrectionTime` | `unsigned long` | Stores the `millis()` timestamp of the last wall correction, used by `correctionCooldown()` to manage the cooldown period.                                                                         |
 | `turnTargetYaw`   | `float`        | Stores the yaw angle the robot aims to achieve during a turn, calculated as `(currentYaw + 90.0 * -direction)`.                                                                                         |
 | `targetYaw`       | `float`        | The desired yaw angle for the robot to maintain, actively corrected by the `keepOrientation()` PID loop.                                                                                                |
+| `lastUpdateOrientationTime`       | `unsigned long`        | In the Obstacle Challenge Round, the `updateOrientation()` function does not require to be given the time differential, it stores and calculates it with the `lastUpdateOrientationTime` variable.        |
 
 ---
 
@@ -193,7 +199,7 @@ The robot's dynamic operational state is managed through a set of global boolean
 * **Purpose**: Provides a mechanism for pausing execution for a specified duration (`ms`) without completely freezing the robot's critical sensor updates and control logic.
 * **Parameters**:
     * `ms`: The duration of the delay in milliseconds.
-* **Operation**: Unlike a standard `delay()`, `safeDelay()` continuously executes essential functions such as `updateOrientation()`, `detectFloorColor()`, and `handleColorAction()` within its loop. This ensures the robot remains responsive to environmental changes even during brief pauses in its main sequence.
+* **Operation**: Unlike a standard `delay()`, `safeDelay()` continuously executes essential functions such as `updateOrientation()`, `detectFloorColor()`, and `handleColorAction()` within its loop. This ensures the robot remains responsive to environmental changes even during brief pauses in its main sequence. It still is a blocking delay; however, executes the necessary functions for the robot's adaptability.
 
 ---
 
