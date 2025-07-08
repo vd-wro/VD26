@@ -5,7 +5,9 @@
 VizDrive is an autonomous robot developed by a Panamanian 🇵🇦 Team for the **2025 World Robot Olympiad (WRO)**.
 Our project participates in the **Future Engineers** category. Our goal is to apply advanced robotics, data analysis, error management, and optimization principles to represent Panama in the international field of robotics.
 
-The primary objective of VizDrive is to autonomously navigate a predefined closed-loop circuit, and to detect and evade obstacles. This is achieved using a combination of artificial vision for obstacle detection, and an array of sensors for decision-making. Every single part of the robot is designed, optimized, and constructed by the VizDrive Team; accordingly, we detail all the information in this GitHub repository.
+The primary objective of VizDrive is to autonomously navigate a predefined closed-loop circuit, and to detect and evade obstacles. This is achieved using a combination of artificial vision for obstacle detection, and an array of sensors for decision-making. Every single part of the robot is designed, optimized, and constructed by the VizDrive Team.
+
+In the Future Engineers category, we compete in two distinct challenge rounds: the **Open Challenge** and the **Obstacle Challenge**. While the robot shares most of its core functionalities across both rounds, there are key adjustments between the two. For clarity, we present the robot as a unified system in this documentation, and highlight the specific differences as they arise.
 
 ## 1.2 Main Components
 
@@ -39,7 +41,7 @@ This is the primary operational phase, a loop where the robot continuously check
 * **Orientation Correction (Continuous):**
   * The **MPU-6050** provides real-time orientation data.
   * This data is fed into a dedicated PID (Proportional-Integral-Derivative) controller, which compensates for any rotational drift, ensuring the robot maintains a stable and straight heading throughout its trajectory.
-  * To correct the **MPU-6050's accumulated offset**, in the Obstacle Challenge, the robot uses the rear wall to reset its yaw angle. On the other hand, in the Open Challenge, it uses the robot's parallel distance to the wall.
+  * To correct the **MPU-6050's accumulated offset**, in the **Obstacle Challenge**, the robot uses the rear wall to **reset its yaw angle**. On the other hand, in the **Open Challenge**, it uses the robot's **parallel distance to the wall**.
 * **Obstacle Detection and Evasion (Conditional):**
   * While maintaining trajectory, the **PixyCam 2.1** constantly scans the path ahead for obstacles.
   * If an obstacle is detected within the predefined **Region of Interest (ROI)** of the camera's field of view:
@@ -53,9 +55,9 @@ This is the primary operational phase, a loop where the robot continuously check
 
 ---
 
-## 1.4 Workflow Diagram
+## 1.4 General Workflow Diagram
 
-Made with Mermaid for GitHub. Visit [Workflow Diagram.png](./../assets/flowcharts/flowchart.png) if distorted or not seen.
+Made with Mermaid for GitHub. Visit [Workflow Diagram.png](./../assets/flowcharts/flowchart.png) if the image is distorted or not seen.
 
 ```mermaid
 graph TD
