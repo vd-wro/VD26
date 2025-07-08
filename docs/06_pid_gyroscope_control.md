@@ -35,7 +35,7 @@ float gyroZ_offset = 0.0; // Z-axis gyroscope offset for calibration (in degrees
 
 * **Purpose**: Continuously calculates and updates the robot's current accumulated yaw angle (`yaw`) based on gyroscope data.
 * **Parameters**:
-  * `dt`: A float representing the time elapsed (in seconds) since the last update, passed from the `loop()` function, ensuring time-based integration.
+  * `dt`: A float representing the time elapsed (in seconds) since the last update. In the **Open Challenge Round**, it is passed from the `loop()` function, ensuring time-based integration. In contrast, in the **Obstacle Challenge Round**, this time differential is calculated from the in the global variable `lastUpdateOrientationTime`. This implementation helped make the `updateOrientation()` function more independent from the other modules, helping update the yaw angle in the `safeDelay()` more precisely.
 * **Operation**:
     1. `mpu.getEvent(&a, &g, &temp);`: Retrieves the latest sensor event data, including gyroscope readings (`g`).
     2. `float gyroZ_deg = (g.gyro.z - gyroZ_offset) * 57.2958;`:
@@ -153,6 +153,10 @@ Accurate MPU readings are fundamental for effective PID control. A dedicated cal
 * **Data Visualization**:
 
 ![Accumulated error vs Number of samples](../assets/data_graphs/MPU_data_graph.png)
+
+Proper calibration of this sensor is essential and can significantly reduce offset, and we tried to reduce to the minimum the error. However, with the MPU-6050, it is not possible to achieve zero offset when working with accumulated yaw. For this reason, we implemented different angle correction strategies depending on the challenge.
+In the Open Challenge, where touching the walls is not allowed, we adapted a correction system based on ultrasonic sensors. In contrast, during the Obstacle Challenge, where contact with walls is permitted, we used the walls themselves as reference points to reset the accumulated yaw.
+At the end of the day, we are optimizing the performance of our sensors; but we have to acknowledge their limitations.
 
 ---
 
