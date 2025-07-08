@@ -2,7 +2,7 @@
 
 ## 8.1 Ultrasonic Sensors for Distance Detection
 
-While the PixyCam handles vision-based object recognition, **Ultrasonic Sensors** provide critical real-time distance measurements to nearby walls. These sensors complement the vision system by offering accurate proximity data. Particularly, they are used for recentering and initial path direction determination.
+While the PixyCam handles vision-based object recognition, **Ultrasonic Sensors** provide critical real-time distance measurements to nearby walls. These sensors complement the vision system by offering accurate proximity data. Particularly, they are used for recentering and avoiding collisions.
 
 ### Hardware Definitions
 
@@ -13,6 +13,8 @@ The following preprocessor definitions specify the Arduino pins connected to the
 #define US_LEFT_ECHO A11 // Echo pin for the left ultrasonic sensor
 #define US_RIGHT_TRIG 47 // Trigger pin for the right ultrasonic sensor
 #define US_RIGHT_ECHO 28 // Echo pin for the right ultrasonic sensor
+#define US_FRONT_TRIG A15 // Trigger pin for the front ultrasonic sensor
+#define US_FRONT_ECHO 33 // Echo pin for the front ultrasonic sensor
 #define MAX_DISTANCE 200 // Maximum distance (cm) for ultrasonic sensor readings
 ```
 
@@ -21,6 +23,7 @@ The following preprocessor definitions specify the Arduino pins connected to the
 ```cpp
 NewPing sonarLeft(US_LEFT_TRIG, US_LEFT_ECHO, MAX_DISTANCE);  // Left ultrasonic sensor object
 NewPing sonarRight(US_RIGHT_TRIG, US_RIGHT_ECHO, MAX_DISTANCE); // Right ultrasonic sensor object
+NewPing sonarFront(US_FRONT_TRIG, US_FRONT_ECHO, MAX_DISTANCE); // Front ultrasonic sensor object
 ```
 
 ### Initialization (`void initUltrasonic()`)
