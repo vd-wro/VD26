@@ -1,6 +1,6 @@
 # 9. Color Sensors for Circuit Perception
 
-VizDrive's autonomous navigation and mission completion rely heavily on its ability to perceive crucial color cues from the competition circuit. This section provides a detailed explanation of the various color sensors implemented, their specific functions, communication protocols, and the associated data processing techniques.
+VizDrive's autonomous navigation relies heavily on its ability to perceive crucial color cues from the competition circuit. This section provides a detailed explanation of the various color sensors implemented, their specific functions, communication protocols, and the associated data processing techniques.
 
 ---
 
@@ -26,14 +26,14 @@ These empirically determined thresholds are crucial for identifying specific col
 
 ```cpp
 // For BLUE color detection (expected intense blue channel, and mild red and green colors)
-const int BLUE_RED_THRESHOLD = 120;
-const int BLUE_GREEN_THRESHOLD = 120;
-const int BLUE_BLUE_THRESHOLD = 150;
+const int BLUE_RED_THRESHOLD = 80;
+const int BLUE_GREEN_THRESHOLD = 85;
+const int BLUE_BLUE_THRESHOLD = 70;
 
 // For ORANGE color detection (expected intense red and green colors, and mildly intense blue colors)
-const int ORANGE_RED_THRESHOLD = 150;
-const int ORANGE_GREEN_THRESHOLD = 150;
-const int ORANGE_BLUE_THRESHOLD = 120;
+const int ORANGE_RED_THRESHOLD = 110;
+const int ORANGE_GREEN_THRESHOLD = 100;
+const int ORANGE_BLUE_THRESHOLD = 70;
 ```
 
 ### Initialization (`void initColorSensors()`)
@@ -140,6 +140,43 @@ To simplify the main program loop's logic, a unified function is provided to che
 * **Operation**:
   * `if (lapCompletedCount < 4) return detectFloorColor();`: During the initial phases of the mission (i.e., when `lapCompletedCount` is less than 4), the robot focuses on detecting blue or orange lines on the floor for navigation turns.
   * `return detectWallMagenta();`: Once `lapCompletedCount` is 4 or more, the robot's focus shifts to detecting the magenta parking signal on the side walls.
+
+---
+
+## 9.4 Enhancing Detection with a Long-Distance Lens
+
+Color sensors inherently detect light from a relatively wide field of view (FOV), which can be problematic when precise, long-distance color detection is required. To overcome this, particularly for identifying the magenta parking signal on walls from a greater distance, we integrated a long-distance lens with our TCS3200 sensors. This lens narrows the sensor's FOV, allowing it to focus on a small, specific area.
+
+The TCS3200 features a 4x4 array of 16 photodiodes, each approximately 120 µm x 120 µm. This results in a tiny effective sensor size of roughly 0.48 mm x 0.48 mm, or a diagonal of approximately 0.68 mm.
+
+### Field of View (FOV) Calculation
+
+To quantify the effect of the lens, we calculated the approximate Field of View (FOV) using the following formula:
+
+$FOV = 2 \\cdot \\arctan\\left(\\frac{d}{2f}\\right)$
+
+Where:
+
+  * $d$ = sensor diagonal ($0.68 \\text{ mm}$)
+  * $f$ = focal length of the lens ($25 \\text{ mm}$)
+
+Substituting our values:
+
+$FOV = 2 \\cdot \\arctan\\left(\\frac{0.68 \\text{ mm}}{2 \\cdot 25 \\text{ mm}}\\right) = 2 \\cdot \\arctan(0.0136) \\approx 2 \\cdot 0.78^\\circ \\approx 1.56^\\circ$
+
+This calculation demonstrates that with a 25 mm lens, the TCS3200 perceives a very narrow cone of vision, approximately 1.56 degrees wide. This narrow FOV enables the sensor to detect colors from a small, highly focused point, which is ideal for pinpoint detection at longer ranges.
+
+### Spot Size at Distance
+
+To further understand the practical implication of this narrow FOV, we calculated the approximate spot size that the sensor "sees" at a typical detection distance of 50 cm (500 mm):
+
+$\\text{Spot Diameter} \\approx 2 \\cdot \\text{Distance} \\cdot \\tan\\left(\\frac{\\text{FOV}}{2}\\right)$
+
+At a distance of 50 cm (500 mm), with a $\\text{FOV}$ of $1.56^\\circ$:
+
+$\\text{Spot Diameter} \\approx 2 \\cdot 500 \\text{ mm} \\cdot \\tan\\left(0.78^\\circ\\right) \\approx 13.6 \\text{ mm}$
+
+Therefore, at a distance of 50 cm, the TCS3200, equipped with the 25 mm lens, effectively "sees" a circular spot approximately 13.6 mm in diameter. This is important for detecting the magenta parking signal without interference from surrounding colors.
 
 ---
 
