@@ -98,72 +98,7 @@ NewPing sonarFront(US_FRONT_TRIG, US_FRONT_ECHO, MAX_DISTANCE); // Front ultraso
 
     For the complete data recolection and analysis, refer to: [Data Graphs and Analysis](./../assets/data_graphs/)
 
-## 8.3 Recentering Logic (`void recentreOnStart()`)
-
-* **Operation**:
-  1. **Initial Measurement**: It first takes filtered distance measurements (`dl`, `dr`) from both `sonarLeft` and `sonarRight` sensors to determine the robot's current offset from the center.
-  2. **Calculate Centering Angle**: The difference (`diff`) between the left and right distances is calculated. Based on this difference, a `centreAngle` (`SERVO_RIGHT` or `SERVO_LEFT`) is determined to steer the robot towards the center.
-
-     ```cpp
-     void centreOnStart() {
-       int dl = sonarLeft.ping_cm();
-       int dr = sonarRight.ping_cm();
-
-       int diff = dl - dr;
-       int centreAngle = (diff < 0) ? SERVO_RIGHT : SERVO_LEFT;
-     ```
-
-  3. **Calculate Movement Distance**: The necessary distance in centimeters (`cm`) to correct the offset is calculated based on the `diff` and the cosine of the steering angle (e.g., `cos30deg`). This gives the hypotenuse distance needed to correct the robot's lateral deviation. This `cm` value is then converted into `pulses` using `PULSES_PER_CM` to be tracked by an encoder.
-
-     ```cpp
-       // ... (previous centreOnStart code) ...
-
-       int cm = ((abs(diff) / 2) / cos30deg);
-       int pulses = cm * PULSES_PER_CM;
-       encoderPulseCount = 0; // Reset encoder count for this movement
-       lastCentreUpdateTime = millis(); // Initialize time for loop's dt
-     ```
-
-  4. **Initiate Movement**: The robot sets its steering to the calculated `centreAngle` (`setSteeringAngle(centreAngle)`) to begin the centering maneuver and starts driving forward at a speed of 200 (`driveForward(200)`).
-
-     ```cpp
-       // ... (previous centreOnStart code) ...
-
-       driveForward(200);
-       setSteeringAngle(centreAngle);
-     ```
-
-  5. **Execution Loop**: A `while(true)` loop then takes over, continuously performing the following actions until the centering movement is complete:
-     * The while(true) loop is a blocking loop. Therefore, the accumulated angle is calculated inside this function. With a logic similar to the loop(). Calling the `updateOrientation(dt)` while the robot is moving and centering, every 50 ms.
-       
-     * **Completion Check**: The loop continues until the `encoderPulseCount` reaches or exceeds the `pulses` calculated as necessary for centering, at which point it prints "Centring completed..." and breaks out of the loop.
-
-     ```cpp
-       // ... (previous centreOnStart code) ...
-
-       while (true) {
-         unsigned long now = millis();
-
-         if (now - lastCentreUpdateTime < 50) {
-           continue; // update the orientation every 50 ms
-         }
-
-         float dt = (now - lastCentreUpdateTime) / 1000.0;
-         lastCentreUpdateTime = now;
-
-         updateOrientation(dt); // Updates the accumulated yaw
-
-         if (encoderPulseCount >= pulses) {
-           Serial.println("Centring completed...");
-           break;
-         }
-       }
-     }
-     ```
-
----
-
-## 8.4 Wall Avoidance and Trajectory Correction (`void avoidWall(int correctionAmount)`)
+## 8.3 Wall Avoidance for **Open Challenge Round** (**`void avoidWall(int correctionAmount)`**)
 
 * **Purpose**: This function actively monitors the robot's distance to nearby walls using ultrasonic sensors and **adjusts its `targetYaw`** to prevent collisions or significant deviation from the desired path. It incorporates logic to prevent over-correction and ensures stable navigation.
 
@@ -187,7 +122,7 @@ NewPing sonarFront(US_FRONT_TRIG, US_FRONT_ECHO, MAX_DISTANCE); // Front ultraso
          int distance = getDistance(sonar);
     ```
 
-  2. **Sensor Selection**: Based on the `direction` variable (likely indicating the robot's current turn direction or reference side), the appropriate ultrasonic sensor (`sonarRight` or `sonarLeft`) is selected for distance measurement.
+  2. **Sensor Selection**: Based on the `direction` variable, the appropriate ultrasonic sensor (`sonarRight` or `sonarLeft`) is selected for distance measurement.
 
   3. **Distance Acquisition**: The `getDistance()` function is called to obtain a filtered and reliable distance measurement to the relevant wall.
 
@@ -219,7 +154,7 @@ NewPing sonarFront(US_FRONT_TRIG, US_FRONT_ECHO, MAX_DISTANCE); // Front ultraso
 
 ---
 
-### Correction Cooldown Management (`void correctionCooldown()`)
+### Correction Cooldown Management (**`void correctionCooldown()`**)
 
 * **Purpose**: This function is responsible for managing the **cooldown period** after a wall correction has been applied. It ensures that subsequent corrections are not triggered too rapidly, preventing erratic steering and oscillatory behavior.
 
@@ -234,3 +169,32 @@ NewPing sonarFront(US_FRONT_TRIG, US_FRONT_ECHO, MAX_DISTANCE); // Front ultraso
        }
      }
      ```
+
+---
+
+## 8.4 Post-Evasion Recentering Logic for the **Obstacle Challenge Round** (**`void recentreIfNeeded()`**)
+
+This function implements a conditional recentering mechanism designed to adjust the robot's lateral position relative to a wall immediately after completing an obstacle evasion. Its primary goal is to correct any residual lateral deviation that might have occurred during the evasion maneuver, ensuring the robot maintains an optimal path.
+
+* **Purpose**: To perform a quick, directional lateral correction based on the signature of the last evaded obstacle and proximity to the nearest wall, ensuring the robot is optimally positioned for subsequent navigation.
+* **Operation**:
+    1.  **Correction State Check**: `if (correctionState == true) return;`: The function first checks a global boolean flag, `correctionState`. If this flag is already set to `true`, it indicates that a recentering correction has already been executed within the current turn cycle. In such a scenario, the function immediately terminates to prevent redundant corrections.
+       
+    2.  **Signature-Based Sensor Selection**: The function proceeds only if no prior correction has been made. It then determines which ultrasonic sensor to utilize based on the `lastSignature` variable, which stores the color signature of the most recently evaded obstacle:
+        * `if (lastSignature == SIGNATURE_RED)`: If the last evaded obstacle was red (indicating an evasion maneuver to the right), the robot anticipates being closer to the right wall, and does not want to measure with the left ultrasonic sensor, as it may confuse the obstacle red with the wall. Therefore, `int distance = getDistance(sonarRight);` is called to obtain a distance reading from the right-mounted ultrasonic sensor.
+        * `else if (lastSignature == SIGNATURE_GREEN)`: Conversely, if the last evaded obstacle was green (implying an evasion maneuver to the left), the robot expects to be closer to the left wall. In this case, `int distance = getDistance(sonarLeft);` is used to query the left-mounted ultrasonic sensor.
+        * `else return;`: If `lastSignature` does not correspond to either `SIGNATURE_RED` or `SIGNATURE_GREEN` (e.g., it's `0` or an unrecognized value), no recentering action is performed, and the function exits. This happens when the robot just started running or when an obstacle was not avoided yet in the current turn.
+          
+    3.  **Proximity-Based Correction Trigger**: Following the distance measurement from the relevant sensor:
+        * `if (distance < 30 && distance != 0)`: A correction is triggered if the measured `distance` to the wall is less than 30 cm and the distance reading is not zero (which often indicates an invalid or out-of-range measurement).
+        * **Directional Steering Correction**:
+            * If `lastSignature == SIGNATURE_RED` (right evasion, close to right wall): `steeringServo.write(SERVO_LEFT-5);` commands the steering servo to turn sharply to the left.
+            * If `lastSignature == SIGNATURE_GREEN` (left evasion, close to left wall): `steeringServo.write(SERVO_RIGHT+5);` commands the steering servo to turn sharply to the right.
+        * **Correction Duration and State Update**:
+            * `safeDelayColor(1000);`: A blocking delay of 1000 milliseconds (1 second) is introduced, during which the robot executes the sharp steering correction. The `safeDelayColor` function ensures that color sensor operations (specifically `detectFloorColor`) are continuously checked even during this delay, allowing for an early exit if a floor turn signal is detected.
+            * `correctionState = true;`: Immediately after executing the correction, the `correctionState` flag is set to `true`. This prevents subsequent `recentreIfNeeded()` calls within the same turn cycle from initiating another correction.
+        * `else return;`: If the measured distance does not meet the specified criteria (`< 30 cm` and `!= 0`), no correction is necessary, and the function exits.
+
+---
+
+[Back to Main README.md Index](./../README.md)
