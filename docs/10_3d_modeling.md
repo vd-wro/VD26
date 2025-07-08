@@ -105,7 +105,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
 
 <img src="./../assets/model_photos/steering_rods.png" width="500">
 
-##10.4 3D Printing Process
+## 10.4 3D Printing Process
 
 The fabrication process utilizing the Creality Ender 3 3D printer involved the following steps:
 
