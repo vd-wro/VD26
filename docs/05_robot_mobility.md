@@ -41,7 +41,7 @@ VizDrive's mechanical design prioritizes precise and stable locomotion, integrat
 
 ## 5.2 Software Mobility Module
 
-The `movement.cpp` module contains the core functions that govern VizDrive's locomotion, abstracting motor and steering control.
+The `movement` module contains the core functions that govern VizDrive's locomotion, abstracting motor and steering control.
 
 ### Hardware Definitions
 
@@ -117,6 +117,45 @@ const int SERVO_RIGHT = SERVO_STRAIGHT + SERVO_MAX; // Maximum servo angle for e
   * `steeringServo.write(angle);`: Sends the `angle` command to the servo using the `Servo.h` library.
   * `angle = constrain(angle, SERVO_LEFT, SERVO_RIGHT);`: The `angle` value is constrained to remain within `SERVO_LEFT` and `SERVO_RIGHT` boundaries.
 * **Safety**: It is important to constrain the angle into the maximum boundaries. This prevents over-rotation and physical interference with the chassis.
+
+#### `void exitParking()`
+
+* **Purpose**: Exits the parking zone by steering away from nearby walls based on real-time distance readings from ultrasonic sensors.
+* **Operation**:
+  1. **Distance Measurement**:
+     ```cpp
+     int distanceR = getDistance(sonarRight);
+     int distanceL = getDistance(sonarLeft);
+     ```
+     The function begins by measuring the distance to the nearest  wall using the right and left ultrasonic sensors. These values are filtered by the `getDistance()` function to ensure stability and reduce noise.
+     
+  3. **Decision Logic Based on Proximity**:
+     The robot determines which side is closer to a wall and selects an appropriate evasive maneuver:
+     
+     * **Wall on the Right**:
+
+       ```cpp
+       if (distanceR < 30 && distanceR != 0) {
+           steeringServo.write(SERVO_STRAIGHT - 40);
+           driveForward(220);
+           safeDelay(1000);
+       }
+       ```
+       If the right wall is within 30 cm and the reading is valid (not zero), the robot steers sharply to the **left** (by subtracting 40 from the straight angle) and drives forward at a moderate speed. The movement is sustained for 1000 milliseconds using a non-blocking `safeDelay()` to allow for orientation updates.
+
+     * **Wall on the Left**:
+
+       ```cpp
+       else if (distanceL < 30 && distanceL != 0) {
+           steeringServo.write(SERVO_STRAIGHT + 40);
+           driveForward(220);
+           safeDelay(1000);
+       }
+       ```
+       
+     Similarly, if the left wall is within 30 cm, the robot steers sharply to the **right** (adding 40 to the straight angle) and drives forward with the same parameters.
+
+     * If neither wall is detected within the 30 cm threshold, the robot assumes it is centered and skips the exit parking maneuver entirely.
 
 #### `void performParking()`
 
