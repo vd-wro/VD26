@@ -22,11 +22,15 @@ All custom mechanical parts designed for VizDrive are available as STL files. Th
 * **Steering Rods and Camera Support:** Components for steering rods and the PixyCam mount.
   * [View 3D Model (STL)](./../models/steering/steering_rods.stl)
 
-## 11.3 MPU Calibration Data Visualization
+## 11.3 MPU and Ultrasonic Calibration Data Visualization
 
 * **Accumulated Error vs. Number of Samples Graph:** This chart illustrates the empirical data collected during MPU calibration, demonstrating the reduction in accumulated error as the number of samples increases, guiding the selection of optimal calibration parameters.
 
 ![View Calibration Data Graph (PNG)](./../assets/data_graphs/MPU_data_graph.png)
+
+* **Raw vs. Filtered Ultrasonic Measurement Graph:** This chart shows how the error dispersion varies between the raw and the filtered ultrasonic measurements. This demonstrates the efficiency of our median filter.
+
+![View Filter Data Graph (PNG)](./../assets/data_graphs/ultrasonic_data_graph.png)
 
 ## 11.4 Supplementary Media
 
