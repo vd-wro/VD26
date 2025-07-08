@@ -120,27 +120,106 @@ const int MAGENTA_BLUE_THRESHOLD = 150;
               * `map(..., 0, maxRaw, 255, 0)`: This is the crucial **inversion and scaling** step. Since `pulseIn` returns a duration (where a *smaller* value means *more* light), the `map` function is used to convert this inverse relationship into a standard intensity scale (0-255). A raw reading of `0` (maximum light/frequency) is mapped to `255` (maximum intensity), and `maxRaw` (minimum light/frequency) is mapped to `0` (minimum intensity). This process is repeated for the green and blue channels.
     3. Returns an `RGB` struct containing the normalized and inverted R, G, B values.
 
-### `bool detectWallMagenta()`
+---
 
-* **Purpose**: Detects the presence of a magenta color on the side walls, which serves as the signal for the robot's arrival at the parking zone.
-* **Operation**:
-    1. **Sensor Selection**:
-          * Based on the global `direction` variable, the appropriate side sensor's `S2`, `S3`, and `OUT` pins are selected. If `direction` is `-1` (left turn, implying parking on the right wall), the right sensor's pins (`S2_R`, `S3_R`, `OUT_R`) are chosen. Otherwise, the left sensor's pins are used.
-    2. `RGB rgb = readTCS3200(s2, s3, outPin);`: Reads the normalized RGB values from the selected wall-facing sensor.
-    3. **Color Recognition**:
-          * `return (rgb.red > MAGENTA_RED_THRESHOLD && rgb.blue > MAGENTA_BLUE_THRESHOLD && rgb.green < MAGENTA_GREEN_THRESHOLD);`: Returns `true` if the detected color matches the defined `MAGENTA` thresholds (high red and blue intensity, relatively low green intensity). Otherwise, returns `false`. This function is activated once `lapCompletedCount` reaches a certain threshold (e.g., 4 in the current code, not 12 as per the original draft).
+## 9.3 Turn Maneuver Logic (`void handleColorAction()`)
+
+This function is critical for the robot's autonomous navigation, orchestrating precise turning maneuvers upon detecting a color cue on the circuit mat. Its implementation varies significantly between the **Obstacle Challenge** and **Open Challenge**.
+
+### 9.3.1 For Obstacle Challenge
+
+In the **Obstacle Challenge**, `handleColorAction()` executes a sequence of actions, integrating proximity sensing and precise realignments with walls. This detailed logic is crucial for navigating tight spaces and ensuring accurate positioning after turns.
+
+  * **Purpose**: To execute a comprehensive turning and realignment sequence upon detecting a floor color, adapting to immediate wall proximity.
+  * **Operation**:
+    1.  **Detection and Pre-Conditions**:
+
+          * `if (detectFloorColor() && !turningInProgress && turnCooldown())`: The function is activated by a floor color detection, provided no turn is currently in progress (`!turningInProgress`), and a cooldown period has elapsed since the last turn (`turnCooldown()`). This prevents repetitive re-detections.
+          * `lapTurnCount++;`: Increments a counter tracking the number of turns completed in the current lap.
+          * `turningInProgress = true;`: Sets a flag to denote that a turning maneuver is active, preventing redundant activations.
+          * `digitalWrite(ledPin, HIGH);`: Activates an onboard LED for visual indication of the turning state.
+
+    2.  **Frontal Wall Approach**:
+
+          * `setSteeringAngle(SERVO_STRAIGHT);`: The robot's steering is first set to a straight-ahead position.
+          * `int df = sonarFront.ping_cm(); safeDelay(10);`: An initial distance reading is acquired from the front-facing ultrasonic sensor (`sonarFront`).
+          * `while (df > 10 || df == 0)`: The robot proceeds forward as long as the front distance (`df`) is greater than 10 cm.
+              * `df = getDistance(sonarFront);`: The front distance is continuously updated.
+              * `keepOrientation();`: The robot's yaw orientation is actively maintained via its control loop during this forward movement phase.
+              * `safeDelay(10);`: A brief, non-blocking delay allows for orientation updates and control loop iterations.
+          * `stopBrake();`: Once the robot approaches approximately 10 cm from the frontal wall, its motors are abruptly stopped.
+
+    3.  **Lateral Distance Measurement and Yaw Target Calculation**:
+
+          * `NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;`: The appropriate lateral ultrasonic sensor (`sonarRight` for left turns, `sonarLeft` for right turns) is dynamically selected based on the global `direction` variable.
+          * `int distance = getDistance(sonar);`: The distance to the corresponding lateral wall is obtained.
+          * `turnTargetYaw = (turnTargetYaw + (turnAngle * -direction)); setTargetYaw(turnTargetYaw);`: The new target yaw for the turn (typically $\\pm 90^\\circ$) is computed and set based on the `turnAngle` and `direction`.
+
+    4.  **Adaptive Turning Maneuver**: The turning strategy adapts based on the measured lateral wall distance:
+
+          * **Scenario A: Close Lateral Wall (`if (distance <= 35 && distance != 0)`)**:
+              * `driveBackward(motorSpeed); safeDelay(1500); stopBrake(); safeDelay(500);`: The robot executes a backward movement for 1500ms, followed by a brief stop, to position itself for the turn.
+              * `driveForward(200);`: Initiates a forward movement to commence the turning arc.
+              * `while(turningInProgress) { keepOrientation(); completedTurn(); safeDelay(5); }`: The robot continues the forward turn (`keepOrientation()`) and checks for turn completion (`completedTurn()`).
+              * `driveBackward(250); safeDelay(2000);`: Upon turn completion, the robot reverses for 2000ms to intentionally collide with the new rear wall, ensuring an accurate yaw realignment.
+              * `yaw = turnTargetYaw;`: The global `yaw` variable is reset to `turnTargetYaw` to correct any accumulated drift.
+              * `driveForward(motorSpeed); safeDelay(250);`: The robot resumes forward motion.
+          * **Scenario B: Far Lateral Wall (`else`)**:
+              * `int angle = (direction < 0) ? SERVO_RIGHT+10 : SERVO_LEFT-10;`: The steering servo angle is adjusted to a sharper value, compensating for the greater distance to the wall.
+              * `setSteeringAngle(SERVO_STRAIGHT); safeDelay(500); stopBrake(); safeDelay(250);`: The robot briefly straightens its steering and reverses.
+              * `steeringServo.write(angle); safeDelay(150);`: The sharper steering angle is set, followed by a brief delay.
+              * `driveBackward(250);`: Initiates a backward movement with the adjusted steering, allowing the robot to correct its orientation.
+              * `while(turningInProgress) { completedTurn(); safeDelay(5); }`: The robot continues reversing until the turn is complete, with continuous checks for completion.
+              * `setSteeringAngle(SERVO_STRAIGHT); driveBackward(250); safeDelay(1500);`: After the turn, the robot straightens and reverses to collide with the wall, re-aligning its yaw.
+              * `yaw = turnTargetYaw;`: The global `yaw` is reset.
+              * `driveForward(motorSpeed); safeDelay(250);`: Resumes forward motion.
+
+    5.  **Function Exit**: In both turning scenarios, the function completes its execution, returning control to the main loop.
+
+### 9.3.2 For Open Challenge
+
+In the **Open Challenge**, `handleColorAction()` is streamlined for direct and efficient turning maneuvers. This design reflects the typically more open track layout, where precise wall interactions for realignment are not required.
+
+  * **Purpose**: To detect a floor line and execute a direct 90-degree turn, without incorporating wall-based realignments, because they are incorporated throughout the trajectory.
+  * **Operation**:
+    1.  **Detection and Pre-Conditions**:
+          * `if (detectFloorColor() && !turningInProgress)`: The function activates upon detecting a floor color, provided no turning maneuver is already in progress (`!turningInProgress`).
+          * `if (lapTurnCount == 0)`: This conditional block addresses a specific initial turn behavior:
+              * `lapTurnCount++;`: Increments the turn counter.
+              * `digitalWrite(ledPin, HIGH);`: Illuminates the LED for state indication.
+              * `delay(500);`: A blocking delay of 500 milliseconds is introduced. This may serve to ensure the robot fully crosses the detected line or to provide a brief stabilization period before initiating the rotation.
+          * `turnTargetYaw = (turnTargetYaw + (90.0 * -direction)); setTargetYaw(turnTargetYaw);`: The new target yaw for a ±90° turn is calculated and set, based on the global `direction`.
+          * `turningInProgress = true;`: Sets a flag indicating that a turn is now in progress, preventing immediate re-triggering by the color sensor.
+          * `motorSpeed = 250;`: The motor speed is explicitly increased to `250` during the turn, for faster execution.
+    2.  **Subsequent Turns**:
+          * If `lapTurnCount` is not zero (i.e., it's not the very first turn), the specific `delay(500)` for the first turn is bypassed. This delay is planned for the robot to be adaptable to any starting scenario. Then, the subsequent turn logic is directly applied:
+              * `lapTurnCount++;`: Increments the turn counter.
+              * `digitalWrite(ledPin, HIGH);`: Illuminates the LED.
+              * `turnTargetYaw = (turnTargetYaw + (90.0 * -direction)); setTargetYaw(turnTargetYaw);`: Calculates and sets the new yaw target.
+              * `turningInProgress = true;`: Sets the turning in progress flag.
+              * `motorSpeed = 250;`: Increases motor speed for the turn.
+    3.  **Function Exit**: If the `if` condition for `detectFloorColor()` or `!turningInProgress` is not met, the function simply returns, awaiting the appropriate conditions for turn initiation.
+
+### 9.3.3 Comparative Analysis of `handleColorAction()` Implementations
+
+Absolutely! Here is the comparative analysis table for the `handleColorAction()` function, translated into English, maintaining the technical language and formatting you've established.
 
 ---
 
-## 9.3 Unified Color Detection API (`bool colorDetected()`)
+### 9.4.3 Comparative Analysis of `handleColorAction()` Implementations
 
-To simplify the main program loop's logic, a unified function is provided to check for the currently relevant color signal.
+The `handleColorAction()` function exhibits significant divergence between its **Obstacle Challenge** and **Open Challenge** implementations, in order to adapt to the rules of the competition.
 
-* **Purpose**: Dynamically switches between floor line detection and wall parking signal detection based on the robot's mission progress.
-* **Operation**:
-  * `if (lapCompletedCount < 4) return detectFloorColor();`: During the initial phases of the mission (i.e., when `lapCompletedCount` is less than 4), the robot focuses on detecting blue or orange lines on the floor for navigation turns.
-  * `return detectWallMagenta();`: Once `lapCompletedCount` is 4 or more, the robot's focus shifts to detecting the magenta parking signal on the side walls.
+| Feature                | Obstacle Challenge Implementation                 | Open Challenge Implementation                 |
+| :--------------------- | :------------------------------------------------ | :-------------------------------------------- |
+| **Maneuver Complexity** | Features a sophisticated sequence involving **frontal wall proximity detection**, **dynamic selection of lateral ultrasonic sensors**, an **adaptive turning algorithm** based on wall distance, and a **controlled backward collision for precise yaw realignment**. This complexity is necessary for navigating confined spaces and ensuring accurate orientation. | Employs a **direct, simplified 90-degree turn**. It lacks the multi-stage sensing, adaptive turning, or wall-collision-based realignment found in the Obstacle Challenge version, suitable for generally more open track layouts. |
+| **Sensor Utilization** | Extensively leverages both the **front-facing (`sonarFront`)** and **side-facing (`sonarRight`, `sonarLeft`) ultrasonic sensors** to guide turn initiation and and execution. | Relies primarily on the floor color sensor for turn initiation. Ultrasonic sensors are not integrated into the `handleColorAction()` logic for turn execution. |
+| **Turn Trigger Filtering** | Includes a `turnCooldown()` mechanism alongside `!turningInProgress` to prevent rapid, unintended re-detections of the color line, which could occur in dynamic environments or with continuous lines. | Utilizes only `!turningInProgress`, suggesting a simpler detection environment where a cooldown might be less critical. |
+| **Initial Turn Behavior** | All turns follow a consistent, complex realignment sequence. | Features a specific `if (lapTurnCount == 0)` condition for the very first turn, introducing a `delay(500)` that is omitted in subsequent turns. This might be a specific initial stabilization or alignment step unique to the Open Challenge's starting conditions. |
+| **Yaw Realignment** | Explicitly includes a backward movement leading to a collision with a wall, followed by `yaw = turnTargetYaw;` to robustly correct any accumulated orientation error. This "hard reset" of yaw is vital for precision in walled environments. | Does not incorporate any wall collision or `yaw` reset within this function. Yaw management is implicitly handled by the broader `setTargetYaw` and `keepOrientation` mechanisms outside `handleColorAction()`. |
+| **Motor Speed Adjustment** | Motor speed for turning is not explicitly modified within the function; it primarily focuses on steering and timed movements. | Explicitly sets `motorSpeed = 250;` during turns, indicating a strategy to accelerate during rotation for faster maneuver completion. |
 
+---
 ---
 
 ## 9.4 Enhancing Detection with a Long-Distance Lens
