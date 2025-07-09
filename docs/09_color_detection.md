@@ -200,26 +200,17 @@ In the **Open Challenge**, `handleColorAction()` is streamlined for direct and e
               * `motorSpeed = 250;`: Increases motor speed for the turn.
     3.  **Function Exit**: If the `if` condition for `detectFloorColor()` or `!turningInProgress` is not met, the function simply returns, awaiting the appropriate conditions for turn initiation.
 
-### 9.3.3 Comparative Analysis of `handleColorAction()` Implementations
-
-Absolutely! Here is the comparative analysis table for the `handleColorAction()` function, translated into English, maintaining the technical language and formatting you've established.
-
----
-
 ### 9.4.3 Comparative Analysis of `handleColorAction()` Implementations
-
-The `handleColorAction()` function exhibits significant divergence between its **Obstacle Challenge** and **Open Challenge** implementations, in order to adapt to the rules of the competition.
 
 | Feature                | Obstacle Challenge Implementation                 | Open Challenge Implementation                 |
 | :--------------------- | :------------------------------------------------ | :-------------------------------------------- |
-| **Maneuver Complexity** | Features a sophisticated sequence involving **frontal wall proximity detection**, **dynamic selection of lateral ultrasonic sensors**, an **adaptive turning algorithm** based on wall distance, and a **controlled backward collision for precise yaw realignment**. This complexity is necessary for navigating confined spaces and ensuring accurate orientation. | Employs a **direct, simplified 90-degree turn**. It lacks the multi-stage sensing, adaptive turning, or wall-collision-based realignment found in the Obstacle Challenge version, suitable for generally more open track layouts. |
-| **Sensor Utilization** | Extensively leverages both the **front-facing (`sonarFront`)** and **side-facing (`sonarRight`, `sonarLeft`) ultrasonic sensors** to guide turn initiation and and execution. | Relies primarily on the floor color sensor for turn initiation. Ultrasonic sensors are not integrated into the `handleColorAction()` logic for turn execution. |
-| **Turn Trigger Filtering** | Includes a `turnCooldown()` mechanism alongside `!turningInProgress` to prevent rapid, unintended re-detections of the color line, which could occur in dynamic environments or with continuous lines. | Utilizes only `!turningInProgress`, suggesting a simpler detection environment where a cooldown might be less critical. |
-| **Initial Turn Behavior** | All turns follow a consistent, complex realignment sequence. | Features a specific `if (lapTurnCount == 0)` condition for the very first turn, introducing a `delay(500)` that is omitted in subsequent turns. This might be a specific initial stabilization or alignment step unique to the Open Challenge's starting conditions. |
-| **Yaw Realignment** | Explicitly includes a backward movement leading to a collision with a wall, followed by `yaw = turnTargetYaw;` to robustly correct any accumulated orientation error. This "hard reset" of yaw is vital for precision in walled environments. | Does not incorporate any wall collision or `yaw` reset within this function. Yaw management is implicitly handled by the broader `setTargetYaw` and `keepOrientation` mechanisms outside `handleColorAction()`. |
-| **Motor Speed Adjustment** | Motor speed for turning is not explicitly modified within the function; it primarily focuses on steering and timed movements. | Explicitly sets `motorSpeed = 250;` during turns, indicating a strategy to accelerate during rotation for faster maneuver completion. |
+| **Maneuver Complexity** | Features a complex sequence involving **frontal wall proximity detection**, **dynamic selection of lateral ultrasonic sensors**, an **adaptive turning algorithm** based on wall distance, and a **controlled backward collision for precise yaw realignment**. | Employs a **direct, simplified 90-degree turn**. It lacks the multi-stage sensing, adaptive turning, or wall-collision-based realignment found in the Obstacle Challenge version. |
+| **Sensor Utilization** | Uses both the **front-facing (`sonarFront`)** and **side-facing (`sonarRight`, `sonarLeft`) ultrasonic sensors** to guide turn initiation and and execution. | Relies primarily on the floor color sensor for turn initiation. Ultrasonic sensors are not integrated into the `handleColorAction()` logic for turn execution. |
+| **Turn Trigger Filtering** | Includes a `turnCooldown()` mechanism alongside `!turningInProgress` to prevent rapid, unintended re-detections of the color line, which could occur in dynamic evasion maneuvers. | Utilizes only `!turningInProgress`, a cooldown is not necessary. |
+| **Initial Turn Behavior** | All turns follow a consistent realignment sequence using the rear wall. | Uses a `if (lapTurnCount == 0)` condition for the very first turn, introducing a `delay(500)` that is omitted in subsequent turns, this is for adaptability to different center configurations. |
+| **Yaw Realignment** | Includes a backward movement leading to a collision with a wall, followed by `yaw = turnTargetYaw;` to correct any accumulated orientation error. This "hard reset" of yaw is crucial when avoiding obstacles, as the MPU-6050 offset is greater. | Does not incorporate any wall collision or `yaw` reset within this function. Yaw management is implicitly handled by the broader `setTargetYaw` and `keepOrientation` mechanisms outside `handleColorAction()`. |
+| **Motor Speed Adjustment** | Motor speed for turning is not explicitly modified within the function; it primarily focuses on steering and timed movements. | Explicitly sets `motorSpeed = 250;` during turns, to accelerate during rotation for faster maneuvers. |
 
----
 ---
 
 ## 9.4 Enhancing Detection with a Long-Distance Lens
