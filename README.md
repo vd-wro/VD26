@@ -1,7 +1,7 @@
 # WRO VizDrive 2025
 
 [![Youtube Channel](https://img.shields.io/badge/YouTube-%23E4445F.svg?style=for-the-badge&logo=Youtube&logoColor=white)](https://www.youtube.com/@VizDrive)
-[![Instagram Profile](https://img.shields.io/badge/Instagram-%23E9805F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/vizdrive_wro/)
+[![Instagram Profile](https://img.shields.io/badge/Instagram-%23E9805F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/vizdrive_wro/) 
 
 Welcome to the project repository for the **Panamanian 🇵🇦 Team VizDrive** for the **World Robot Olympiad (WRO)** 2025!
 Here you will find all the documentation, source code, images, and models related to our autonomous robot.
