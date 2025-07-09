@@ -1,4 +1,7 @@
-# WRO-Vizdrive-2025
+# WRO VizDrive 2025
+
+[![Youtube Channel](https://img.shields.io/badge/YouTube-%23E4445F.svg?style=for-the-badge&logo=Youtube&logoColor=white)](https://www.youtube.com/@VizDrive)
+[![Instagram Profile](https://img.shields.io/badge/Instagram-%23E9805F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/vizdrive_wro/)
 
 Welcome to the project repository for the **Panamanian 🇵🇦 Team VizDrive** for the **World Robot Olympiad (WRO)** 2025!
 Here you will find all the documentation, source code, images, and models related to our autonomous robot.
@@ -15,7 +18,8 @@ We are participating in the **Future Engineers Category** to develop our skills 
 
 During the creation of our robot, we tried to push the **fundamentals of robotics** to the highest we could. As you go through this GitHub repository, you may notice that we worked with very basic sensors (the kind typically found in standard Arduino kits), and that we strived to optimize them to the best of our capacities. This is because we aimed to make our build accessible for everyone, and show that even with the simplest components, it is possible to create truly functional robotic systems.
 
-Please note that throughout the competition, we are constantly making modifications in the software and hardware of our robot. We try to update on all the changes we make, but if you notice any inconsistency between the pages of the documentation, please let us know!
+ > [!NOTE]
+> Throughout the competition, we are constantly making modifications in the software and hardware of our robot. We try to update on all the changes we make, but if you notice any inconsistency between the pages of the documentation, please let us know!
 
 ---
 
@@ -85,6 +89,11 @@ To access interactive models of each component, hosted in GitHub pages, visit `e
 
 * [Robot 3D Models](./models/)
 * [Interactive 3D Models](./embeds/)
+
+A version of our Unity Simulator, used during the robot's construction and planification process, is available as an HTTP embed, hosted with GitHub pages.
+
+* [Unity Simulator Information](./embeds/Unity_simulator)
+* [Unity Web Player](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Unity_simulator/)
 
 ---
 
