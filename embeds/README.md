@@ -1,6 +1,8 @@
 # Embeds
 
-This folder contains the HTML JavaScript embeds for the **interactive 3D models** and **circuit design**.
+This folder contains the HTML JavaScript embeds for the **Unity Simulator**, **interactive 3D models** and **circuit design**.
+
+The Unity Simulator was created during the robot's designing process. It is made with Unity, for sensors and physics simulation. For more information, visit its separated folder [Unity Simulator](./Unity_simulator).
 
 The interactive models are presented in web pages and allow users to view and manipulate 3D objects directly in their browser.
 We opted to include this feature primarily to address the limitations of GitHub's .stl file visualization, which lacks color support and offers restricted viewing capabilities.
@@ -10,6 +12,8 @@ On the other hand, the interactive circuit was designed using the **Cirkit Desig
 ---
 
 ## Visualize the different interactive components
+
+### [Robot Simulator with Unity]([./Unity_simulator](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Unity_simulator/))
 
 ### [Interactive Circuit Diagram](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_circuit)
 
