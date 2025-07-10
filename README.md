@@ -64,9 +64,9 @@ You can use this index to navigate through our robot's documentation. Each docum
 
 ## Photos and Videos
 
-* **Team Photos:** [View Photos](./t-photos/)
-* **Vehicle Photos:** [View Photos](./v-photos/)
-* **Demonstration Video:** [View Video](./video/driving_demonstration.md)
+* **Team Photos:** [View Photos](./t-photos/README.md)
+* **Vehicle Photos:** [View Photos](./v-photos/README.md)
+* **Demonstration Videos:** [View Video](./video/README.md)
 
 ---
 
@@ -75,10 +75,10 @@ You can use this index to navigate through our robot's documentation. Each docum
 All control and test codes are located in the `src/` folder.
 
 * [Autonomous Driving (Obstacle Avoidance)](./src/main_control/Vizdrive_WRO_code.ino/)
-* [Autonomous Driving (No Obstacle Avoidance)](./src/main_control/no_obstacle_avoidance.ino/)
-* [MPU Orientation Control (PID and Calibration)](./src/mpu_orientation_control/)
+* [Autonomous Driving (No Obstacle Avoidance)](./src/main_control/Open_Round.ino/)
+* [MPU Orientation Control (PID and Calibration)](./src/mpu_orientation_control/pid_gyroscope.ino)
 * [Computer Vision (PixyCam 2.1)](./src/computer_vision/computer_vision.ino/)
-* [Sensor Test Codes](./src/test_code/)
+* [Sensors' Test Codes](./src/test_code/)
 
 ---
 
