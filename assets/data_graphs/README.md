@@ -4,7 +4,7 @@ This folder refers to the data graphs of our sensor suite calibration.
 
 ## MPU6050 Calibration and Data Analysis
 
-The MPU6050 gyroscope + accelerometer is calibrated with live sample readings, to being able to adapt no any environment.
+The MPU6050 gyroscope + accelerometer is calibrated with live sample readings, to being able to adapt to any environment.
 It calculates the average of 250 samples measured when the robot is static, averaging out the bias. This offset is subtracted from all subsequent raw readings for accuracy.
 The data recolection, shows that **250** samples is enough to achieve a precision of ±0.01, which is enough for the robot's functionality.
 
