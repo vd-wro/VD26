@@ -57,7 +57,8 @@ You can use this index to navigate through our robot's documentation. Each docum
 * [**10. 3D Modeling and Fabrication**](./docs/10_3d_modeling.md)
   * Details the 3D design process, mechanical characteristics, and fabrication parameters.
   * [3D Models STL](./models/)
-* [**11. Other Resources and Documentation**](./docs/11_other_resources.md)
+* [**11. Other Resources and User Manual**](./docs/11_other_resources.md)
+  * User manual for robot's construction and operation.
   * Summarized documentation and additional relevant resources and materials.
 
 ---
