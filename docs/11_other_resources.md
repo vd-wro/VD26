@@ -2,7 +2,7 @@
 
 This section provides links to supplementary materials, diagrams, and other relevant resources that offer further insight into the VizDrive robot's design, construction, and operation.
 
-This document is primarily intended to serve as a **user manual**, with the set of instructions to build our robot.
+This document is primarily intended to serve as a **user manual**, with the set of instructions to build, calibrate, and operate our robot.
 
 ## 11.1 3D Models
 
@@ -21,6 +21,10 @@ These models can be used for replication, modification, or further study of the 
   * [View 3D Model (STL)](./../models/steering/steering_rods.stl)
  
 For the 3D printing guide, visit the [3D Modeling](./10_3d_modeling.md) document. It explains all the parameters and configuration we used for the Creality Ender 3 3D printer.
+
+Before the fabrication of the robot, you can also visualize the **Unity simulator** we created during the modeling process, which is available as a GitHub pages hosted web embed here: [Unity Simulator](.././embeds/Unity_simulator/README.md). Click on the image to access the **Unity web player**.
+
+[![Unity Simulator Web Player](.././embeds/Unity_simulator/Unity_simulator_web_capture.png)](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Unity_simulator/)
 
 ## 11.2 Components and Wiring
 
