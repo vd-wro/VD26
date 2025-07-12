@@ -1,17 +1,13 @@
 # Meet Aislinn Chawla Arora, the spark and the strategy behind the scenes!
 
-Hi! I'm **Aislinn Chawla**, a 16-year-old Panamanian student whose passion for robotics began at 14, and since then, 
-I’ve developed my programming skills through various projects and competitions. 
-I’ve created a progressive web app for the **Technovation tournament** and competed multiple times in the **World Robotics Olympiad (WRO)**, 
-earning a **national gold medal** and a **global silver medal** in **2023**.
+Hi! I am **Aislinn Chawla**, a **16-year-old** Panamanian student from *Centro Cultural Chino Panameño, Instituto Sun Yat Sen*. 
 
-I’m deeply **curious and passionate**, especially in **Math**, **Physics**, and **Chemistry**. 
-I’ve represented my school in **academic competitions**, including winning **first place** in a **global Math championship in 2018**. 
-I also enjoy language challenges, having competed in both **Spanish** and **English** grammar contests.
+My interest in **Robotics** sparked when I was **14 years old**, and since then I’ve been developing my **programming** skills by coding a variety of projects for many tournaments, including: a progressive web app in the **Technovation tournament** and in the **World Robotics Olympiad (WRO)** many times, winning the **national gold medal** and, globally, a **silver medal** in **2023** with the project *Carey* (Future Innovators) and participating in **2024** with the project *ResQ-Bots* (Robo Mission). This year, I'm participating in the **Future Engineers** category in the **WRO (World Robot Olympiad)** with **VizDrive**.
 
-Beyond academics, I express myself through the **arts**—playing the **transverse flute** in a **music band** and exploring **painting** and **drawing**. 
-I also stay active by playing **soccer** with friends and practicing **karate** at the **Nagasaki dojo**. 
+I am a **curious** and **passionate** person, excelling in the areas of **Mathematics**, **Physics**, and **Chemistry**, having participated in some of these competitions while representing my school, winning **first place** in a **global Math championship in 2018**. On top of that, I’ve also been part of **Spanish** and **English grammar competitions**. Currently, I am in preparation for **Physics** and **Chemistry Olympics**, as well as **Spanish oratory**.  
 
-I’m always eager to learn, grow, and **take on new challenges**.
+In my spare time, I devote myself to continue **learning** and **exploring** the exciting field of **Robotics**. Furthermore, my love for **arts** motivates me to take part in a **music band**, playing the **transverse flute** and expressing my creativity through **painting** or **drawing**. Apart from that, I enjoy training a lot, playing sports like **soccer** with my friends and learning **karate** in the *Nagasaki dojo*. 
+
+I aspire to keep **discovering** new things, gaining new **skills** and **enhancing** the ones I have.
 
 ![Aislinn Chawla](.././aislinn_2.jpg)
