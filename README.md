@@ -113,7 +113,7 @@ Flowcharts, circuits, and relevant data graphs.
 |                                                       |                                                              |                                                        |
 |:-----------------------------------------------------:|:-----------------------------------------------------------:|:-------------------------------------------------------:|
 | <img src="./t-photos/alexis_1.jpg" width="250">       | <img src="./t-photos/carlo_1.jpg" width="250">              | <img src="./t-photos/aislinn_1.jpg" width="250">         |
-| **ALEXIS PALACIOS NG** <br> *Software Engineer*       | **CARLO HO NG** <br> *Hardware Engineer*                    | **AISLINN CHAWLA ARORA** <br> *Logistics and Creativity* |
+| [**ALEXIS PALACIOS NG**](./t-photos/meet_the_team/Alexis.md) <br> *Software Engineer*       | [**CARLO HO NG**](./t-photos/meet_the_team/Carlo.md) <br> *Hardware Engineer*                    | [**AISLINN CHAWLA ARORA**](./t-photos/meet_the_team/Aislinn.md) <br> *Logistics and Creativity* |
 Sensor Integration, <br>Firmware Architecture, <br>Code Logic, <br>Error Management, <br>Data Analysis, <br>GitHub Repository | Construction, <br>Wiring, <br>Circuit and PCB Design, <br>Power Management, <br>3D Modeling and Planning, <br>Animation and Illustration |  Photography and Film, <br>Competition Planning, <br>Drafting, <br>Social Media, <br>Conceptualization, <br>Creative Work |
 
 ---
