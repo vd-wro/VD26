@@ -109,15 +109,15 @@ This section provides a detailed enumeration and description of all hardware com
 
 ## 2.4 Power Supply and Regulation
 
-### **Component:** **3.7V batteries**
+### **Component:** **4.2V batteries**
 
 * **Quantity:** 2
-* **Voltage:** 3.7V nominal
-* **Capacity:** 5000 mAh
+* **Voltage:** 4.2V nominal
+* **Capacity:** 8800 mAh
 * **Discharge Current:** Up to 2A (depending on model)
-* **Description:** Power supply for the robot's DC motors. Specifically, **Li-ion 18650 Battery 3.7V 5000 mAh** is used.
+* **Description:** Power supply for the robot's DC motors. Specifically, **Li-ion 18650 Battery 4.2V 8800 mAh** is used.
 
-<img src="../assets/hardware_photos/3.7Vbattery.jpg" width="300">
+<img src="../assets/hardware_photos/4.2battery.jpg" width="300">
 
 ### **Component:** **Rechargable 9V Battery**
 
