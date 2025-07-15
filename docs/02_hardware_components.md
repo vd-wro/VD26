@@ -111,7 +111,7 @@ This section provides a detailed enumeration and description of all hardware com
 
 ### **Component:** **4.2V batteries**
 
-* **Quantity:** 2
+* **Quantity:** 1
 * **Voltage:** 4.2V nominal
 * **Capacity:** 8800 mAh
 * **Discharge Current:** Up to 2A (depending on model)
