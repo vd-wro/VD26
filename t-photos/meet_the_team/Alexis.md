@@ -29,4 +29,4 @@ When studying any subject, I always like to observe its **practical applications
 
 I am **grateful** to all the people who have dedicated their time to get to know me and have trusted me, offering me opportunities that I will not squander. I hope I have made some progress, but I know **there is still a long way to go**, and **my goals will never be static**.
 
-![Alexis Palacios](alexis_2.jpg)
+![Alexis Palacios](.././alexis_2.jpg)
