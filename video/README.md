@@ -18,14 +18,14 @@ For the Open Round, we adjusted our strategy because touching the outermost wall
 
 This video primarily showcases our robot's **artificial vision capabilities** using the **PixyCam 2.1**. It also features trajectory correction based on the MPU and PID control, supplemented by intentionally colliding with the outermost wall for a hard correction. If you observe closely, you'll also notice the subtle ultrasonic correction, which ensures the PixyCam consistently detects obstacles and reacts appropriately.
 
-[![Open Challenge Video](https://img.youtube.com/vi/pRXZPDuJ7Lc/0.jpg)](https://www.youtube.com/watch?v=pRXZPDuJ7Lc)
+[![Obstacle Challenge Video](https://img.youtube.com/vi/GUYxAUy47Ms/0.jpg)](https://www.youtube.com/watch?v=GUYxAUy47Ms)
 
 # Robot Animation Video
 
 This video shows how to assemble all the robot parts and components into the chassis 3D Model.
 It was made with Blender and rendered at a 4k resolution with 60 frames per second.
 
-[![Open Challenge Video](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
+[![Robot Animation Video](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
 
 # Music Creation Video
 
