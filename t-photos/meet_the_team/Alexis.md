@@ -10,9 +10,9 @@ I am currently a student at **Centro Cultural Chino Panameño**, **Instituto Sun
 
 My areas of interest include **mathematics**, **physics**, and **robotics**. In these disciplines, I have successfully represented my school in various **competitions and Olympiads**, obtaining prominent positions such as:
 
-* 🥇 **Gold Medal** in the **National Physics Olympiad of the University of Panama** in 2024.
+* 🥇 **Two-time Gold Medalist** in the **National Physics Olympiad of the University of Panama** (2024 and 2025).
 * 🥈 **Silver Medal** in the **National Robotics Olympiad of Panama** (WRO) in 2024 (in conjuction with [**Carlo**](Carlo.md), as a brilliant team). As well as participation in the creation of the winning project for 2023 in the **Future Innovators** category (collaborating with [**Aislinn**](Aislinn.md)).
-* 🥇🥈🥉 **Five-time gold, silver and bronze medalist** in the **Mathematics Olympiads at the Regional level of Panama Centro** and **National level of the University of Panama** (2016, 2017, 2019, 2022, 2023).
+* 🥇🥈🥉 **Five-time Gold, Silver and Bronze Medalist** in the **Mathematics Olympiads at the Regional level of Panama Centro** and **National level of the University of Panama** (2016, 2017, 2019, 2022, 2023).
 *	🥇 **Gold Medal** in the **National and Regional Spelling and Grammar Contest** of the **Rotary Club** in 2023.
 
 Furthermore, I have received several certificates for **Academic Excellence** by achieving the **highest GPA** in the Middle School, Junior High, and High School sections of my institution.
