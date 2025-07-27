@@ -75,7 +75,7 @@ For the main documentation on **MPU Gyroscope and PID Control:**
   * `MISO`, `5V`, `SCLK`, `MOSI`, `RESET`, `GND`: Connected to the PixyCam 2.1 ISCP.
 * **Library:** Utilizes the `Pixy2` library for integration.
 
-<img src="../assets/hardware_photos/pixycam_pin.png" width="400" height="300" alt="PixyCam2 ICSP Protocop Pins">
+<img src="../assets/hardware_photos/pixycam_pin.png" width="400" alt="PixyCam2 ICSP Protocop Pins">
 
 For the main documentation on **Computer Vision with PixyCam2:**
 [**Computer Vision Functions with PixyCam2**](07_pixycam_computer_vision.md)
