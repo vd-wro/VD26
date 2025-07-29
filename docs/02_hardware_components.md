@@ -136,7 +136,7 @@ This section provides a detailed enumeration and description of all hardware com
 * **Material:** 3D printed (PLA)
 * **Description:** A 3D designed rear-wheel drive chassis designed to house motors, mounts, sensors, battery holders, and the controller.
 
-[Interactive 3D Model of Custom Chassis](https://alexp7608.github.io/VizDrive-pruebas/embeds/interactive_chassis.html)
+[Interactive 3D Model of Custom Chassis](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis)
 
 ### **Component:** **Pushbutton**
 
