@@ -51,8 +51,7 @@ As well, the [3D Modeling](10_3d_modeling.md) explains the principles used durin
 
 [![Building Instructions](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
 
-[![ViZio 2.0](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
-// CHANGE VID
+[![ViZio 2.0](https://img.youtube.com/vi/JOWvUNmzN1w/0.jpg)](https://www.youtube.com/watch?v=JOWvUNmzN1w)
 
 ## 11.4 Sensors' Calibration
 
