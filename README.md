@@ -61,6 +61,7 @@ You can use this index to navigate through our robot's documentation. Each docum
 * [**11. Other Resources and User Manual**](./docs/11_other_resources.md)
   * User manual for robot's construction and operation.
   * Summarized documentation and additional relevant resources and materials.
+  * Evolution and improvements made within the versions of the robot.
 
 ---
 
