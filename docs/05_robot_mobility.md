@@ -5,76 +5,7 @@ This section provides an in-depth analysis of VizDrive's mobility system, coveri
 
 ---
 
-## 5.1 Mechanical Design for Mobility
-
-VizDrive's mechanical design prioritizes precise and stable locomotion, integrating specific features to optimize performance.
-
-* **Rear-Wheel Drive (RWD) Configuration**: The robot utilizes a RWD setup where a single DC motor drives the rear wheels via a solid axle. Front-wheel steering is achieved through a servo-controlled mechanism.
-  * **Propulsion Motor**: A **Hobby Gearmotor with a 48:1 gearbox** is employed for the rear drive, selected for its ample torque suitable for various terrains.
-  * **Steering Actuator**: A **Servo Motor SG90** is used to precisely control the angular position of the front steering wheels.
- 
-| Old Robot | New Robot |
-| ---------------- | ---------------- |
-| <img src="./../assets/model_photos/3d_modeling_design.png" width="250"> | <img src="./../assets/model_photos/ViZio_Updated_Chassis.png" width="250"> |
-
-
-
-
-* **Light Frame Chassis**: The chassis is engineered as a lightweight beam structure. This compact design enhances driving precision and overall durability.
-
-  * **Old Chassis**:
-
-  <img src="./../assets/model_photos/light_frame.png" width="500">
-
-  * **New Chassis**:
-
-  <img src="./../assets/model_photos/ViZio_chassis_new_version.png" width="500">
-
-* **Tolerance Management**: Strategic variations in manufacturing tolerances were applied during part design:
-  * **Snug Fit**: Components secured by screws are designed for a tight fit to ensure rigidity.
-  * **Higher Tolerance**: Wheel and steering mechanisms incorporate greater tolerance. This allows for slight movement, reducing friction, and inadvertently contributes to a degree of passive suspension, which helps in accommodating minor ground irregularities and improving stability.
-
-<img src="./../assets/model_photos/tolerance.png" width="500">
-
-* **Caster Angle**: To mitigate any inherent imprecision arising from steering tolerances, a **caster angle of 10°** has been implemented. This geometric arrangement naturally biases the steering wheels to return to a centered, straight-ahead position, improving straight-line tracking stability.
-
-<img src="./../assets/model_photos/caster_angle.png" width="500">
-
-* **Steering Angle Capability**: The steering system is designed to achieve a **45-degree turn in each direction**. This range enables sharp maneuvers, including specialized actions like parallel parking.
-
-<img src="./../assets/model_photos/steering_angle.png" width="500">
-
-* **Screw Orientation**: Screws used in critical drivetrain assemblies are oriented to self-tighten as the robot moves forward. This design detail prevents screws from loosening and wheels from detaching due to friction, a particularly important consideration for 3D-printed hub designs that offer bidirectional screw orientation options.
-
-<img src="./../assets/model_photos/screw_orientation.png" width="500">
-
-* **Bumper**: Orientation is reset using the bumper, aligning the robot to the outer wall which is crucial for long-term stable gyroscope functionality, mitigating not only drift, but also possbile noise caused by the robot's movement.
-
-<img src="./../assets/model_photos/bumper.png" width="500">
-
-* **Servo Motor Support**: A secure servo mount was implemented to acquire steering stability and reduce possible errors. The caster angle implemented is working in conjunction with this system to achieve precise maneuvers.
-
-<img src="./../assets/model_photos/servo_mount.png" width="500">
-
-* **Ultrasonic Sensor Mount**: Snug-fit screwless mounts allow fast repairs and simpler building during competition. Tolerance management principles were applied to fine tune friction between the chassis and the sonars.
-
-<img src="./../assets/model_photos/ultrasonic_mounts.png" width="500">
-
-* **LED Headlights**: Additional illumination improves camera readings during low light scenarios. The PixyCam's built-in LEDs enhance lighting and suports the robot's headlights.
-
-<img src="./../assets/model_photos/headlights.png" width="500">
-
-* **Flat Base**: The redesigned chassis has an array of benefits during the construction phase, not only facilitating it's assembly, but also improving printing time, quality, and durability.
-
-<img src="./../assets/model_photos/flat_base.png" width="500">
-
-* **Double Camera Mount**: During the development of ViZio, multiple camera angles were tested to identify the best view. However, camera movement was restricted to a single fixed slot; hence, to further amplify flexibility, dual camera mounts were implemented into our new model.
-
-<img src="./../assets/model_photos/dual_camera_mount.png" width="500">
-
----
-
-## 5.2 Software Mobility Module
+## 5.1 Software Mobility Module
 
 The `movement` module contains the core functions that govern VizDrive's locomotion, abstracting motor and steering control.
 
@@ -101,7 +32,7 @@ These constants define the safe operational range for the steering servo:
 
 ```cpp
 const int SERVO_STRAIGHT = 85; // Servo angle for straight-ahead motion
-const int SERVO_MAX = 35;      // Maximum angular deflection from SERVO_STRAIGHT
+const int SERVO_MAX = 35;      // Maximum angular deflection from SERVO_STRAIGHT (maximum steering angle is 45 degrees)
 const int SERVO_LEFT = SERVO_STRAIGHT - SERVO_MAX; // Minimum servo angle for extreme left turn (e.g., 50 degrees)
 const int SERVO_RIGHT = SERVO_STRAIGHT + SERVO_MAX; // Maximum servo angle for extreme right turn (e.g., 120 degrees)
 ```
