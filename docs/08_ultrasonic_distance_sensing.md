@@ -200,6 +200,52 @@ This function implements a conditional recentering mechanism designed to adjust 
             * `safeDelayColor(1000);`: A blocking delay of 1000 milliseconds (1 second) is introduced, during which the robot executes the sharp steering correction. The `safeDelayColor` function ensures that color sensor operations (specifically `detectFloorColor`) are continuously checked even during this delay, allowing for an early exit if a floor turn signal is detected.
             * `correctionState = true;`: Immediately after executing the correction, the `correctionState` flag is set to `true`. This prevents subsequent `recentreIfNeeded()` calls within the same turn cycle from initiating another correction.
         * `else return;`: If the measured distance does not meet the specified criteria (`< 30 cm` and `!= 0`), no correction is necessary, and the function exits.
+  
+## 8.5 Side PID for the **Open Round** (**`void avoidWallPID()`**)
+
+The `avoidWallPID()` function is designed to keep the robot at a safe and constant distance from a wall while it is moving forward. It uses a PID-based lateral correction to adjust the robot’s target yaw (its heading) so it avoids drifting.
+
+1. Similarly to the `avoidWall()` function, The function only runs when:
+  * No turn is currently in progress (!turningInProgress)
+  * The robot is not on its first lap (lapTurnCount != 0)
+
+2. The function updates only at specific time intervals to avoid excessive calculations.
+  ```cpp
+  unsigned long now = millis();
+  if (now - lastWallPIDUpdate < wallPIDInterval) return;
+  lastWallPIDUpdate = now;
+  ```
+3. Depending on the robot’s direction, either the left or right ultrasonic sensor is chosen, then it retrieves the current distance from the chosen sensor
+  ```cpp
+  NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;
+  int distance = getDistance(sonar);
+  ```
+4. The function calculates:
+
+  * Error: How far the robot is from the desired wall distance `error = distance - distanceToWall`.
+  * Derivative: The change in error derivative = `error - S_previousError`.
+
+    Using these, it computes a correction value:
+  ```cpp
+  int correction = constrain((int)(S_Kp * error + S_Kd * derivative), -10, 10);
+  ```
+
+  * The correction is limited between –10 and +10 to prevent extreme adjustments. This is necesary since ultrasonic sensors operate the best at a certain angle, if the robot has a noticiable angle from the wall, ultrasonic waves could be reflected away, affecting the sensor's effectiveness.
+
+5. If the correction is different from the last one calculated:
+
+  * Compute the adjustment needed
+    * `int err = currentCorrectionAmount - correction;`
+
+  * Apply this adjustment to the robot’s yaw target
+    * `turnTargetYaw = turnTargetYaw - (err * direction);`
+
+  * Update state variables for the next iteration.
+
+  * Set the new target yaw
+    * `setTargetYaw(turnTargetYaw);`
+
+This effectively “nudges” the robot’s heading so that it moves slightly away from or closer to the wall.
 
 ---
 
