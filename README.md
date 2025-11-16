@@ -63,6 +63,7 @@ You can use this index to navigate through our robot's documentation. Each docum
   * User manual for robot's construction and operation.
   * Summarized documentation and additional relevant resources and materials.
   * Evolution and improvements made within the versions of the robot.
+  * Technical issues and applied fixes.
 
 ---
 
