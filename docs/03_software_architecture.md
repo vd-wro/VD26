@@ -60,6 +60,14 @@ This module employs ultrasonic sensors to measure real-time distances to surroun
 
 * **`correctionCooldown()`**: Controls the cooldown period for wall corrections. In the **Open Challenge**, it resets the `correctionState` flag after a fixed interval (`correctionCooldownMillis`, typically 1200 ms), enabling new corrections. In the **Obstacle Challenge**, the cooldown resets after every turn, ensuring that only one correction is made after each obstacle avoidance, to avoid misalignment caused by unnecessary adjustments.
 
+* **`avoidWallPID()`**: This function is used in the **Open Challenge** and is designed to keep the robot at a stable and constant distance from the wall while moving forward. It applies a PID-based lateral correction to adjust the robot’s target yaw (heading), preventing it from drifting too close to or too far from the outer wall.
+
+    **Tuning Parameters:**
+
+    * `S_Kp = 0.5;`: Proportional gain, influencing the response to the current heading error.
+    * `S_Kd = 0.8;`: Derivative gain, influencing the response to the rate of change of the heading error, helping to dampen oscillations.
+    * `S_Ki = 0.0;`: Integral gain, unused, but could be implemented to eliminate steady-state errors.
+
 <img src="./../assets/software_photos/SONARS.png" width="500">
 
 For a more detailed analysis of the ultrasonic sensors integration for each challenge and the noise filtering function, refer to 
@@ -171,9 +179,10 @@ The `loop()` function runs continuously, performing core functionalities in a ti
 3.  **Orientation Correction**:
     * `updateOrientation(dt)`: Regularly updates the robot's `yaw` angle.
     * `keepOrientation()`: Applies the PD control logic to adjust steering, maintaining the `targetYaw`.
-    * `avoidWall(avoidance_amount)`: Realigns the robot relative to the walls using ultrasonic sensors, with `avoidance_amount` (8 degrees) specifying the correction.
+    * `avoidWall(avoidance_amount)` (Open Round): Realigns the robot relative to the walls using ultrasonic sensors. It is triggered only in emergency situations, specifically when the robot risks collision, with `avoidance_amount` (8 degrees) specifying the correction.
     * `correctionCooldown()`: Manages the time between `avoidWall()` executions.
-4.  **Obstacle Management**:
+    * `avoidWallPID()`: (Open Round): Realigns the robot relative to the walls using ultrasonic sensors, with `avoidance_amount` (8 degrees) specifying the correction.
+4.  **Obstacle Management (Challenge Round)**:
     * `if (obstacleDetected())`: Checks for obstacles using the PixyCam.
     * `handleEvasion()`: Executes the evasion maneuver if an obstacle is found.
 5.  **Color-Based Action**:
