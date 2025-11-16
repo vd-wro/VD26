@@ -50,8 +50,9 @@ You can use this index to navigate through our robot's documentation. Each docum
 * [**7. Computer Vision Functions with PixyCam 2.1**](./docs/07_pixycam_computer_vision.md)
   * Covers the PixyCam's vision-based obstacle evasion.
   * [Computer Vision Code](./src/computer_vision/computer_vision.ino)
-* [**8. Ultrasonic Distance Sensing**](./docs/08_ultrasonic_distance_sensing.md)
+* [**8. Ultrasonic Distance Sensing and PID**](./docs/08_ultrasonic_distance_sensing.md)
   * Covers the distance measurement and wall avoidance with ultrasonic sensors, and the filters implemented to adjust precision.
+  * Introduces and explains the side PID system for straight-line driving.
   * [Ultrasonic Sensor Data Analysis](./assets/data_graphs/Ultrasonic%20Sensors%20Data%20Analysis.xlsx)
 * [**9. Color Detection Functions**](./docs/09_color_detection.md)
   * Explains the color sensor's applications and calibration.
