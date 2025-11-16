@@ -98,6 +98,82 @@ For more information, refer to our documentation on the [**Software Architecture
 If you notice any inconsistency on this code functionality, feel free to contact us via email: **<vizdrive.wro@gmail.com>**!
 Of course, we are also open to any recommendation, inquiry or comment on any topic.
 
+## 11.7 Evolution and Improvements Made Within the Versions ViZio
+
+*Ever wondered where ViZio came from? It came from "Viz", part of our name "Vizdrive" and "io", commonly standing for input/output in computer science, which refers to how a computer system communicates with the outside world.*
+
+| ViZio | ViZio 2.0 | ViZio International |
+|:-----------:|:-----------:|:-----------:|
+|<img src="./../assets/hardware_photos/imagen (26).jpg" height="150">|<img src="./../assets/hardware_photos/ViZio_2.0.png" height="150">|Photo|
+
+### ViZio - Regional events
+
+First version of our robot, it had plenty of flaws but was a solid machine. Some components were held by rubber bands, others with glue, and some with screws. It had doubule front ultrasonic sensors, an add-on bumper, side color sensors, and a manually soldered PCB. Some general defects this version had:
+
+* **Doubule Front Sonars**: This was first thought to be used when turning while avoiding an obstacle, it indicated when the turn was complete by detecting the disance to the wall. The 45° angle gave the ultrasonic sensor the perfect tilt to detect the wall when the robot was steering. This was later removed to simplify ViZio and improve driving algorithms.
+  
+  <img src="./../assets/hardware_photos/imagen (27).jpg" height="150">
+
+* **Rear Ultrasonic Sensors**: The rear ultrasonic sensors were positioned very close to the robot to reduce overall length. However, combined with interference from the wheels, this placement caused unstable measurements due to sound reflections from the rear wheels. On more recent versions, ultrasonic sensors were better positioned.
+  
+  <img src="./../assets/hardware_photos/imagen (30).jpg" height="200">
+
+* **Manually Soldered PCB**: The robot had a custom made PCB soldered by us. It was used to eliminate potential clutter from using breadboards—though using breadboards wasn't even a considered option, since it wouldn't fit into the sleek design of our robot. Nevertheless, manually soldered wires were constantly damaged and this design was unreliable.
+
+  <img src="./../assets/hardware_photos/imagen (22).jpg" height="150">
+
+* **Side Color Sensors**: Side-mounted TCS color sensors were installed primarily to detect the magenta parking walls. They were also intended to identify blocks in cases where the robot approached them from the wrong direction.
+
+  <img src="./../v-photos/right_side.jpg" height="150">
+
+* **Faith Over a Screw**: We were *very well known* from our flying pcb during the regional events... We bet this was ***not the best idea*** 😄.
+
+  <img src="./../v-photos/left_side.jpg" height="150">
+
+### ViZio 2.0 - National Event
+
+The second version of our robot, with plenty improvements, mostly mehcanical, but we still worked over software improvements. These are the main improvements made to the robot, for more information please visit [**Robot Mobility**](./05_robot_mobility.md) and [**Hardware Components**](./02_hardware_components.md).
+
+* **Simpler Build**: Simplicity is crucial, we removed unused components: side color sensors and angled ultrasonic sensors.
+
+* **Parallel Parking**: Parallel parking was implemented using encoders instead of color sensors.
+
+* **Built-in Bumper**: The bumper was implemented on the previous version, but as an add-on, for this version, a built-in bumper was implemented.
+
+* **Servo Motor Support**: A secure servo mount was implemented to acquire steering stability and reduce possible errors. The caster angle implemented is working in conjunction with this system to achieve precise maneuvers.
+
+* **Ultrasonic Sensor Mount**: Snug-fit screwless mounts allow fast repairs and simpler building during competition. Tolerance management principles were applied to fine tune friction between the chassis and the sonars.
+
+* **LED Headlights**: Additional illumination improves camera readings during low light scenarios. The PixyCam's built-in LEDs enhance lighting and suports the robot's headlights.
+
+* **Chassis Redesign**: The redesigned chassis has an array of benefits during the construction phase, not only facilitating it's assembly, but also improving printing time, quality, and durability by using a flat base.
+ 
+* **Lifted Chassis**: During rounds we noticed mats were not completely flat, so we decided to lift the car, making the robot capable to traverse bumps .
+
+* **Double Camera Mount**: During the development of ViZio, multiple camera angles were tested to identify the best view. However, camera movement was restricted to a single fixed slot; hence, to further amplify flexibility, dual camera mounts were implemented into our new model.
+
+* **KiCad PCB**: ***No more flying screw man...*** We designed a custom KiCad PCB to avoid all problems mentioned from the first version!
+
+![ViZio 2.0](./../assets/hardware_photos/ViZio_2.0_Lights.JPG)
+
+### ViZio V3 - International Event
+
+![ViZio V3 Logo](./../assets/gif_animations/V3Logo.png)
+
+This is our latest version, with a few final touches mostly over the software to avoid crashes and optimize the system:
+
+* **Faster Robot**: Driving algorithms and routes were optimized to achieve faster lap times. Instead of realigning the robot with the wall after every turn, realignment is now performed only once per lap.
+
+* **Different Turn Maneuvers**: The robot uses three distinct turning maneuvers, selected based on its distance from the wall: close, mid-range, and far.
+
+* **Pivoting Maneuvers** There are also three pivoting maneuvers executed after obstacle avoidance. The appropriate maneuver is chosen according to the robot’s yaw error.
+
+## 11.8 Technical Issues and Implemented Remedies
+
+* **Safe Delay Looping** This was one of the toughest problems we faced. The robot looped during the `safeDelay()` functions infinitely. Initially we thought it was a `millis()` or `micros()` saturation problem, but this was not the root cause of the problem. After debugging we found out the MPU stopped working arbitrarily, which froze the `safeDelay()` functions that used `updateOrientation()`. Two things were implemented for the solution:
+  *  First, a `micros()` control was used to update MPU values with a controlled frequency. This reduced the casualties of looping but did not fully eliminate the problem.
+  *  Secondly, a `Wire.setWireTimeout(3000, true)` to reset the bus anytime no I2C information was recieved from the gyroscope, this allowed the bus to restart and keep recieving orientation data after it freezes.
+
 ---
 
 [Back to Main README.md Index](../README.md)
