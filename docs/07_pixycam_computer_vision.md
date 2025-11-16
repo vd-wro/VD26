@@ -49,11 +49,47 @@ const int RIGHT_SECTION_START_X = (2 * IMAGE_WIDTH) / 3; // X-coordinate separat
 
   * **Purpose**: Manages the robot's steering to actively evade a detected obstacle, continuing until the path is clear.
   * **Operation**:
+    ```cpp
+    if (!obstacleDetected()) {
+      return;
+    }
+  
+    // --- Start of the blocking evasion loop ---
+    // Once this point is reached, the car is committed to evading.
+    Serial.println("--- EVASION PROTOCOL INITIATED ---");
+  
+    int activeSignature = 0; // Stores the signature of the obstacle being evaded (1 for red, 2 for green).
+  
+    // This loop will now run indefinitely until the exit condition is explicitly met.
+    while (true) {
+      pixy.ccc.getBlocks(); // Get the latest block data in every iteration.
+      updateOrientation();
+      if (detectFloorColor()) {
+        handleColorAction();
+        break;
+      }
+    ```
+
     1.  **Initial Obstacle Check**: `if (!obstacleDetected()) return;`: The function first verifies the presence of a nearby obstacle. If none is detected, the evasion protocol is not initiated.
     2.  **Continuous Evasion Loop**: Upon detecting an obstacle, the robot enters a `while(true)` loop, committing to the evasion process. This loop ensures the robot continues evasion maneuvers until an explicit exit condition is met.
           * `pixy.ccc.getBlocks();`: At the beginning of each loop iteration, updated block information is retrieved.
           * `updateOrientation();`: Ensures the robot's current heading is continuously monitored.
           * `if (detectFloorColor()) { handleColorAction(); break; }`: Allows for an early exit from the evasion loop if a floor color (turn signal) is detected, transitioning back to primary navigation.
+    ```cpp
+    int selectedIndex = -1;
+    int largestArea = 0;
+ 
+    // 2. Find the largest, most relevant obstacle currently in the "near" zone.
+    for (int i = 0; i < pixy.ccc.numBlocks; i++) {
+      if (pixy.ccc.blocks[i].m_y + (pixy.ccc.blocks[i].m_height / 2) > ROI_Y_BOUND) {
+        int area = pixy.ccc.blocks[i].m_width * pixy.ccc.blocks[i].m_height;
+        if (area > largestArea) {
+          largestArea = area;
+          selectedIndex = i;
+        }
+      }
+    }
+    ```
     3.  **Largest Relevant Obstacle Selection**:
           * The function iterates through all detected blocks to find the largest one (based on `width * height`) that is also within the `ROI_Y_BOUND`. This ensures the robot prioritizes reacting to the most prominent obstruction.
     4.  **Maneuver Based on Signature**: If a valid, relevant block is selected:
@@ -64,9 +100,9 @@ const int RIGHT_SECTION_START_X = (2 * IMAGE_WIDTH) / 3; // X-coordinate separat
               * `else { setSteeringAngle(SERVO_STRAIGHT); lastSignature = 0; break; }`: If an unrecognized signature is encountered, the robot attempts to steer straight and exits the evasion loop.
     5.  **Evasion Completion Check**: This is the primary exit condition for the `while` loop. The robot breaks evasion only when the designated obstacle has been successfully navigated past and is located in a "safe" horizontal section of the image.
           * `if (activeSignature == SIGNATURE_RED && currentX < LEFT_SECTION_END_X)`: If a red obstacle was being evaded, and its `currentX` coordinate is now in the leftmost third of the image, evasion is considered complete.
-              * A `safeDelay(500)` is introduced, followed by `setSteeringAngle(SERVO_LEFT)` for `safeDelay(1000)` to ensure a full pivot past the obstacle before breaking the loop.
+              * A `safeDelay(500)` is introduced, followed by `setSteeringAngle(SERVO_LEFT)` with `safeDelay()`, depending on yaw error, to ensure a full pivot past the obstacle before breaking the loop.
           * `else if (activeSignature == SIGNATURE_GREEN && currentX > RIGHT_SECTION_START_X)`: Similarly, if a green obstacle was being evaded and its `currentX` coordinate is now in the rightmost third of the image, evasion is complete.
-              * A `safeDelay(600)` is introduced, followed by `setSteeringAngle(SERVO_RIGHT)` for `safeDelay(1000)` to ensure a full pivot.
+              * A `safeDelay(600)` is introduced, followed by `setSteeringAngle(SERVO_RIGHT)` with `safeDelay()` to ensure a full pivot.
     6.  **Loss of Sight Handling**: If `selectedIndex` remains `-1` (meaning no block is currently detected in the "near" zone), the robot continues to execute the last commanded steering action. This prevents premature termination of the evasion sequence if the camera momentarily loses sight of the obstacle.
     7.  **Evasion Completion**: Once the `while` loop is broken (either by successful evasion or floor color detection), the evasion protocol is considered complete. The robot's steering will typically revert to `SERVO_STRAIGHT` in the subsequent iteration of the main program loop.
 
