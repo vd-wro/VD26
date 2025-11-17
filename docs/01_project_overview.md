@@ -25,9 +25,18 @@ In the Future Engineers category, we compete in two distinct challenge rounds: t
 
 Each of these parts have their own separated document, delving into their calibration, common errors, logic and function in the robot.
 
+## 1.3 Dimensions
+
+| Specification | Information |
+| ---------------- | ---------- |
+| Height | - |
+| Width | - |
+| Length | - |
+| Weight | - |
+
 ---
 
-## 1.3 Main Operational WorkFlow
+## 1.4 Main Operational WorkFlow
 
 The robot's operation can be divided into three phases:
 
@@ -57,7 +66,7 @@ This is the primary operational phase, a loop where the robot continuously check
 
 ---
 
-## 1.4 General Workflow Diagram
+## 1.5 General Workflow Diagram
 
 Made with Mermaid for GitHub. Visit [Workflow Diagram.png](./../assets/flowcharts/flowchart.png) if the image is distorted or not seen.
 
