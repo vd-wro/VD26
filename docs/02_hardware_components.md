@@ -289,7 +289,7 @@ The new robot uses a custom KiCad PCB circuit made for the Mega 2560 Pro. We des
 
 | Inverted I2C Bus | Soldered MPU |
 | ---------------- | ---------------- |
-| <img src="./../assets/model_photos/3d_modeling_design.png" width="250"> | <img src="./../assets/model_photos/ViZio_Updated_Chassis.png" width="250"> |  
+| <img src="./../assets/hardware_photos/OldPCB.jpg" width="250"> | <img src="./../assets/hardware_photos/SolderedPCB.jpg" width="250"> |  
 
 You can also download the fixed circuit files: [kicad_pcb](../src/kicad_pcb).
 
