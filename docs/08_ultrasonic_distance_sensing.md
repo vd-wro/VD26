@@ -205,11 +205,11 @@ This function implements a conditional recentering mechanism designed to adjust 
 
 The `avoidWallPID()` function is designed to keep the robot at a safe and constant distance from a wall while it is moving forward. It uses a PID-based lateral correction to adjust the robot’s target yaw (its heading) so it avoids drifting.
 
-1. Similarly to the `avoidWall()` function, The function only runs when:
-  * No turn is currently in progress (!turningInProgress)
-  * The robot is not on its first lap (lapTurnCount != 0)
+1. Similarly to `avoidWall()`, this only runs when:
+  * No turn is currently in progress `(!turningInProgress)`.
+  * The robot is not on its first lap `(lapTurnCount != 0)`.
 
-2. The function updates only at specific time intervals to avoid excessive calculations.
+2. It updates only at specific time intervals to avoid excessive calculations.
   ```cpp
   unsigned long now = millis();
   if (now - lastWallPIDUpdate < wallPIDInterval) return;
@@ -230,7 +230,7 @@ The `avoidWallPID()` function is designed to keep the robot at a safe and consta
   int correction = constrain((int)(S_Kp * error + S_Kd * derivative), -10, 10);
   ```
 
-  * The correction is limited between –10 and +10 to prevent extreme adjustments. This is necesary since ultrasonic sensors operate the best at a certain angle, if the robot has a noticiable angle from the wall, ultrasonic waves could be reflected away, affecting the sensor's effectiveness.
+  * The correction is limited between –10 and +10 to prevent extreme adjustments. This is necessary since ultrasonic sensors operate best at a certain angle; if the robot has a noticeable angle from the wall, ultrasonic waves could be reflected away, affecting the sensor's effectiveness.
 
 5. If the correction is different from the last one calculated:
 
