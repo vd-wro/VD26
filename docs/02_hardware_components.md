@@ -110,7 +110,7 @@ This section provides a detailed enumeration and description of all hardware com
 
 ## 2.4 Power Supply and Regulation
 
-### **Component:** **4.2V batteries**
+### **Component:** **4.2V batteries/3.7V**
 
 * **Quantity:** 1
 * **Voltage:** 4.2V nominal
