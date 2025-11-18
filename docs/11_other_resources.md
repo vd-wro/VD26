@@ -176,7 +176,7 @@ This is our latest version, with a few final touches mostly over the software to
  
 ## 11.9 Important Notes
 
-* **Wheel Encoder Paint:** It’s important to paint the encoder wheel as shown in [**3D Modeling**](./010_3d_modeling.md) to ensure proper operation of the light-based encoder. Otherwise, light may pass through the thin plastic layer.
+* **Wheel Encoder Paint:** It’s important to paint the encoder wheel as shown in [**3D Modeling**](./10_3d_modeling.md) to ensure proper operation of the light-based encoder. Otherwise, light may pass through the thin plastic layer.
 
 ---
 
