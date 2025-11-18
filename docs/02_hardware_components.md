@@ -215,7 +215,7 @@ This battery is dedicated to propulsion and lighting, ensuring that motor noise 
   * **Total Average:** ~260–300 mA  
 * **Estimated Runtime:**  
   * ~600 mAh / 280 mA ≈ **2 hours** continuous operation  
-  * Recommended use time ≈ **30 minutes** for best performance
+  * Recommended use time ≈ **1 hour** for best performance
 
 This battery ensures clean and stable voltage delivery for sensors and the controller.  
 
