@@ -287,7 +287,7 @@ The new robot uses a custom KiCad PCB circuit made for the Mega 2560 Pro. We des
 
 * **I2C Bus Fix:** A small fix was made in the PCB circuit, the I2C bus pins (SDA, SCL) were inverted. To fix the issue with the previous version, a small pcb was soldered to reposition the pins.
 
-You can also download the circuit files: [kicad_pcb](../src/kicad_pcb).
+You can also download the fixed circuit files: [kicad_pcb](../src/kicad_pcb).
 
 ---
 
