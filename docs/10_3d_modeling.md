@@ -140,6 +140,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
 ### Encoder Wheel and Rear Wheel
 
 * **Description:** A precisely designed wheel featuring 16 distinct markings or slots, intended for use with an optical encoder sensor to ensure accurate odometry (distance and speed measurement). A standard rear wheel without an encoder rim is also used.
+* **Note:** It's important to **paint** the encoder wheel as shown in the image to ensure proper operation of the light-based encoder. Otherwise, light may pass through the thin plastic layer.
 * **3D Model (STL):** [Wheel Encoder](./../models/wheels/encoder_wheel.stl)
 * **Interactive 3D Model:** [Encoder Wheel Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_rear_wheels)
 * **Printing Parameters:**
