@@ -252,7 +252,7 @@ You can also visit the detailed interactive visual representation in [Interactiv
 
 ### Arduino MKR1010 Circuit PCB
 
-![Electromechanical Diagram](./../assets/hardware_photos/MKR_circuit.png)
+![MKR PCB](./../assets/hardware_photos/MKR_circuit.png)
 
 A version of our circuit was made for the Arduino MKR1010. The decision was made considering the potential advantages this microcontroller offers.
 
@@ -270,7 +270,7 @@ However, this version of the robot brought several limitations, encouraging us t
 
 The new robot uses a custom KiCad PCB circuit made for the Mega 2560 Pro. We designed a personalized KiCad circuit to improve the old version, adding durability, reliability and simplicity.
 
-![Electromechanical Diagram](./../assets/hardware_photos/UpdatedCircuitPCB.jpg)
+![Updated PCB](./../assets/hardware_photos/UpdatedCircuitPCB.jpg)
 
 * **Planning and Design**: Components were slightly changed for this PCB, such as using a **self-locking pushbutton switch** instead of a toggle switch. Positioning was oriented to facilitate physical construction, simplifying wire routing.
 * **Track Routing**: Tracks were manually routed using two layers (rear layer and front layer).
@@ -281,11 +281,13 @@ The new robot uses a custom KiCad PCB circuit made for the Mega 2560 Pro. We des
 * **GND and 5V Tracks**: Power tracks surround the PCB, reducing the complexity of the components' routing.
 * **PCB Fabrication and Build**: The custom PCB was fabricated with our logo and components were soldered.
 
-![Electromechanical Diagram](./../assets/hardware_photos/KiCad.png)
+![KiCad Diagram](./../assets/hardware_photos/KiCad.png)
 
 ### Current PCB Circuit
 
 * **I2C Bus Fix:** A small fix was made in the PCB circuit, the I2C bus pins (SDA, SCL) were inverted. To fix the issue with the previous version, a small pcb was soldered to reposition the pins.
+
+  
 
 You can also download the fixed circuit files: [kicad_pcb](../src/kicad_pcb).
 
