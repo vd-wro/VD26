@@ -232,7 +232,7 @@ This battery ensures clean and stable voltage delivery for sensors and the contr
 
 **Summary of Power Autonomy**  
 * **Motors (4.2V Li-ion):** 12–15 hours (practical runtime)  
-* **Logic & Sensors (9V battery):** ~2 hours, recommended ~30 minutes (main limiting factor)  
+* **Logic & Sensors (9V battery):** ~2 hours (main limiting factor)  
 
 The system's autonomy is therefore governed by the 9V supply, after which recharging or replacement is required.
 
