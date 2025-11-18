@@ -266,7 +266,7 @@ However, this version of the robot brought several limitations, encouraging us t
 * **3V3 Logic**: Having a similar context from the previous point, We had to add logic shifters since the MKR1010 uses 3.3V logic, which consequently limited the amount of clutter reduced.
 * **Wi-Fi Limitations**: A web hosting was developed for debugging; however, updates were delayed and slow, so Wi-Fi communication was not useful anymore since precise and updated information was required for proper debugging.
 
-### Current PCB Circuit
+### National PCB Circuit
 
 The new robot uses a custom KiCad PCB circuit made for the Mega 2560 Pro. We designed a personalized KiCad circuit to improve the old version, adding durability, reliability and simplicity.
 
@@ -282,6 +282,10 @@ The new robot uses a custom KiCad PCB circuit made for the Mega 2560 Pro. We des
 * **PCB Fabrication and Build**: The custom PCB was fabricated with our logo and components were soldered.
 
 ![Electromechanical Diagram](./../assets/hardware_photos/KiCad.png)
+
+### Current PCB Circuit
+
+* **I2C Bus Fix:** A small fix was made in the PCB circuit, the I2C bus pins (SDA, SCL) were inverted. To fix the issue with the previous version, a small pcb was soldered to reposition the pins.
 
 You can also download the circuit files: [kicad_pcb](../src/kicad_pcb).
 
