@@ -101,7 +101,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
   * Nozzle Temperature: 200°C
   * Bed Temperature: 60°C
   * Print Speed: 150mm/s
-  * Material: ~95 g
+  * Material: ~95 g with support
 
 <img src="./../assets/model_photos/imgchassisupd.png" width="500">
 
@@ -166,7 +166,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
   * Nozzle Temperature: 200°C
   * Bed Temperature: 60°C
   * Print Speed: 150mm/s
-  * Material: 6 g
+  * Material: ~6 g with support
 
 <img src="./../assets/model_photos/steering_rods.png" width="500">
 
