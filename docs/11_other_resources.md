@@ -173,6 +173,10 @@ This is our latest version, with a few final touches mostly over the software to
 * **Safe Delay Looping** This was one of the toughest problems we faced. The robot looped during the `safeDelay()` functions infinitely. Initially we thought it was a `millis()` or `micros()` saturation problem, but this was not the root cause of the problem. After debugging we found out the MPU stopped working arbitrarily, which froze the `safeDelay()` functions that used `updateOrientation()`. Two things were implemented for the solution:
   *  First, a `micros()` control was used to update MPU values with a controlled frequency. This reduced the casualties of looping but did not fully eliminate the problem.
   *  Secondly, a `Wire.setWireTimeout(3000, true)` to reset the bus anytime no I2C information was recieved from the gyroscope, this allowed the bus to restart and keep recieving orientation data after it freezes.
+ 
+## 11.9 Important Notes
+
+* **Wheel Encoder Paint:** It’s important to paint the encoder wheel as shown in [**3D Modeling**](./010_3d_modeling.md) and [**Hardware Components**](./02_hardware_components.md). to ensure proper operation of the light-based encoder. Otherwise, light may pass through the thin plastic layer.
 
 ---
 
