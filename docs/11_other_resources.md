@@ -152,6 +152,8 @@ The second version of our robot, with plenty improvements, mostly mechanical, bu
 
 * **Double Camera Mount**: During the development of ViZio, multiple camera angles were tested to identify the best view. However, camera movement was restricted to a single fixed slot; hence, to further amplify flexibility, dual camera mounts were implemented into our new model.
 
+* **Realignment**: To realign the bot, we programmed it to bump itself with the outer wall four times every lap.
+
 * **KiCad PCB**: ***No more flying screw...*** We designed a custom KiCad PCB to avoid all problems mentioned from the first version!
 
 ![ViZio 2.0](./../assets/hardware_photos/ViZio_Photo0.png)
@@ -174,7 +176,7 @@ This is our latest version, with a few final touches mostly over the software to
 
 * **Safe Delay Looping** This was one of the toughest problems we faced. The robot looped during the `safeDelay()` functions infinitely. Initially we thought it was a `millis()` or `micros()` saturation problem, but this was not the root cause of the problem. After debugging we found out the MPU stopped working arbitrarily, which froze the `safeDelay()` functions that used `updateOrientation()`. Two things were implemented for the solution:
   *  First, a `micros()` control was used to update MPU values with a controlled frequency. This reduced the casualties of looping but did not fully eliminate the problem.
-  *  Secondly, a `Wire.setWireTimeout(3000, true)` to reset the bus anytime no I2C information was recieved from the gyroscope, this allowed the bus to restart and keep recieving orientation data after it freezes.
+  *  Secondly, a `Wire.setWireTimeout(3000, true)` to reset the bus anytime no I2C information was received from the gyroscope, this allowed the bus to restart and keep receiving orientation data after it freezes.
  
 ## 11.9 Important Notes
 
