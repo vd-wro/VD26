@@ -183,7 +183,7 @@ This is our latest version, with a few final touches mostly over the software to
 
 * **Ultrasonic Sensors**: Before installation, it’s needed to carefully straighten the ultrasonic sensor pins with pliers. When sliding the sensor into its friction-fit mount, only the left and right units should be secured with wire to ensure proper alignment and operation.
 
-* **Pixy Calibration**: It’s important to cover the Pixy’s lens with your finger during initialization to properly calibrate its brightness settings.
+* **Pixy Calibration**: It’s crucial to cover the Pixy’s lens with your finger during initialization to calibrate its brightness and avoid variable exposition due to slight lighting changes during power-up.
 
 ---
 
