@@ -10,8 +10,8 @@ The designs included in this file directory are:
 ## 1. Chassis Model
 
 
-| Old Model | New Robot |
-| ---------------- | ---------------- |
+| Old Model | New Robot | International Robot |
+| ---------------- | ---------------- |---------------- |
 | [Chassis](./chassis/chassis.stl) | [New Chassis](./chassis/chassis2.0.stl) | [International Chassis](./chassis/ViZioInternationalMotorFixstl) | |
 | <img src="./chassis/Chassis.png" width="250"> | <img src="../assets/model_photos/imgchassisupd.png" width="250"> | <img src="../assets/model_photos/imgchassisupd.png" width="250"> |
 | Visit the embed: [Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis)| Visit the updated embed: [Updated Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis2) | Visit the latest version: [International Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/chassis_final) |
