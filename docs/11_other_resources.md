@@ -160,6 +160,8 @@ The second version of our robot, with plenty improvements, mostly mechanical, bu
 
 ![ViZio V3 Logo](./../assets/gif_animations/V3Logo.png)
 
+![ViZio V3](./../assets/hardware_photos/ViZioV3b.png)
+
 This is our latest version, with a few final touches mostly over the software to avoid crashes and optimize the system:
 
 * **Faster Robot**: Driving algorithms and routes were optimized to achieve faster lap times. Instead of realigning the robot with the wall after every turn, realignment is now performed only once per lap.
