@@ -103,7 +103,7 @@ Of course, we are also open to any recommendation, inquiry or comment on any top
 
 | ViZio | ViZio 2.0 | ViZio International |
 |:-----------:|:-----------:|:-----------:|
-|<img src="./../assets/hardware_photos/imagen (26).jpg" height="150">|<img src="./../assets/hardware_photos/ViZio_2.0.png" height="150">|Photo|
+|<img src="./../assets/hardware_photos/imagen (26).jpg" height="150">|<img src="./../assets/hardware_photos/ViZio_2.0.png" height="150">|<img src="./../assets/hardware_photos/ViZioV3.png" height="150">|
 
 ### ViZio - Regional events
 
