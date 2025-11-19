@@ -35,11 +35,15 @@ You can also check our YouTube channel for more Obstacle Challenge videos.
 Both videos show how to assemble all the robot parts and components into the chassis 3D Model.
 It was made with Blender and rendered at a 4k resolution at 60 frames per second. 
 
-[![Robot Animation Video](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
+[![Robot Animation Video1](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
 
-The second video explains all the changes made to our robot's new version.
+The second video explains all the changes made to our robot's updated version.
 
-[![Robot Animation Video](https://img.youtube.com/vi/JOWvUNmzN1w/0.jpg)](https://www.youtube.com/watch?v=JOWvUNmzN1w) 
+[![Robot Animation Video2](https://img.youtube.com/vi/JOWvUNmzN1w/0.jpg)](https://www.youtube.com/watch?v=JOWvUNmzN1w) 
+
+This is the third video, explaining the building process of ViZio's latest version.
+
+[![Robot Animation Video3](https://img.youtube.com/vi/J1BOTFqHlQ4/0.jpg)](https://www.youtube.com/watch?v=J1BOTFqHlQ4) 
 
 # Music Creation Video (Easter egg!)
 
