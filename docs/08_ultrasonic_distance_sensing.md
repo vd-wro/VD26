@@ -214,6 +214,7 @@ This function implements a conditional recentering mechanism designed to adjust 
      * `if (now - lastWallPIDUpdate < wallPIDInterval) return;`: Checks if enough time has passed since the last update. If not, stops the function to avoid updating too fast.
      * `lastWallPIDUpdate = now;`: Updates the timestamp to know when the last calculation happened.
        
+       
   ```cpp
   void avoidWallPID() {
   if (!turningInProgress && lapTurnCount != 0) {
