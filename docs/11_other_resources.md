@@ -160,7 +160,7 @@ The second version of our robot, with plenty improvements, mostly mechanical, bu
 
 ![ViZio V3 Logo](./../assets/gif_animations/V3Logo.png)
 
-![ViZio V3](./../assets/hardware_photos/ViZioV3b.png)
+![ViZio V3](./../assets/hardware_photos/ViZioV3b.jpg)
 
 This is our latest version, with a few final touches mostly over the software to avoid crashes and optimize the system:
 
