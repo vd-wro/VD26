@@ -47,7 +47,7 @@ We've also created a custom KiCad PCB to improve durability, reliability and sim
 We created a 3D animation that showcases the detailed building instructions for all the components into our robot's 3D models.
 The video also includes the use of different screws and nuts to ensure the correct tolerance and orientation for a perfect functioning.
 
-For an in-depth explanation into this and other concepts taken into consideration during the planification of 3D parts, you can visit the [Robot Mobility](05_robot_mobility.md) document, which details the principles used during the construction of our robot.
+For an in-depth explanation into this and other concepts taken into consideration during the planification of 3D parts, you can visit the [3D Modeling](./10_3d_modeling.md) document, which details the principles used during the construction of our robot.
 
 [![Building Instructions](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
 
