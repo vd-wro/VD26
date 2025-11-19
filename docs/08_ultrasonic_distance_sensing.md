@@ -206,10 +206,14 @@ This function implements a conditional recentering mechanism designed to adjust 
 * **Purpose**: The `avoidWallPID()` function is designed to keep the robot at a safe and constant distance from a wall while it is moving forward. It uses a PID-based lateral correction to adjust the robot’s target yaw (its heading) so it avoids drifting.
 * **Operation**:
   1. **Conditions**: Similarly to `avoidWall()`, this only runs when:
+     
      * `if (!turningInProgress && lapTurnCount != 0) {`: The robot is not in the middle of a turn (`turningInProgress == false`) and only after the first lap count (`lapTurnCount != 0`).
+       
   2. **Timing Control**: It updates only at specific time intervals to avoid excessive calculations.
+     
      * `if (now - lastWallPIDUpdate < wallPIDInterval) return;`: Checks if enough time has passed since the last update. If not, stops the function to avoid updating too fast.
      * `lastWallPIDUpdate = now;`: Updates the timestamp to know when the last calculation happened.
+       
   ```cpp
   void avoidWallPID() {
   if (!turningInProgress && lapTurnCount != 0) {
@@ -221,22 +225,30 @@ This function implements a conditional recentering mechanism designed to adjust 
     ```
 
   3. **Setup**: Selects the correct sonar sensor, reads distance, and ensures the reading is valid before continuing.
+     
      * `NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;`: Determines which ultrasonic to use. If `direction < 0`, then the right sonar is used. Otherwise, the left sonar is used.
      * `int distance = getDistance(sonar);`: Reads from the sonar sensor and saves that value in the variable `distance`.
      * `if(distance == 0) return;`: The function ends if the ultrasonic sensor does not detect anything.
+       
   4. **Lateral PD Control**: Computes the proportional-derivative correction needed to maintain a steady 20 cm from the wall.
+     
      * `float error = distance - 20;`: Estimates error to maintain 20 cm distance from the wall.
      * `float derivative = error - S_previousError;`: Calculates derivative, which tells how much the error has changed since last time.
      * `int correction = constrain((int)(S_Kp * error + S_Kd * derivative), -10, 10);`: Computes the PD correction value using the proportional and derivative; afterwards, it  limits the result between −10 and +10.
      * `S_previousError = error;`: Stores the current error. Needed for the derivative.
+       
   5. **Yaw Adjustment Logic**: Updates the robot’s yaw target when the PD correction changes, ensuring smooth directional adjustments.
+     
      * `if (lastCorrection != correction)`: Checks if the correction value has changed since the last cycle.
      * `int err = currentCorrectionAmount - correction;`: Calculates the change difference between current and new correction.
      * `turnTargetYaw = (turnTargetYaw - (err * direction));`: Adjusts the yaw to target yaw.
      * `lastCorrection = correction;`: Updates the stored correction value to the new one.
      * `currentCorrectionAmount = currentCorrectionAmount - err;`: Adjusts the stored correction values.
+       
   6. **New Target Yaw Application**: Applies the updated yaw target so the robot can steer toward the corrected orientation.
+     
      * `setTargetYaw(turnTargetYaw);`: Sets a new target yaw, enabling the robot to steer accordingly.
+       
 ```cpp
 if(distance == 0) return;
     float error = distance - distanceToWall; 
