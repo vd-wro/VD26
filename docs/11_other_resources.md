@@ -12,6 +12,7 @@ These models can be used for replication, modification, or further study of the 
 * **Chassis:** The main structural frame of the robot.
   * [View 3D Model (STL)](./../models/chassis/chassis.stl)
   * [View Updated 3D Model (STL)](./../models/chassis/chassis2.0.stl)
+  * [View International 3D Model (STL)](./../models/chassis/ViZioInternationalMotorFix.stl)
 * **Front Wheel Rims:** Custom-designed rims for the front wheels.
   * [View 3D Model (STL)](./../models/wheels/wheel_rims.stl)
 * **Front Wheel Hubs with Screws:** Hubs connecting to the steering rod, including screw designs.
