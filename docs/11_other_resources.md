@@ -131,7 +131,7 @@ First version of our robot, it had plenty of flaws but was a solid machine. Some
 
 ### ViZio 2.0 - National Event
 
-The second version of our robot, with plenty improvements, mostly mehcanical, but we still worked over software improvements. These are the main improvements made to the robot, for more information please visit [**Robot Mobility**](./05_robot_mobility.md) and [**Hardware Components**](./02_hardware_components.md).
+The second version of our robot; with plenty improvements, mostly mechanical, but we still worked over software improvements. These are the main improvements made to the robot, for more information please visit [**Robot Mobility**](./05_robot_mobility.md) and [**Hardware Components**](./02_hardware_components.md).
 
 * **Simpler Build**: Simplicity is crucial, we removed unused components: side color sensors and angled ultrasonic sensors.
 
