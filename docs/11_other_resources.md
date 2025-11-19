@@ -174,13 +174,17 @@ This is our latest version, with a few final touches mostly over the software to
 
 ## 11.8 Technical Issues and Implemented Remedies
 
-* **Safe Delay Looping** This was one of the toughest problems we faced. The robot looped during the `safeDelay()` functions infinitely. Initially we thought it was a `millis()` or `micros()` saturation problem, but this was not the root cause of the problem. After debugging we found out the MPU stopped working arbitrarily, which froze the `safeDelay()` functions that used `updateOrientation()`. Two things were implemented for the solution:
+* **Safe Delay Looping**: This was one of the toughest problems we faced. The robot looped during the `safeDelay()` functions infinitely. Initially we thought it was a `millis()` or `micros()` saturation problem, but this was not the root cause of the problem. After debugging we found out the MPU stopped working arbitrarily, which froze the `safeDelay()` functions that used `updateOrientation()`. Two things were implemented for the solution:
   *  First, a `micros()` control was used to update MPU values with a controlled frequency. This reduced the casualties of looping but did not fully eliminate the problem.
   *  Secondly, a `Wire.setWireTimeout(3000, true)` to reset the bus anytime no I2C information was received from the gyroscope, this allowed the bus to restart and keep receiving orientation data after it freezes.
  
 ## 11.9 Important Notes
 
-* **Wheel Encoder Paint:** It’s important to paint the encoder wheel as shown in [**3D Modeling**](./10_3d_modeling.md) to ensure proper operation of the light-based encoder. Otherwise, light may pass through the thin plastic layer.
+* **Wheel Encoder Paint**: It’s important to paint the encoder wheel as shown in [**3D Modeling**](./10_3d_modeling.md) to ensure proper operation of the light-based encoder. Otherwise, light may pass through the thin plastic layer.
+
+* **Ultrasonic Sensors**: Before installation, it’s needed to carefully straighten the ultrasonic sensor pins with pliers. When sliding the sensor into its friction-fit mount, only the left and right units should be secured with wire to ensure proper alignment and operation.
+
+* **Pixy Calibration**: It’s important to cover the Pixy’s lens with your finger during initialization to properly calibrate its brightness settings.
 
 ---
 
