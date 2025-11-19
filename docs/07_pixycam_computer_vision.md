@@ -100,9 +100,9 @@ const int RIGHT_SECTION_START_X = (2 * IMAGE_WIDTH) / 3; // X-coordinate separat
               * `else { setSteeringAngle(SERVO_STRAIGHT); lastSignature = 0; break; }`: If an unrecognized signature is encountered, the robot attempts to steer straight and exits the evasion loop.
     5.  **Evasion Completion Check**: This is the primary exit condition for the `while` loop. The robot breaks evasion only when the designated obstacle has been successfully navigated past and is located in a "safe" horizontal section of the image.
           * `if (activeSignature == SIGNATURE_RED && currentX < LEFT_SECTION_END_X)`: If a red obstacle was being evaded, and its `currentX` coordinate is now in the leftmost third of the image, evasion is considered complete.
-              * A `safeDelay(500)` is introduced, followed by `setSteeringAngle(SERVO_LEFT)` with `safeDelay()`, depending on yaw error, to ensure a full pivot past the obstacle before breaking the loop.
+              * A `safeDelayColor(500)` is introduced, followed by `setSteeringAngle(SERVO_LEFT)` with `safeDelayColor()` (the time depends on yaw error) to ensure a full pivot past the obstacle before breaking the loop.
           * `else if (activeSignature == SIGNATURE_GREEN && currentX > RIGHT_SECTION_START_X)`: Similarly, if a green obstacle was being evaded and its `currentX` coordinate is now in the rightmost third of the image, evasion is complete.
-              * A `safeDelay(600)` is introduced, followed by `setSteeringAngle(SERVO_RIGHT)` with `safeDelay()` to ensure a full pivot.
+              * A `safeDelayColor(600)` is introduced, followed by `setSteeringAngle(SERVO_RIGHT)` with `safeDelayColor()` to ensure a full pivot.
     6.  **Loss of Sight Handling**: If `selectedIndex` remains `-1` (meaning no block is currently detected in the "near" zone), the robot continues to execute the last commanded steering action. This prevents premature termination of the evasion sequence if the camera momentarily loses sight of the obstacle.
     7.  **Evasion Completion**: Once the `while` loop is broken (either by successful evasion or floor color detection), the evasion protocol is considered complete. The robot's steering will typically revert to `SERVO_STRAIGHT` in the subsequent iteration of the main program loop.
 
