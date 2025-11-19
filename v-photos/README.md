@@ -1,10 +1,9 @@
 # Vehicle Photos
 
-Here you can visualize the photos of our robot, from 6 different angles:
+Here you can visualize the photos of our robot, from 5 different angles:
 
-![Front View](robotfront.jpg)
-![Left View](robotleft.jpg)
-![Right View](robotright.jpg)
-![Back View](robotback.jpg)
-![Up Frontal View](robotup.jpg)
-![Tilted Side View](robotangle3.jpg)
+![Front View](VIZ3_FRONT.jpg)
+![Left View](VIZ3_LEFT.jpg)
+![Right View](VIZ3_RIGHT.jpg)
+![Back View](VIZ3_BACK.jpg)
+![Up Frontal View](VIZ3_UP.jpg)
