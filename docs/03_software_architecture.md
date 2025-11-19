@@ -228,7 +228,7 @@ The robot's dynamic operational state is managed through a set of global boolean
 |`safeDelayColor(unsigned long ms)`| Time | Keeps track of orientation and allows corner turns to be executed. |
 |`encoderDelay(unsigned long cm)`| Distance | Keeps track of orientation. |
 |`encoderDelayOrientation()`| Distance | Updates orientation and executes the PID steering system. |
-|`safeDelayEvasionEncoder()` (Unused on newer versions) | Distance | Allows obstacle evasion evasion during the delay. |
+|`safeDelayEvasionEncoder()` (Unused on newer versions) | Distance | Allows obstacle evasion during the delay. |
 
 ---
 
