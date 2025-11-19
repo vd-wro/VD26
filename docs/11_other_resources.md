@@ -107,9 +107,9 @@ Of course, we are also open to any recommendation, inquiry or comment on any top
 
 ### ViZio - Regional Events
 
-First version of our robot, it had plenty of flaws but was a solid machine. Some components were held by rubber bands, others with glue, and some with screws. It had double front ultrasonic sensors, an add-on bumper, side color sensors, and a manually soldered PCB. Some general defects this version had:
+First version of our robot; it had plenty of flaws but was a solid machine. Some components were held by rubber bands, others with glue, and some with screws. It had double front ultrasonic sensors, an add-on bumper, side color sensors, and a manually soldered PCB. Some general defects this version had:
 
-* **Doubule Front Sonars**: This was first thought to be used when turning while avoiding an obstacle, it indicated when the turn was complete by detecting the distance to the wall. The 45° angle gave the ultrasonic sensor the perfect tilt to detect the wall when the robot was steering. This was later removed to simplify ViZio and improve driving algorithms.
+* **Double Front Sonars**: This was first thought to be used when turning while avoiding an obstacle, it indicated when the turn was complete by detecting the distance to the wall. The 45° angle gave the ultrasonic sensor the perfect tilt to detect the wall when the robot was steering. This was later removed to simplify ViZio and improve driving algorithms.
   
   <img src="./../assets/hardware_photos/imagen (27).jpg" height="150">
 
@@ -131,7 +131,7 @@ First version of our robot, it had plenty of flaws but was a solid machine. Some
 
 ### ViZio 2.0 - National Event
 
-The second version of our robot; with plenty improvements, mostly mechanical, but we still worked over software improvements. These are the main improvements made to the robot, for more information please visit [**Robot Mobility**](./05_robot_mobility.md) and [**Hardware Components**](./02_hardware_components.md).
+The second version of our robot, with plenty improvements, mostly mechanical, but we still worked over software improvements. These are the main improvements made to the robot, for more information please visit [**Robot Mobility**](./05_robot_mobility.md) and [**Hardware Components**](./02_hardware_components.md).
 
 * **Simpler Build**: Simplicity is crucial, we removed unused components: side color sensors and angled ultrasonic sensors.
 
@@ -143,15 +143,15 @@ The second version of our robot; with plenty improvements, mostly mechanical, bu
 
 * **Ultrasonic Sensor Mount**: Snug-fit screwless mounts allow fast repairs and simpler building during competition. Tolerance management principles were applied to fine tune friction between the chassis and the sonars.
 
-* **LED Headlights**: Additional illumination improves camera readings during low light scenarios. The PixyCam's built-in LEDs enhance lighting and suports the robot's headlights.
+* **LED Headlights**: Additional illumination improves camera readings during low light scenarios. The PixyCam's built-in LEDs enhance lighting and supports the robot's headlights.
 
-* **Chassis Redesign**: The redesigned chassis has an array of benefits during the construction phase, not only facilitating it's assembly, but also improving printing time, quality, and durability by using a flat base.
+* **Chassis Redesign**: The redesigned chassis has an array of benefits during the construction phase, not only facilitating its assembly, but also improving printing time, quality, and durability by using a flat base.
  
 * **Lifted Chassis**: During rounds we noticed mats were not completely flat, so we decided to lift the car, making the robot capable to traverse bumps .
 
 * **Double Camera Mount**: During the development of ViZio, multiple camera angles were tested to identify the best view. However, camera movement was restricted to a single fixed slot; hence, to further amplify flexibility, dual camera mounts were implemented into our new model.
 
-* **KiCad PCB**: ***No more flying screw man...*** We designed a custom KiCad PCB to avoid all problems mentioned from the first version!
+* **KiCad PCB**: ***No more flying screw...*** We designed a custom KiCad PCB to avoid all problems mentioned from the first version!
 
 ![ViZio 2.0](./../assets/hardware_photos/ViZio_2.0_Lights.JPG)
 
