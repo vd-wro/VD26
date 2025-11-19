@@ -215,7 +215,7 @@ The robot's dynamic operational state is managed through a set of global boolean
 
 ---
 
-### Non-Blocking Delay (`void safeDelay(unsigned long ms)`)
+## 3.5 Non-Blocking Delay (`void safeDelay(unsigned long ms)`)
 
 * **Purpose**: Provides a mechanism for pausing execution for a specified duration (`ms`) without completely freezing the robot's critical sensor updates and control logic.
 * **Parameters**:
@@ -232,7 +232,7 @@ The robot's dynamic operational state is managed through a set of global boolean
 
 ---
 
-## 3.5 Code Organization
+## 3.6 Code Organization
 
 The provided source code is organized into distinct modules (e.g., `main.ino`, `color_detection.cpp`, `movement.cpp`). While presented as a single integrated file for this documentation, in a larger development environment, these would typically be in separate `.cpp` and `.h` files within a `src/` directory. This separation improves code modularity, maintainability, and readability.
 
