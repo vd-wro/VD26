@@ -92,8 +92,10 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
 * **Description:** The primary structural frame, designed to be lightweight yet rigid, providing essential mounting points for motors, sensors, and the main controller.
 * **3D Model (STL):** [Chassis](./../models/chassis/chassis.stl)
 * **Updated 3D Model (STL):** [Chassis](./../models/chassis/chassis2.0.stl)
+* **Final 3D Model (STL):** [Chassis](./../models/chassis/ViZioInternationalMotorFix.stl)
 * **Interactive 3D Model:** [Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis)
 * **Interactive Updated 3D Model** [Updated Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis2)
+* **International 3D Model** [International Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/chassis_final)
 * **Printing Parameters:**
   * Infill Type: Honeycomb
   * Infill Density: 15%
