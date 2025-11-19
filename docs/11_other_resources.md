@@ -166,7 +166,7 @@ This is our latest version, with a few final touches mostly over the software to
 
 * **Different Turn Maneuvers**: The robot uses three distinct turning maneuvers, selected based on its distance from the wall: close, mid-range, and far.
 
-* **Pivoting Maneuvers** There are also three pivoting maneuvers executed after obstacle avoidance. The appropriate maneuver is chosen according to the robot’s yaw error.
+* **Pivoting Maneuvers**: There are also three pivoting maneuvers executed after obstacle avoidance. The appropriate maneuver is chosen according to the robot’s yaw error.
 
 ## 11.8 Technical Issues and Implemented Remedies
 
