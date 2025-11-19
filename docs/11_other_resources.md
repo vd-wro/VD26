@@ -105,11 +105,11 @@ Of course, we are also open to any recommendation, inquiry or comment on any top
 |:-----------:|:-----------:|:-----------:|
 |<img src="./../assets/hardware_photos/imagen (26).jpg" height="150">|<img src="./../assets/hardware_photos/ViZio_2.0.png" height="150">|<img src="./../assets/hardware_photos/ViZioV3.png" height="150">|
 
-### ViZio - Regional events
+### ViZio - Regional Events
 
-First version of our robot, it had plenty of flaws but was a solid machine. Some components were held by rubber bands, others with glue, and some with screws. It had doubule front ultrasonic sensors, an add-on bumper, side color sensors, and a manually soldered PCB. Some general defects this version had:
+First version of our robot, it had plenty of flaws but was a solid machine. Some components were held by rubber bands, others with glue, and some with screws. It had double front ultrasonic sensors, an add-on bumper, side color sensors, and a manually soldered PCB. Some general defects this version had:
 
-* **Doubule Front Sonars**: This was first thought to be used when turning while avoiding an obstacle, it indicated when the turn was complete by detecting the disance to the wall. The 45° angle gave the ultrasonic sensor the perfect tilt to detect the wall when the robot was steering. This was later removed to simplify ViZio and improve driving algorithms.
+* **Doubule Front Sonars**: This was first thought to be used when turning while avoiding an obstacle, it indicated when the turn was complete by detecting the distance to the wall. The 45° angle gave the ultrasonic sensor the perfect tilt to detect the wall when the robot was steering. This was later removed to simplify ViZio and improve driving algorithms.
   
   <img src="./../assets/hardware_photos/imagen (27).jpg" height="150">
 
