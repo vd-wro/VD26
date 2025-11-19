@@ -203,48 +203,59 @@ This function implements a conditional recentering mechanism designed to adjust 
   
 ## 8.5 Side PID for the **Open Round** (**`void avoidWallPID()`**)
 
-The `avoidWallPID()` function is designed to keep the robot at a safe and constant distance from a wall while it is moving forward. It uses a PID-based lateral correction to adjust the robot’s target yaw (its heading) so it avoids drifting.
-
-1. Similarly to `avoidWall()`, this only runs when:
-  * No turn is currently in progress `(!turningInProgress)`.
-  * The robot is not on its first lap `(lapTurnCount != 0)`.
-
-2. It updates only at specific time intervals to avoid excessive calculations.
+* **Purpose**: The `avoidWallPID()` function is designed to keep the robot at a safe and constant distance from a wall while it is moving forward. It uses a PID-based lateral correction to adjust the robot’s target yaw (its heading) so it avoids drifting.
+* **Operation**:
+1. **Conditions**: Similarly to `avoidWall()`, this only runs when:
+     * `if (!turningInProgress && lapTurnCount != 0) {`: The robot is not in the middle of a turn (`turningInProgress == false`) and only after the first lap count (`lapTurnCount != 0`).
+2. **Timing Control**: It updates only at specific time intervals to avoid excessive calculations.
+     * `if (now - lastWallPIDUpdate < wallPIDInterval) return;`: Checks if enough time has passed since the last update. If not, stops the function to avoid updating too fast.
+     * `lastWallPIDUpdate = now;`: Updates the timestamp to know when the last calculation happened.
   ```cpp
-  unsigned long now = millis();
-  if (now - lastWallPIDUpdate < wallPIDInterval) return;
-  lastWallPIDUpdate = now;
-  ```
-3. Depending on the robot’s direction, either the left or right ultrasonic sensor is chosen, then it retrieves the current distance from the chosen sensor
-  ```cpp
-  NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;
-  int distance = getDistance(sonar);
-  ```
-4. The function calculates:
+void avoidWallPID() {
+  if (!turningInProgress && lapTurnCount != 0) {
+    unsigned long now = millis();
+    if (now - lastWallPIDUpdate < wallPIDInterval) return; // espera al próximo intervalo
+    lastWallPIDUpdate = now; // se actualiza el tiempo de ejecución
 
-  * Error: How far the robot is from the desired wall distance `error = distance - distanceToWall`.
-  * Derivative: The change in error derivative = `error - S_previousError`.
+    NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;
+    int distance = getDistance(sonar);
+```
+3. **Setup**: Selects the correct sonar sensor, reads distance, and ensures the reading is valid before continuing.
+   * `NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;`: Determines which ultrasonic to use. If `direction < 0`, then the right sonar is used. Otherwise, the left sonar is used.
+   * `int distance = getDistance(sonar);`: Reads from the sonar sensor and saves that value in the variable `distance`.
+   * `if(distance == 0) return;`: The function ends if the ultrasonic sensor does not detect anything.
+4. **Lateral PD Control**: Computes the proportional-derivative correction needed to maintain a steady 20 cm from the wall.
+   * `float error = distance - 20;`: Estimates error to maintain 20 cm distance from the wall.
+   * `float derivative = error - S_previousError;`: Calculates derivative, which tells how much the error has changed since last time.
+   * `int correction = constrain((int)(S_Kp * error + S_Kd * derivative), -10, 10);`: Computes the PD correction value using the proportional and derivative; afterwards, it  limits the result between −10 and +10.
+   * `S_previousError = error;`: Stores the current error. Needed for the derivative.
+ 5. **Yaw Adjustment Logic**: Updates the robot’s yaw target when the PD correction changes, ensuring smooth directional adjustments.
+   * `if (lastCorrection != correction)`: Checks if the correction value has changed since the last cycle.
+   * `int err = currentCorrectionAmount - correction;`: Calculates the change difference between current and new correction.
+   * `turnTargetYaw = (turnTargetYaw - (err * direction));`: Adjusts the yaw to target yaw.
+   * `lastCorrection = correction;`: Updates the stored correction value to the new one.
+   * `currentCorrectionAmount = currentCorrectionAmount - err;`: Adjusts the stored correction values.
+6. **New Target Yaw Application**: Applies the updated yaw target so the robot can steer toward the corrected orientation.
+   * `setTargetYaw(turnTargetYaw);`: Sets a new target yaw, enabling the robot to steer accordingly.
+```cpp
+if(distance == 0) return;
+    float error = distance - distanceToWall; 
+    float derivative = error - S_previousError;
+    int correction = constrain((int)(S_Kp * error + S_Kd * derivative), -10, 10);
 
-    Using these, it computes a correction value:
-  ```cpp
-  int correction = constrain((int)(S_Kp * error + S_Kd * derivative), -10, 10);
-  ```
+    S_previousError = error;
+    Serial.println(error);
 
-  * The correction is limited between –10 and +10 to prevent extreme adjustments. This is necessary since ultrasonic sensors operate best at a certain angle; if the robot has a noticeable angle from the wall, ultrasonic waves could be reflected away, affecting the sensor's effectiveness.
+    if (lastCorrection != correction) {
+      int err = currentCorrectionAmount - correction;
+      turnTargetYaw = (turnTargetYaw - (err * direction));
+      Serial.println("Adjusting Yaw");
+      lastCorrection = correction;
+      currentCorrectionAmount = currentCorrectionAmount - err;
+    }
 
-5. If the correction is different from the last one calculated:
-
-  * Compute the adjustment needed
-    * `int err = currentCorrectionAmount - correction;`
-
-  * Apply this adjustment to the robot’s yaw target
-    * `turnTargetYaw = turnTargetYaw - (err * direction);`
-
-  * Update state variables for the next iteration.
-
-  * Set the new target yaw
-    * `setTargetYaw(turnTargetYaw);`
-
+    setTargetYaw(turnTargetYaw);
+```
 This effectively “nudges” the robot’s heading so that it moves slightly away from or closer to the wall.
 
 ---
