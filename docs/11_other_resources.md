@@ -95,9 +95,6 @@ The most recent and complete version of our code is located in the `./src/main_c
 While code modularity is an optional step for more sophisticated and larger systems, for simplicity, the different sections are clearly separated by comments within the code itself.
 For more information, refer to our documentation on the [**Software Architecture**](03_software_architecture.md).
 
-If you notice any inconsistency on this code functionality, feel free to contact us via email: **<vizdrive.wro@gmail.com>**!
-Of course, we are also open to any recommendation, inquiry or comment on any topic.
-
 ## 11.7 Evolution and Improvements Made Within the Versions ViZio
 
 *Ever wondered where ViZio came from? It came from "Viz", part of our name "Vizdrive" and "io", commonly standing for input/output in computer science, which refers to how a computer system communicates with the outside world.*
@@ -187,5 +184,8 @@ This is our latest version, with a few final touches mostly over the software to
 * **Pixy Calibration**: It’s important to cover the Pixy’s lens with your finger during initialization to properly calibrate its brightness settings.
 
 ---
+
+If you notice any inconsistency on this code functionality, feel free to contact us via email: **<vizdrive.wro@gmail.com>**!
+Of course, we are also open to any recommendation, inquiry or comment on any topic.
 
 [Back to Main README.md Index](../README.md)
