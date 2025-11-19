@@ -154,7 +154,7 @@ The second version of our robot, with plenty improvements, mostly mechanical, bu
 
 * **KiCad PCB**: ***No more flying screw...*** We designed a custom KiCad PCB to avoid all problems mentioned from the first version!
 
-![ViZio 2.0](./../assets/hardware_photos/ViZio_2.0_Lights.JPG)
+![ViZio 2.0](./../assets/hardware_photos/ViZio_Photo0.png)
 
 ### ViZio V3 - International Event
 
