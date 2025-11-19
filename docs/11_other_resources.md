@@ -169,6 +169,8 @@ This is our latest version, with a few final touches mostly over the software to
 
 * **Pivoting Maneuvers**: There are also three pivoting maneuvers executed after obstacle avoidance. The appropriate maneuver is chosen according to the robot’s yaw error.
 
+* **Soldered MPU**: Performance improved significantly by soldering the MPU and avoiding excessive vibrations.
+
 ## 11.8 Technical Issues and Implemented Remedies
 
 * **Safe Delay Looping**: This was one of the toughest problems we faced. The robot looped during the `safeDelay()` functions infinitely. Initially we thought it was a `millis()` or `micros()` saturation problem, but this was not the root cause of the problem. After debugging we found out the MPU stopped working arbitrarily, which froze the `safeDelay()` functions that used `updateOrientation()`. Two things were implemented for the solution:
