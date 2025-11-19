@@ -12,7 +12,7 @@ Here you will find all the documentation, source code, images, and models relate
 
 VizDrive's core, ViZio, is an autonomous robot designed to navigate a closed-loop circuit, maintaining a stable trajectory with gyroscopic correction. It uses artificial vision, in conjunction with ultrasonic and color sensors, to detect walls and avoid obstacles.
 
-![Vizdrive Overview](./assets/hardware_photos/ViZio_2.0.png)
+![Vizdrive Overview](./assets/hardware_photos/ViZioV3.png)
 
 We are participating in the **Future Engineers Category** to develop our skills and demonstrate the capabilities of young Panamanians in a competitive field like robotics.
 
