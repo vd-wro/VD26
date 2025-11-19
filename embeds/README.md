@@ -21,6 +21,8 @@ On the other hand, the interactive circuit was designed using the **Cirkit Desig
 
 ### [Updated Interactive Chassis](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis2)
 
+### [International Interactive Chassis](https://vizdrive.github.io/VizDrive_WRO2025/embeds/chassis_final)
+
 ### [Interactive Hub](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_hub)
 
 ### [Interactive Rear Wheels](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_rear_wheels)
