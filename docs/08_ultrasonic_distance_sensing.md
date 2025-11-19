@@ -213,17 +213,16 @@ This function implements a conditional recentering mechanism designed to adjust 
      
      * `if (now - lastWallPIDUpdate < wallPIDInterval) return;`: Checks if enough time has passed since the last update. If not, stops the function to avoid updating too fast.
      * `lastWallPIDUpdate = now;`: Updates the timestamp to know when the last calculation happened.
-       
-       
-  ```cpp
-  void avoidWallPID() {
-  if (!turningInProgress && lapTurnCount != 0) {
-    unsigned long now = millis();
-    if (now - lastWallPIDUpdate < wallPIDInterval) return; // espera al próximo intervalo
-    lastWallPIDUpdate = now; // se actualiza el tiempo de ejecución
-    NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;
-    int distance = getDistance(sonar);
-    ```
+  
+       ```cpp
+       void avoidWallPID() {
+       if (!turningInProgress && lapTurnCount != 0) {
+         unsigned long now = millis();
+         if (now - lastWallPIDUpdate < wallPIDInterval) return; // espera al próximo intervalo
+         lastWallPIDUpdate = now; // se actualiza el tiempo de ejecución
+         NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;
+         int distance = getDistance(sonar);
+       ```
 
   3. **Setup**: Selects the correct sonar sensor, reads distance, and ensures the reading is valid before continuing.
      
