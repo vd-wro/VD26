@@ -97,7 +97,7 @@ For more information, refer to our documentation on the [**Software Architecture
 
 ## 11.7 Evolution and Improvements Made Within the Versions ViZio
 
-*Ever wondered where ViZio came from? It came from "Viz", part of our name "Vizdrive" and "io", commonly standing for input/output in computer science, which refers to how a computer system communicates with the outside world.*
+*Ever wondered where ViZio came from? It came from "Viz", part of our name "Vizdrive" and "io", commonly standing for input/output in computer science, which refers to how a computer system communicates with the outside world. It also happens to sound like “vicio” in Spanish, meaning a strong habit or obsession, and, well, somos unos viciados en la Robótica.*
 
 | ViZio | ViZio 2.0 | ViZio International |
 |:-----------:|:-----------:|:-----------:|
