@@ -32,8 +32,9 @@ You can also check our YouTube channel for more Obstacle Challenge videos.
 
 # Robot Animation Video
 
-Both videos show how to assemble all the robot parts and components into the chassis 3D Model.
-It was made with Blender and rendered at a 4k resolution at 60 frames per second. 
+These videos serve as supplementary material and explanations of the robot's assembly.
+
+This video shows how to assemble all ViZio's parts and components into the chassis 3D Model.
 
 [![Robot Animation Video1](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
 
