@@ -205,9 +205,9 @@ This function implements a conditional recentering mechanism designed to adjust 
 
 * **Purpose**: The `avoidWallPID()` function is designed to keep the robot at a safe and constant distance from a wall while it is moving forward. It uses a PID-based lateral correction to adjust the robot’s target yaw (its heading) so it avoids drifting.
 * **Operation**:
-1. **Conditions**: Similarly to `avoidWall()`, this only runs when:
+  1. **Conditions**: Similarly to `avoidWall()`, this only runs when:
      * `if (!turningInProgress && lapTurnCount != 0) {`: The robot is not in the middle of a turn (`turningInProgress == false`) and only after the first lap count (`lapTurnCount != 0`).
-2. **Timing Control**: It updates only at specific time intervals to avoid excessive calculations.
+  2. **Timing Control**: It updates only at specific time intervals to avoid excessive calculations.
      * `if (now - lastWallPIDUpdate < wallPIDInterval) return;`: Checks if enough time has passed since the last update. If not, stops the function to avoid updating too fast.
      * `lastWallPIDUpdate = now;`: Updates the timestamp to know when the last calculation happened.
   ```cpp
@@ -216,10 +216,9 @@ void avoidWallPID() {
     unsigned long now = millis();
     if (now - lastWallPIDUpdate < wallPIDInterval) return; // espera al próximo intervalo
     lastWallPIDUpdate = now; // se actualiza el tiempo de ejecución
-
     NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;
     int distance = getDistance(sonar);
-```
+    ```
 3. **Setup**: Selects the correct sonar sensor, reads distance, and ensures the reading is valid before continuing.
      * `NewPing sonar = (direction < 0) ? sonarRight : sonarLeft;`: Determines which ultrasonic to use. If `direction < 0`, then the right sonar is used. Otherwise, the left sonar is used.
      * `int distance = getDistance(sonar);`: Reads from the sonar sensor and saves that value in the variable `distance`.
