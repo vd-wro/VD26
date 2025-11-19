@@ -221,7 +221,7 @@ The robot's dynamic operational state is managed through a set of global boolean
 * **Parameters**:
     * `ms`: The duration of the delay in milliseconds.
 * **Operation**: Unlike a standard `delay()`, `safeDelay()` continuously executes essential functions such as `updateOrientation()`, `detectFloorColor()`, and `handleColorAction()` within its loop, depending on the delay type. Encoder delays are also used to wait until a specific amount of pulses are detected. This ensures the robot remains responsive to environmental changes even during brief pauses in its main sequence. It still is a blocking delay; however, executes the necessary functions for the robot's adaptability.
-* 
+  
 | Type | Measuring System | Function |
 |:----|:----:|----|
 |`safeDelay(unsigned long ms)`| Time | Keeps track of orientation. |
