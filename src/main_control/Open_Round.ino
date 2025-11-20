@@ -1,3 +1,14 @@
+/* =============================================
+       VIZDRIVE WRO 2025 - FUTURE ENGINEERS
+       OPEN ROUND - MAIN CODE
+       
+       CALIBRATION NOTICE:
+       Certain parameters in this code use non-ideal values.  
+       These are empirical corrections added to
+       compensate for mechanical tolerances, motor asymmetry, friction, and
+       sensor offsets observed during real-world testing.
+ ============================================= */
+
 #include <Wire.h> // i2c connection
 #include <Adafruit_MPU6050.h> // mpu6050
 #include <Adafruit_Sensor.h>
