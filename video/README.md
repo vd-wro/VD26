@@ -12,7 +12,9 @@ For the Open Round, we adjusted our strategy because touching the outermost wall
 
 [![Open Challenge Video](https://img.youtube.com/vi/nUoTaL3pmQw/0.jpg)](https://www.youtube.com/watch?v=nUoTaL3pmQw)
 
-Both versions of the robot share the same Open Round code and behavior.
+Previous versions of the robot share the same Open Round code and behavior; however, ViZio V3 now is able to navigate trough tighter spaces with the variable center.
+
+[![Obstacle Challenge Video1](https://img.youtube.com/vi/Y4y8UubQgvo/0.jpg)](https://www.youtube.com/watch?v=Y4y8UubQgvo)
 
 ---
 
@@ -22,11 +24,15 @@ This video primarily showcases our robot's **artificial vision capabilities** us
 
 Updated regional practice video:
 
-[![Obstacle Challenge Video](https://img.youtube.com/vi/GUYxAUy47Ms/0.jpg)](https://www.youtube.com/watch?v=GUYxAUy47Ms)
+[![Obstacle Challenge Video1](https://img.youtube.com/vi/GUYxAUy47Ms/0.jpg)](https://www.youtube.com/watch?v=GUYxAUy47Ms)
 
 National close-up practice video:
 
-[![Obstacle Challenge Video](https://img.youtube.com/vi/fA4aFdq4Xt8/0.jpg)](https://www.youtube.com/watch?v=fA4aFdq4Xt8)
+[![Obstacle Challenge Video2](https://img.youtube.com/vi/BSdScv6dc1I/0.jpg)](https://www.youtube.com/watch?v=BSdScv6dc1I)
+
+International event practice video:
+
+[![Obstacle Challenge Video3](https://img.youtube.com/vi/nUtFuM8RD_c/0.jpg)](https://www.youtube.com/watch?v=nUtFuM8RD_c)
 
 You can also check our YouTube channel for more Obstacle Challenge videos.
 
