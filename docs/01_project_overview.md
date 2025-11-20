@@ -2,7 +2,7 @@
 
 ## 1.1 Introduction to VizDrive 2025
 
-ViZio is an autonomous robot developed by a Panamanian 🇵🇦 Team VizDrive for the **2025 World Robot Olympiad (WRO)**.
+ViZio is an autonomous robot developed by a Panamanian 🔴⚪🔵 Team VizDrive for the **2025 World Robot Olympiad (WRO)**.
 Our project participates in the **Future Engineers** category. Our goal is to apply advanced robotics, data analysis, error management, and optimization principles to represent Panama in the international field of robotics.
 
 ![Vizdrive Overview](../assets/hardware_photos/ViZio_2.0_Lights.JPG)
