@@ -33,6 +33,8 @@ On the other hand, the interactive circuit was designed using the **Cirkit Desig
 
 ### [Interactive KiCad PCB](https://vizdrive.github.io/VizDrive_WRO2025/embeds/KiCad_PCB)
 
+### [Interactive Robot Viewer](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Robot)
+
 ## How These Embeds Work
 
 ## Interactive 3D Models
