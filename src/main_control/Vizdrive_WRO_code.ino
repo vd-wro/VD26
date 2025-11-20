@@ -1,9 +1,20 @@
-#include <Wire.h> // i2c connection
-#include <Adafruit_MPU6050.h> // mpu6050
+/* =============================================
+       VIZDRIVE WRO 2025 - FUTURE ENGINEERS
+       OBSTACLE CHALLENGE ROUND - MAIN CODE
+       
+       CALIBRATION NOTICE:
+       Certain parameters in this code use non-ideal values.  
+       These are empirical corrections added to
+       compensate for mechanical tolerances, motor asymmetry, friction, and
+       sensor offsets observed during real-world testing.
+ ============================================= */
+
+#include <Wire.h> // I2C connection
+#include <Adafruit_MPU6050.h> // MPU-6050
 #include <Adafruit_Sensor.h>
-#include <Adafruit_TCS34725.h>  // color sensor
-#include <Servo.h>  // servomotor
-#include <NewPing.h>  // ultrasonic sensors
+#include <Adafruit_TCS34725.h>  // Color sensor
+#include <Servo.h>  // Servo motor
+#include <NewPing.h>  // Ultrasonic sensors
 #include <Pixy2.h>  // Pixycam 2.1
  
 // GLOBAL VARIABLES
@@ -11,18 +22,22 @@
 // 1. Mobility Functionalities
  
 // DC motor PWM pins
-#define MOTOR_INA_PWM 4
-#define MOTOR_INB_PWM 5
-int motorSpeed = 180; // motor PWM value for velocity
+#define MOTOR_INA_PWM 5
+#define MOTOR_INB_PWM 4
+float speedBoost = 1.1;
+int motorSpeed = int(175 * (speedBoost)); //175
+int parkingSpeed = int(155 * (speedBoost)); //155
+int parkingReverseSpeed = int(155 * (speedBoost)); //155
+int backwardSpeed = int(200 * (speedBoost)); //200
 
 // Headlight PWM pins
 #define LED_HEADLIGHT_PWM 8
 
 // Servomotor pin
-#define SERVO_PIN     6
+#define SERVO_PIN 6
  
 // Constant servo angles
-const int SERVO_STRAIGHT = 85;
+const int SERVO_STRAIGHT = 101;
 int SERVO_MAX = 45; // maximum angle of servo's rotation
 int SERVO_LEFT  = SERVO_STRAIGHT - SERVO_MAX;
 int SERVO_RIGHT = SERVO_STRAIGHT + SERVO_MAX;
@@ -30,7 +45,7 @@ int SERVO_RIGHT = SERVO_STRAIGHT + SERVO_MAX;
 // Defining the servomotor
 Servo steeringServo;
 
-int turnAngle = 90; // Defining a variable for the turns (90°)
+int turnAngle = 72; // Defining a variable to compensate for any constant offset in every turn
 bool correctionApplied = false;  // Indicates if a correction was applied
 float correctionAmount = 0.0;    // Stores what was the correction (±10.0)
  
@@ -51,6 +66,8 @@ float gyroZ_offset = 0.0; // MPU6050 calibrated offset
 static float yaw = 0.0; // variable for accumulated yaw
 static float targetYaw = 0.0; // target yaw for PID correction
 const int samples = 250;  // samples for MPU6050 calibration
+int sensorFailCount = 0;
+const int maxSensorFails = 10;  // Número máximo de fallos antes de actuar
  
 static float previousError = 0.0; // previous error for the time derivative correction
  
@@ -60,33 +77,17 @@ const float Kd = 1.2; // derivative gain
 const float Ki = 0.0; // integral gain (inactive to avoid wind-up and over-correction)
  
 // 3. Color Detection
- 
-// Color detection thresholds
-const int MAGENTA_RED_THRESHOLD =   150;  // side-mounted color sensors for magenta walls detection
-const int MAGENTA_GREEN_THRESHOLD = 120;
-const int MAGENTA_BLUE_THRESHOLD =  150;
- 
-// STRUCTS
-struct RGB {  // struct to store side-mounted color sensors' reads.
-  int red;
-  int green;
-  int blue;
-};
- 
+
 // color sensor located at the bottom
 const int BLUE_RED_THRESHOLD =   80;   // blue color thresholds. og = 80
-const int BLUE_GREEN_THRESHOLD = 85;
-const int BLUE_BLUE_THRESHOLD =  70;
-const int ORANGE_RED_THRESHOLD =   110; // orange color thresholds
-const int ORANGE_GREEN_THRESHOLD = 100;
-const int ORANGE_BLUE_THRESHOLD =  70;
- 
+const int BLUE_GREEN_THRESHOLD = 86;
+const int BLUE_BLUE_THRESHOLD =  68;
+const int ORANGE_RED_THRESHOLD =   112; // orange color thresholds
+const int ORANGE_GREEN_THRESHOLD = 85;
+const int ORANGE_BLUE_THRESHOLD =  60;
+
 // Defining the i2c color sensor as "floorTcs"
 static Adafruit_TCS34725 floorTcs(TCS34725_INTEGRATIONTIME_2_4MS, TCS34725_GAIN_1X);
- 
-// Defining the digital pins for the side-mounted sensors
-const int S0_L = 10; const int S1_L = 12; const int S2_L = 16; const int S3_L = 18; const int OUT_L = 48; // left
-const int S0_R = 51; const int S1_R = 49; const int S2_R = 50; const int S3_R = 52; const int OUT_R = 53; // right
  
 // 4. Ultrasonic Sensor Distance Measurement
  
@@ -96,28 +97,26 @@ const int S0_R = 51; const int S1_R = 49; const int S2_R = 50; const int S3_R = 
 // Right ultrasonic sensor trigger and echo pins
 #define US_RIGHT_TRIG 11
 #define US_RIGHT_ECHO 13
- 
+
 // Front ultrasonic sensor trigger and echo pins
 #define US_FRONT_TRIG 7
 #define US_FRONT_ECHO 9
  
 // Max detection distance for the definition of the ultrasonic sensors
 #define MAX_DISTANCE 200
- 
-NewPing sonarFront(US_FRONT_TRIG, US_FRONT_ECHO, MAX_DISTANCE);
- 
+
 // Defining the ultrasonic sensors with NewPing library
+NewPing sonarFront(US_FRONT_TRIG, US_FRONT_ECHO, MAX_DISTANCE);
 NewPing sonarLeft(US_LEFT_TRIG, US_LEFT_ECHO, MAX_DISTANCE);
 NewPing sonarRight(US_RIGHT_TRIG, US_RIGHT_ECHO, MAX_DISTANCE);
- 
-const int avoidance_amount = 5; // the amount for the ultrasonic correction in degrees
- 
+
 // 5. Artificial Vision with Pixycam 2.1
  
 Pixy2 pixy;
- 
-#define SIGNATURE_RED 2
-#define SIGNATURE_GREEN 1
+
+// Signatures for the PixyCam color recognition
+#define SIGNATURE_RED 2 //2
+#define SIGNATURE_GREEN 1 //1
  
 /*Configuration of the Region of Interest
 Coordinates of the Pixy resolution: width: 316, height: 208*/
@@ -132,13 +131,15 @@ const int LEFT_SECTION_END_X = IMAGE_WIDTH / 4;   // X-coordinate separating lef
 const int RIGHT_SECTION_START_X = (3 * IMAGE_WIDTH) / 4; // X-coordinate separating right third
  
 // 6. State Logic
- 
-unsigned int lapTurnCount = 0, lapCompletedCount = 0; // variables for lap counting
+
+unsigned int lapTurnCount = 0;
+int lapFinishedNumber = 12; // variables for lap counting
 bool parkingMode = false, SystemShutdown = false; // variables for parking and shutdown
 
 bool turningInProgress = false; // boolean that indicates when a turn was completed
 unsigned long lastTurnTime = 0; // variable to control the turn cooldown
 const float TURN_THRESHOLD = 3.0; // tolerance threshold for turns
+unsigned long turnCorrectionTime = 3000000; // 4 seconds
 
 bool correctionState = false;  // variable to avoid repetitive ultrasonic corrections in one lap
 
@@ -146,6 +147,7 @@ float turnTargetYaw = 0.0;  // target yaw for turning
 int direction = 0;  // turn direction → -1: counterclockwise, +1: clockwise
  
 int lastSignature = 0;  // last evaded signature for ultrasonic correction
+int parkingSignature = 0;
 
 // Miscellaneous
 const int buttonPin = 3; // start button pin
@@ -153,17 +155,17 @@ const int ledPin = 23; // indicator LED
 unsigned long lastUpdateOrientationTime = 0; // for main loop non-blocking delay
 unsigned long lastUpdateTime = 0;
 unsigned long lastCentreUpdateTime = 0; // for centring non-blocking while loop
-
  
 void setup() {
   Serial.begin(115200); // initializing the serial monitor (115200 bauds is the Pixycam requirement)
- 
+  
   // Call all setup functions
   initMovement();
   initOrientation();
   initColorSensors();
   initUltrasonic();
   initVision();
+  //initHeadlights(true, 150);
   initStateLogic();
  
   waitForStartButton(); // wait for button press
@@ -174,40 +176,77 @@ void setup() {
 void loop() {
   unsigned long now = millis(); // updates current time
  
-  // Code executed at 33.3 Hz
-  if (now - lastUpdateTime < 30) return;  // if 30 ms have not passed, do not execute code
+  // Code executed at roughly 33.3 Hz
+  if (now - lastUpdateTime < 25) return;  // if 30 ms have not passed, do not execute code
  
-  // debugging();
+  //debugging();
  
   driveForward(motorSpeed); // drive forward with a specific speed
  
   updateOrientation();  // PID control and MPU6050 orientation control
-  keepOrientation();
-  
-  recentreIfNeeded();  // avoid walls with ultrasonic sensors
-
-  if (detectFloorColor()) handleColorAction();  // detect floor color lines for turns
-  
-  handleEvasion();  // object detection with the Pixycam 2.1
+  keepOrientation();  
  
-  if (turningInProgress) completedTurn();
+  if ( lapTurnCount > 0) recentreIfNeeded();  // avoid walls with ultrasonic sensors
+ 
+  if (detectFloorColor()) handleColorAction();  // detect color lines on the floor for turns
+  if (turningInProgress) completedTurn(); // function to detect completed turns
 
-  if (parkingMode == true) parkingManeuver();
+  if (obstacleDetected()) handleEvasion();  // detect obstacles and evade accordingly
+  
+  if (parkingMode == true) parkingManeuver(); // park after 3 laps
 
-  lastUpdateTime = now;
+  lastUpdateTime = now; // updates the time for next iteration
 }
  
 // Functions
  
 // Function for a non-blocking delay
+// Only executes the updateOrientation function
 void safeDelay(unsigned long ms) {
-  unsigned long startDelay = millis();  // 
-  
-  while ((millis() - startDelay) < ms) {
-    updateOrientation();  // updates orientation
-    delay(3);
-    if (detectFloorColor()) handleColorAction();
+  unsigned long startDelay = micros();  // sets the start time
+  unsigned long lastUpdateTimeD = 0UL; // para controlar la frecuencia de updateOrientation
+
+  while ((micros() - startDelay) < ms*1000UL) {
+    unsigned long nowD = micros(); // updates current time
+    if (nowD - lastUpdateTimeD > 25000UL) {
+      updateOrientation();  // updates orientation
+      Serial.print("Remaining time: "); // debugging
+      Serial.print((micros() - startDelay));
+      Serial.println(" µs");
+      lastUpdateTimeD = nowD; // updates the time for next iteration
+    }
   }
+  Serial.print("Finnished Delay----------------------------");
+}
+
+// Function for a non-blockaing delay
+bool safeDelayColor(unsigned long ms) {
+  unsigned long startDelay = micros();  // tiempo de inicio
+  unsigned long lastUpdateTimeDC = 0UL; // para controlar la frecuencia de updateOrientation
+
+  while ((micros() - startDelay) < ms * 1000UL) {
+    unsigned long nowDC = micros();
+
+    // Solo actualiza orientación cada 25 ms (25000 µs)
+    if (nowDC - lastUpdateTimeDC >= 25000UL) {
+      updateOrientation();
+      lastUpdateTimeDC = nowDC;
+    }
+
+    if (detectFloorColor()) {
+      handleColorAction();
+      return true;  
+    }
+
+    delay(3);
+
+    Serial.print("Remaining time: ");
+    Serial.print(nowDC - startDelay);
+    Serial.println(" µs");
+  }
+
+  Serial.println("Finished Delay-------------------- COLOR");
+  return false; // si no hubo color, devuelve false
 }
 
 // SETUP FUNCTIONS
@@ -228,14 +267,15 @@ void initMovement() {
 // Setup for Orientation Functionalities
 void initOrientation() {
   Wire.begin(); // i2c connection to the MPU
+  Wire.setWireTimeout(3000, true); // 3 ms timeout, reset bus on timeout
   while (!mpu.begin()) {
    Serial.println("MPU6050 not found, trying again in 3 seconds...");
    delay(3000);
   }
   Serial.println("MPU6050 initialized succesfully.");
   mpu.setAccelerometerRange(MPU6050_RANGE_8_G);  // sets the accelerometer's measurement range to ±8g
-  mpu.setGyroRange(MPU6050_RANGE_500_DEG); // sets the gyroscope's measurement range to ±500 degrees/second.
-  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ); // configures the DLPF bandwidth to 21 Hz, to reduce high-frequency noise.
+  mpu.setGyroRange(MPU6050_RANGE_250_DEG); // sets the gyroscope's measurement range to ±500 degrees/second.
+  mpu.setFilterBandwidth(MPU6050_BAND_94_HZ); // configures the DLPF bandwidth to 94 Hz, to reduce high-frequency noise.
   delay(250); // brief pause for stabilization
  
   // MPU6050 calibration
@@ -254,33 +294,37 @@ void initOrientation() {
  
 // Setup for Color Detection with TCS color sensors
 void initColorSensors() {
+  Serial.println("Iniciando sensores de color.");
   floorTcs.begin(); // start i2c tcs color sensor
- 
-  // defining pins s0, s1, s2, s3, and out as outputs.
-  pinMode(S0_L, OUTPUT); pinMode(S1_L, OUTPUT); pinMode(S2_L, OUTPUT); pinMode(S3_L, OUTPUT); pinMode(OUT_L, INPUT);
-  pinMode(S0_R, OUTPUT); pinMode(S1_R, OUTPUT); pinMode(S2_R, OUTPUT); pinMode(S3_R, OUTPUT); pinMode(OUT_R, INPUT);
-  digitalWrite(S0_L, HIGH); digitalWrite(S1_L, HIGH); // for frequency scaling set to 100%
-  digitalWrite(S0_R, HIGH); digitalWrite(S1_R, HIGH); // set both s0 and s1 to HIGH
   Serial.println("Color sensors initialized...");
 }
  
 // Setup for Ultrasonic Sensors
 void initUltrasonic() {
   // No setup needed; sonars declared in the header
-  Serial.println("Ultrasonic sensors initialized...");
+  Serial.println("Ultrasonic sensor initialized...");
 }
  
+ // Setup for PixyCam
 void initVision() {
-  pixy.init();
+  pixy.init();  
+  delay(100);
   Serial.println("Artificial vision initialized...");
 }
- 
 // Setup for State Logic Functionalities
 void initStateLogic() {
   setTargetYaw(0.0);
   Serial.println("State logic initialized...");
 }
  
+void initHeadlights(bool pixyLED, int ledBrightness) {
+  pixy.setLamp(pixyLED, 1); // pixycam's lamp for ilumination
+  delay(100);
+  analogWrite(LED_HEADLIGHT_PWM, ledBrightness);
+  delay(100);
+  Serial.print("Headlights initialized...");
+}
+
 // Start button function.
 // Blocks the program until the button is pressed.
 void waitForStartButton() {
@@ -311,12 +355,6 @@ void driveBackward(int speed) {
   digitalWrite(MOTOR_INB_PWM, speed);
 }
  
-// Decelerates motors naturally
-void stopMotors() {
-  digitalWrite(MOTOR_INA_PWM, LOW); // sets both motor input pin to LOW (0)
-  digitalWrite(MOTOR_INB_PWM, LOW);
-}
- 
 // Stops motors forcefully
 void stopBrake() {
   digitalWrite(MOTOR_INA_PWM, HIGH); // sets both input pins to HIGH, to create a short-circuit braking effect
@@ -345,8 +383,16 @@ void encoderDelayOrientation(unsigned long cm) {
   Serial.print("PULSES REQUIRED ORIENTATION: ");
   Serial.println(pulsesRequired);
 
+  unsigned long lastUpdateTimeEO = 0UL; // Track last orientation update
+
   while (1) {
-    updateOrientation();
+    unsigned long nowEO = micros();
+
+    // Update orientation only every 25 ms
+    if (nowEO - lastUpdateTimeEO >= 25000UL) {
+      updateOrientation();
+      lastUpdateTimeEO = nowEO;
+    }
 
     keepOrientation();   // Maintain orientation
     delay(3);            // Small delay to prevent CPU overload
@@ -355,7 +401,7 @@ void encoderDelayOrientation(unsigned long cm) {
     Serial.println((pulsesRequired - encoderPulseCount + 2));
 
     // Exit loop when required pulses are reached
-    if ((pulsesRequired - encoderPulseCount) + 2 <= 2) {
+    if (((pulsesRequired - encoderPulseCount) + 10 <= 10) || ((pulsesRequired - encoderPulseCount) > 30000000UL)) {
       break;
     }
   }
@@ -369,8 +415,16 @@ void encoderDelay(unsigned long cm) {
   Serial.print("PULSES REQUIRED: ");
   Serial.println(pulsesRequired);
 
+  unsigned long lastUpdateTimeE = 0UL; // Track last orientation update
+
   while (1) {
-    updateOrientation();
+    unsigned long nowE = micros();
+
+    // Update orientation only every 25 ms
+    if (nowE - lastUpdateTimeE >= 25000UL) {
+      updateOrientation();
+      lastUpdateTimeE = nowE;
+    }
 
     delay(3); // Small delay to prevent CPU overload
 
@@ -378,7 +432,7 @@ void encoderDelay(unsigned long cm) {
     Serial.println((pulsesRequired - encoderPulseCount + 2));
 
     // Exit loop when required pulses are reached
-    if ((pulsesRequired - encoderPulseCount) + 2 <= 2) {
+    if (((pulsesRequired - encoderPulseCount) + 10 <= 10) || ((pulsesRequired - encoderPulseCount) > 30000000UL)) {
       break;
     }
   }
@@ -393,17 +447,26 @@ bool safeDelayEvasionEncoder(unsigned long cm) {
   Serial.println(pulsesRequired);
 
   bool obstacleFound = false;
+  unsigned long lastUpdateTimeEE = 0UL; // Track last orientation update
 
   while (1) {
-    updateOrientation();
-    
+    unsigned long nowEE = micros();
+
+    // Update orientation only every 25 ms
+    if (nowEE - lastUpdateTimeEE >= 25000UL) {
+      updateOrientation();
+      lastUpdateTimeEE = nowEE;
+    }
+
     keepOrientation(); // Maintain orientation
     delay(5);
 
     // If obstacle detected, handle evasion
     if (obstacleDetected()) {
+      Serial.print("An obstacle was detected during evasionDelay");
       handleEvasion();
       obstacleFound = true;
+      Serial.println("obstacleFound = TRUE");
     }
 
     Serial.print("Remaining steps: ");
@@ -413,7 +476,7 @@ bool safeDelayEvasionEncoder(unsigned long cm) {
     delay(5);
 
     // Exit loop when required pulses are reached
-    if ((pulsesRequired - encoderPulseCount) + 2 <= 2) {
+    if (((pulsesRequired - encoderPulseCount) + 10 <= 10) || ((pulsesRequired - encoderPulseCount) > 30000000UL)) {
       break;
     }
   }
@@ -430,7 +493,7 @@ void parkingManeuver() {
     setSteeringAngle(SERVO_STRAIGHT); // Resets Servo Angle
     //Defining math variables
     int distance = getDistance(sonarLeft);
-    int a_cm = distance - 28;
+    int a_cm = distance - 43;
     int b_cm = 75;
     int c_cm;
     int angle;
@@ -485,45 +548,30 @@ void parkingManeuver() {
     }
       
     driveForward(parkingSpeed);
-    encoderDelayOrientation(60); // Waits until the defined distance is complete
+    encoderDelayOrientation(48); // Waits until the defined distance is complete
     stopBrake();  // stops the motors
+    delay(100);
 
     setSteeringAngle(SERVO_LEFT); // parking maneuver
     driveBackward(parkingReverseSpeed);
-    encoderDelay(40); // Waits until the defined distance is complete
+    encoderDelay(34); // Waits until the defined distance is complete
     stopBrake();  // stops the motors
 
     setSteeringAngle(SERVO_RIGHT);
     driveBackward(parkingReverseSpeed);
-    encoderDelay(40); // Waits until the defined distance is complete
+    encoderDelay(36); // Waits until the defined distance is complete
     stopBrake();
+    setSteeringAngle(SERVO_STRAIGHT);
     while (1);  // stops the program
   }
-      
+  // Parking is far
   if (direction == -1) {
-    // Parking is far
-    int signatureVal; // Last signature
-    driveForward(parkingSpeed); // Waits until the defined distance is complete
-    if (safeDelayEvasionEncoder(80)){ // Waits until the defined distance is complete or an obstacle is detected
-      if (lastSignature == SIGNATURE_RED) {
-          signatureVal = 2;
-        } else if (lastSignature == SIGNATURE_GREEN) {
-          signatureVal = 1;
-      }
-    } else {
-      signatureVal = 0;
-    }
-    if (signatureVal = 1) {
-      safeDelayEvasionEncoder(10);
-    }
-    stopBrake();
-    delay(15);
-    // Centers servo
+    delay(100);
     setSteeringAngle(SERVO_STRAIGHT);
     // Defines math variables
     int distance = getDistance(sonarRight);
-    int a_cm = distance - 28;
-    int b_cm = 45;
+    int a_cm = distance - 30;
+    int b_cm = 42;
     int c_cm;
     int angle;
     int turnDirection;
@@ -568,46 +616,73 @@ void parkingManeuver() {
     Serial.print("accelerating"); 
 
     encoderDelayOrientation(c_cm); // Waits until the defined distance is complete
+    //digitalWrite(ledPin, LOW);
     stopBrake();  // stops the motors
 
     if (turnDirection != 0) {
-      turnTargetYaw = (turnTargetYaw - (angle*direction*turnDirection));  // sets the target yaw to, according to direction
+      turnTargetYaw = (turnTargetYaw - (angle*direction*turnDirection));  // sets the target yaw to ± 90°, according to direction
       setTargetYaw(turnTargetYaw);
     }
+    // Distance to travel for block signature
 
     driveForward(parkingSpeed);
-    encoderDelayOrientation(80); // Waits until the defined distance is complete
+    encoderDelayOrientation(135);
+
+    //encoderDelayOrientation(requiredDistanceForSignature); // Waits until the defined distance is complete
     stopBrake();  // stops the motors
+    delay(100);
 
     setSteeringAngle(SERVO_RIGHT); // parking maneuver
     driveBackward(parkingReverseSpeed);
-    encoderDelay(40); // Waits until the defined distance is complete
+    encoderDelay(34); // Waits until the defined distance is complete
     stopBrake();  // stops the motors
 
     setSteeringAngle(SERVO_LEFT);
-    driveBackward(145);
-    encoderDelay(40); // Waits until the defined distance is complete
+    driveBackward(parkingReverseSpeed);
+    encoderDelay(37); // Waits until the defined distance is complete
 
     stopBrake();
+    setSteeringAngle(SERVO_STRAIGHT);
     while (1);  // stops the program
   }
 }
+
 
 // Orientation Functions
  
 // Function to get the accumulated yaw angle
 void updateOrientation() {
-  unsigned long now = millis(); // gets the current time
- 
-  float dt = (now-lastUpdateOrientationTime)/1000.0; // calculates the time differential in seconds
- 
+  unsigned long now = micros();
+  float dt = (now - lastUpdateOrientationTime) / 1000000.0;  // segundos
+
   sensors_event_t a, g, temp;
-  mpu.getEvent(&a, &g, &temp);  // retrieves the sensor event data (gyroscope readings)
-  float gyroZ_deg = (g.gyro.z - gyroZ_offset) * 57.2958;  // the result in radians/second is converted to degrees/second, and is compensated by subtracting the calculated offset
-  if (abs(gyroZ_deg) > 0.1) { // a 0.1 noise threshold
-    yaw += gyroZ_deg * dt;  // integrates the angular velocity over time, to obtain accumulated yaw
+  mpu.getEvent(&a, &g, &temp);  // Obtener los datos del sensor
+
+  float gyroZ = g.gyro.z;
+
+  // Validar que la lectura del giroscopio Z sea válida
+  if (!isnan(gyroZ) && abs(gyroZ) < 10.0) {  // Filtra valores absurdos
+    sensorFailCount = 0;  // Resetear contador de fallos
+
+    float gyroZ_deg = (gyroZ - gyroZ_offset) * 57.295779513;
+
+    if (abs(gyroZ_deg) > 0.1) {  
+      yaw += gyroZ_deg * dt;  
+    }
+
+  } else {
+    sensorFailCount++;
+    Serial.print("Lectura inválida del giroscopio (Z): ");
+    Serial.println(gyroZ, 6);
+
+    if (sensorFailCount >= maxSensorFails) {
+      Serial.println("Demasiados fallos consecutivos del MPU. Verifica conexión o reinicia.");
+      mpu.begin();
+      sensorFailCount = 0;
+    }
   }
-  lastUpdateOrientationTime = now; // sets the last update time global variable to now for the next update
+
+  lastUpdateOrientationTime = now;  // Siempre actualizar el tiempo
 }
  
 // Function to apply the PID control for orientation correction
@@ -638,6 +713,7 @@ float getAbsoluteYawError() {
  
 // Function for orange and blue floor lines detection
 bool detectFloorColor() {
+  if (lapTurnCount == lapFinishedNumber) return false;
   uint16_t r,g,b,c;
   floorTcs.getRawData(&r,&g,&b,&c); // gets raw rgbc data from the sensor
   if (!c) return false; // avoid dividing by 0
@@ -652,22 +728,24 @@ bool detectFloorColor() {
   // For the first lap turn, the first detected color defines the direction:
   if (lapTurnCount == 0 && bn>BLUE_BLUE_THRESHOLD && rn < BLUE_RED_THRESHOLD) {  // if blue color is detected
     direction = -1; // blue: counter-clockwise (-1)
+    turnAngle = 74;
     /*Serial.print("Direction set to: ");  // debugging
     Serial.println(direction);*/
     return true;
-  } else if (lapTurnCount == 0 && rn>ORANGE_RED_THRESHOLD) { // if orange color is detected
+  } else if (lapTurnCount == 0 && rn>ORANGE_RED_THRESHOLD && gn<ORANGE_GREEN_THRESHOLD) { // if orange color is detected
     direction = +1; // orange: clockwise (+1)
+    turnAngle = 74;
     /*Serial.print("Direction set to: ");  // debugging
     Serial.println(direction);*/
     return true;
   }
 
-  if (direction<0 && bn>BLUE_BLUE_THRESHOLD && rn<BLUE_RED_THRESHOLD && gn<BLUE_GREEN_THRESHOLD) {
+  if (direction<0 && bn>BLUE_BLUE_THRESHOLD && rn < BLUE_RED_THRESHOLD ) {
     // Serial.println("BLUE color detected");
     resetYawCorrection();
     return true;
     } // returns true if a color detection matches the threshold
-  if (direction>0 && rn>ORANGE_RED_THRESHOLD && gn>ORANGE_GREEN_THRESHOLD && bn<ORANGE_BLUE_THRESHOLD) {
+  if (direction>0 && rn>ORANGE_RED_THRESHOLD && gn<ORANGE_GREEN_THRESHOLD) {
     // Serial.println("ORANGE color detected");
     resetYawCorrection();
     return true;
@@ -677,7 +755,7 @@ bool detectFloorColor() {
  
 // Function for turns when a color is detected
 void handleColorAction() {
-  if (detectFloorColor() && !turningInProgress && turnCooldown()) { // if the a color is detected at the bottom, and there's no turning in progress...
+  if (turnCooldown() && !turningInProgress) { // if a color is detected at the bottom, and there's no turning in progress...
     lapTurnCount++; // lap turn counting
     turningInProgress = true;
     digitalWrite(ledPin, HIGH); // turns on the LED for visualization of states
@@ -687,52 +765,98 @@ void handleColorAction() {
     int df = sonarFront.ping_cm();
     safeDelay(10);
  
-    while (df > 10 || df == 0) {  // while the distance to the wall is greater than 10
+    while (df > 25 || df == 0) {  // while the distance to the wall is greater than 10
       df = getDistance(sonarFront); // updates the front distance
       keepOrientation();  // keeps the orientation
       safeDelay(10);  // brief delay
  
-      /*Serial.print("Distance to the wall: ");  // debugging
-      Serial.println(df);*/
+      Serial.print("Distance to the wall: ");  // debugging
+      Serial.println(df);
     }
-
     stopBrake();  // stops the motors
    
     NewPing sonar = (direction < 0) ? sonarRight : sonarLeft; // according to the direction, decides which ultrasonic sensor to use
-    int distance = getDistance(sonar);  // gets the distance to the wall, and acts accordingly,
+    int distance = getDistance(sonar);  // gets the distance to the wall, and acts accordingly
 
-    turnTargetYaw = (turnTargetYaw + (turnAngle * -direction));  // sets the target yaw to ± 90°, according to direction
-    setTargetYaw(turnTargetYaw);
- 
-    if (distance <= 5 && distance != 0) {  // if the distance to the wall is short,
+    // Si el primer intento falla (es 0), reintenta hasta 2 veces más
+if (distance == 0) {
+  // Bucle para los reintentos (se ejecuta un máximo de 2 veces)
+  for (int i = 0; i < 2; i++) {
+    distance = getDistance(sonar); // Reintenta la medición
+    if (distance != 0) {
+      break; // Si se obtiene una medida válida, sale del bucle
+    }
+  }
+}
+
+
+
+    safeDelay(50);
+
+    if (distance < 15) {  // if the distance to the wall is short,
+      int addition;
+      if(lapTurnCount == 4 || lapTurnCount == 8 || lapTurnCount == 12){
+        addition = 16;
+      } else {
+        addition = 14;
+      }
+      turnTargetYaw = (turnTargetYaw + ((turnAngle + addition) * -direction));  // sets the target yaw to ± 90°, according to direction
+      setTargetYaw(turnTargetYaw);
+
+      setSteeringAngle(SERVO_STRAIGHT);
+      safeDelay(50);
       driveBackward(motorSpeed);  // drives backwards in a calculated maneuver
-      safeDelay(1200);
+      safeDelay(1000);
       stopBrake();
-      safeDelay(500);
+      safeDelay(100);
       driveForward(200);  // drives forward until it completes the turn
       
       while(turningInProgress) {  // while the robot is turning,
         keepOrientation();  // updates the orientation
-        completedTurn();  // verifies if the turn was completed
+        if (turningInProgress && getAbsoluteYawError() < 3) {
+          digitalWrite(ledPin, LOW); // turns off the LED for visualization of states
+          turningInProgress = false;
+          lastSignature = 0;
+ 
+          lastTurnTime = micros();
+        }
         safeDelay(5);   // safeDelay updates the orientation
       }
-      
-      driveBackward(250); // drives backwards to collide against the wall
-      safeDelay(2000);
-      yaw = turnTargetYaw;  // resets the yaw
-      driveForward(motorSpeed); // continues to drive forward
-      safeDelay(250);
+      if(lapTurnCount == 4 || lapTurnCount == 8 || lapTurnCount == 12)   {
+        driveBackward(backwardSpeed); // drives backwards to collide against the wall
+        setSteeringAngle(SERVO_STRAIGHT);
+        safeDelay(2000);
+        yaw = turnTargetYaw;  // resets the yaw
+        setSteeringAngle(SERVO_STRAIGHT);      
+        driveForward(motorSpeed); // continues to drive forward
+        safeDelay(500);
+        if (lapTurnCount == 12) {
+          parkingMode = true;
+          return;
+        } else {
+          return;
+        }
+      }
       return;
 
     } else {  // if the robot is far from the wall
-      int angle = (direction < 0) ? SERVO_RIGHT : SERVO_LEFT; // sets the servo angle according to the direction
+      int addition;
+      if(lapTurnCount == 4 || lapTurnCount == 8 || lapTurnCount == 12){
+        addition = 2;
+      } else {
+        addition = 0;
+      }
+      turnTargetYaw = (turnTargetYaw + ((turnAngle + addition) * -direction));  // sets the target yaw to ± 90°, according to direction
+      setTargetYaw(turnTargetYaw);
+
+      int angle = (direction < 0) ? SERVO_RIGHT+10 : SERVO_LEFT-10; // sets the servo angle according to the direction
       setSteeringAngle(SERVO_STRAIGHT); // drives backwards for 500 ms
-      safeDelay(500);
+      safeDelay(50);
       stopBrake();
       safeDelay(250);
       steeringServo.write(angle); // sets the servo to the modified sharper angle
-      safeDelay(200);
-      driveBackward(250); // drive backwards until the robot corrects its orientation
+      safeDelay(150);
+      driveBackward(backwardSpeed); // drive backwards until the robot corrects its orientation
 
       while(turningInProgress) {  // while the robot is turning,
         // keepOrientation();  // updates the orientation
@@ -740,31 +864,44 @@ void handleColorAction() {
         safeDelay(5);   // safeDelay updates the orientation
       }
 
-      setSteeringAngle(SERVO_STRAIGHT);
-      driveBackward(250);
-      safeDelay(1500);  // drives backwards to collide against the wall
-      yaw = turnTargetYaw;  // and resets the yaw
-      driveForward(motorSpeed);
-      safeDelay(250);
-      return;
+      if(lapTurnCount == 4 || lapTurnCount == 8 || lapTurnCount == 12) {
+        setSteeringAngle(SERVO_STRAIGHT);
+        driveBackward(backwardSpeed);
+        safeDelay(1800);  // drives backwards to collide against the wall
+        yaw = turnTargetYaw;  // and resets the yaw
+        driveForward(motorSpeed);
+        safeDelay(500);
+        return;
+      } else if (distance > 60) { 
+        setSteeringAngle(SERVO_STRAIGHT);
+        driveBackward(backwardSpeed);
+        safeDelay(800);
+        turnTargetYaw = (turnTargetYaw + ((13) * -direction));  // sets the target yaw to ± 90°, according to direction
+        setTargetYaw(turnTargetYaw);
+        return;
+      } else {
+        turnTargetYaw = (turnTargetYaw + ((13) * -direction));  // sets the target yaw to ± 90°, according to direction
+        setTargetYaw(turnTargetYaw);
+        return;
+      }
     }
    
   } else {
       return;
     }
 }
-
+ 
 void recentreIfNeeded() {
   if (correctionApplied) return;  // already applied a correction
 
-  if (lastSignature == SIGNATURE_RED && getDistance(sonarRight) < 25) { // if the last signature is red, uses the right ultrasonic sensor
-    correctionAmount = 8.0; // corrects the target yaw
+  if (lastSignature == SIGNATURE_RED) {
+    correctionAmount = 8.0;
     setTargetYaw(targetYaw + correctionAmount);
     correctionApplied = true;
     // Serial.println("Recentering after RED evasion: 8° yaw");
   } 
-  else if (lastSignature == SIGNATURE_GREEN && getDistance(sonarRight) < 25) {  // if the last signature is green, uses the left ultrasonic sensor
-    correctionAmount = -8.0; // corrects the target yaw
+  else if (lastSignature == SIGNATURE_GREEN) {
+    correctionAmount = -14.0;
     setTargetYaw(targetYaw + correctionAmount);
     correctionApplied = true;
     // Serial.println("Recentering after GREEN evasion: +10° yaw");
@@ -785,15 +922,15 @@ void exitParking() {
   int distanceR = getDistance(sonarRight);
   int distanceL = getDistance(sonarLeft);
 
-  if (distanceR < 25 && distanceR != 0) { // if the right ultrasonic sensor is close to the wall,
+  if (distanceR < 30 && distanceR != 0) { // if the right ultrasonic sensor is close to the wall,
     steeringServo.write(SERVO_STRAIGHT-40); // steers sharply to the left side
-    driveForward(220);
-    safeDelay(1300);
+    driveForward(motorSpeed);
+    safeDelay(1100);
   } 
-  else if (distanceL < 25 && distanceL != 0) { // if the left ultrasonic sensor is close to the wall,
-    steeringServo.write(SERVO_STRAIGHT+35); // steers sharply to the right side
-    driveForward(220);
-    safeDelay(1000);
+  else if (distanceL < 30 && distanceL != 0) { // if the left ultrasonic sensor is close to the wall,
+    steeringServo.write(SERVO_STRAIGHT+40); // steers sharply to the right side
+    driveForward(motorSpeed);
+    safeDelay(1400);
   } else {
     return;
   }
@@ -806,14 +943,23 @@ void completedTurn() {
     turningInProgress = false;
     lastSignature = 0;
  
-    lastTurnTime = millis();  // cooldown management
+    lastTurnTime = micros();
  
-    // Serial.println("Turn completed...");
+    Serial.println("Turn completed...");
+ 
 
-    if (lapTurnCount == 12) { // if 3 laps are completed (4 lap turns = 1 lap) manages the shutdown
+    if (lapTurnCount == lapFinishedNumber) { // if 3 laps are completed (4 lap turns = 1 lap) manages the shutdown
       parkingMode = true;
     }
   }
+}
+
+// Function for a cooldown between turns, to avoid repetitions
+bool turnCooldown() {
+  if ((micros() - lastTurnTime) > turnCorrectionTime || lapTurnCount == 0) {
+    return true;
+  }
+  return false;
 }
  
 // Ultrasonic Sensors Functions
@@ -831,7 +977,7 @@ int getDistance(NewPing& sonar) { // uses the original sonar object
  
   for (int i = 0; i < NUM_SAMPLES; i++) {
     int d = sonar.ping_cm();  // takes three readings
-    safeDelay(3); // brief delay to avoid interferences
+    safeDelay(5); // brief delay to avoid interferences
    
     // Only accepts readings in the desired range
     if (d >= MIN_VALID_DISTANCE && d <= MAX_VALID_DISTANCE) {
@@ -934,15 +1080,16 @@ void handleEvasion() {
         if (activeSignature == SIGNATURE_RED) {
           setSteeringAngle(SERVO_RIGHT); // Evade red to the right.
           lastSignature = SIGNATURE_RED;
-          // Serial.println("Obstacle is RED. Evading RIGHT.");
+          Serial.println("Obstacle is RED. Evading RIGHT.");
         } else if (activeSignature == SIGNATURE_GREEN) {
+          if (lapTurnCount == lapFinishedNumber && direction == +1)  return;
           setSteeringAngle(SERVO_LEFT); // Evade green to the left.
           lastSignature = SIGNATURE_GREEN;
-          // Serial.println("Obstacle is GREEN. Evading LEFT.");
+          Serial.println("Obstacle is GREEN. Evading LEFT.");
         } else {
           setSteeringAngle(SERVO_STRAIGHT); // Unknown color, go straight.
           lastSignature = 0;
-          // Serial.println("Unknown signature. Aborting evasion.");
+          Serial.println("Unknown signature. Aborting evasion.");
           break; // Exit if signature is not recognized.
         }
       }
@@ -950,10 +1097,35 @@ void handleEvasion() {
       // 5. Check for evasion completion. This is the new, crucial exit condition.
       // The loop only breaks if the detected block is in the designated "safe area".
       if (activeSignature == SIGNATURE_RED && currentX < LEFT_SECTION_END_X) {
-        // Serial.println("Evasion successful. Red block is now on the left."); // debugging pixy
+        Serial.println("Evasion successful. Red block is now on the left.");
+
+          if (safeDelayColor(400)) break;
+
+          setSteeringAngle(SERVO_LEFT);
+          if (getAbsoluteYawError() > 70){
+            if (safeDelayColor(1200)) break;
+          } else if (getAbsoluteYawError() > 35){
+            if (safeDelayColor(900)) break;
+          } else {
+            if (safeDelayColor(450)) break;
+          }
+
         break; // Exit the while loop.
       } else if (activeSignature == SIGNATURE_GREEN && currentX > RIGHT_SECTION_START_X) {
-        // Serial.println("Evasion successful. Green block is now on the right.");
+        Serial.println("Evasion successful. Green block is now on the right.");
+        
+          if (safeDelayColor(400)) break;
+
+          setSteeringAngle(SERVO_RIGHT);
+          if (getAbsoluteYawError() > 70){
+            if (safeDelayColor(1200)) break;
+          } else if (getAbsoluteYawError() > 35){
+            if (safeDelayColor(900)) break;
+          } else {
+            if (safeDelayColor(500)) break;
+          }
+
+
         break; // Exit the while loop.
       }
     }
@@ -963,10 +1135,8 @@ void handleEvasion() {
   }
  
   // Once the loop is broken, the evasion is considered complete.
-}
- 
-bool turnCooldown() {
-  return ((millis()-lastTurnTime) > 6000);  // 6 second cooldown
+  // The car will go back to driving straight in the next main loop iteration.
+  Serial.println("Evasion Completed");
 }
  
 // State Logic Functions
@@ -978,4 +1148,17 @@ void debugging() {
   Serial.print("Motor speed: ");  Serial.println(motorSpeed);
   Serial.print("Turning in progress: "); Serial.print(turningInProgress);
   Serial.print("    Correction state: "); Serial.println(correctionState);
+}
+
+void sonarDebugging() {
+  Serial.print("                    Delantero: ");
+  Serial.println(sonarFront.ping_cm());
+
+  Serial.print("Izquierda: ");
+  Serial.print(sonarLeft.ping_cm());
+
+  Serial.print("                                   Derecha: ");
+  Serial.println(sonarRight.ping_cm());
+
+  Serial.println("--------------------------------------------------------------------");
 }
