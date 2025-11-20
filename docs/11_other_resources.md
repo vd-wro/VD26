@@ -58,6 +58,8 @@ For an in-depth explanation into this and other concepts taken into consideratio
 
 ### 3D Viewer
 
+Take a better look at ViZio by visiting this interactive robot viewer!
+
 ### [Interactive Robot Viewer](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Robot)
 
 ## 11.4 Sensors' Calibration
