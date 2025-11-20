@@ -24,7 +24,7 @@ These models can be used for replication, modification, or further study of the 
  
 For the 3D printing guide, visit the [3D Modeling](./10_3d_modeling.md) document. It explains all the parameters and configuration we used for the Creality Ender 3 3D printer.
 
-Before the fabrication of the robot, you can also visualize the **Unity simulator** we created during the modeling process, which is available as a GitHub pages hosted web embed here: [Unity Simulator](.././embeds/Unity_simulator/README.md). Click on the image to access the **Unity web player**.
+You can also visualize the **Unity simulator** we created during the modeling process prior to the fabrication of the robot, which is available as a GitHub pages hosted web embed here: [Unity Simulator](.././embeds/Unity_simulator/README.md). Click on the image to access the **Unity web player**.
 
 [![Unity Simulator Web Player](.././embeds/Unity_simulator/Unity_simulator_web_capture.png)](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Unity_simulator/)
 
