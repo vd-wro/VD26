@@ -31,7 +31,7 @@ On the other hand, the interactive circuit was designed using the **Cirkit Desig
 
 ### [Interactive Steering Rod](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_steering_rods)
 
-### [Interactive KiCad PCB](https://vizdrive.github.io/VizDrive_WRO2025/embeds/KiCad_PCB)
+### [Interactive KiCad PCB](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Interactive_KiCad_PCB)
 
 ### [Interactive Robot Viewer](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Robot)
 
