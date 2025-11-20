@@ -53,6 +53,8 @@ For an in-depth explanation into this and other concepts taken into consideratio
 
 [![ViZio 2.0](https://img.youtube.com/vi/JOWvUNmzN1w/0.jpg)](https://www.youtube.com/watch?v=JOWvUNmzN1w)
 
+[![ViZio 2.0](https://img.youtube.com/vi/J1BOTFqHlQ4/0.jpg)](https://www.youtube.com/watch?v=J1BOTFqHlQ4)
+
 ## 11.4 Sensors' Calibration
 
 ### MPU-6050 Gyroscope + Accelerometer
