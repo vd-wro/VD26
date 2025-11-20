@@ -42,7 +42,9 @@ Which also has an [**interactive web design**](https://vizdrive.github.io/VizDri
 
 We've also created a custom KiCad PCB to improve durability, reliability and simplicity. You can acces the files in [kicad_pcb](../src/kicad_pcb).
 
-## 11.3 Building Instructions
+## 11.3 Building Guides
+
+### Video Resources
 
 We created 3D animations that showcase the detailed building instructions for all the components into our robot. The videos also include information about the different versions of the robot.
 
@@ -53,6 +55,10 @@ For an in-depth explanation into this and other concepts taken into consideratio
 [![ViZio 2.0](https://img.youtube.com/vi/JOWvUNmzN1w/0.jpg)](https://www.youtube.com/watch?v=JOWvUNmzN1w)
 
 [![ViZio 2.0](https://img.youtube.com/vi/J1BOTFqHlQ4/0.jpg)](https://www.youtube.com/watch?v=J1BOTFqHlQ4)
+
+### 3D Viewer
+
+### [Interactive Robot Viewer](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Robot)
 
 ## 11.4 Sensors' Calibration
 
