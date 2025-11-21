@@ -72,50 +72,100 @@ Made with Mermaid for GitHub. Visit [Workflow Diagram.png](./../assets/flowchart
 
 ```mermaid
 graph TD
-    subgraph Initialization Phase
-        A[Power-Up] --> B[Self-Checks and Calibration]
-        B --> C{Waiting for Start}
-        C -- LED On --> D[Button Press]
-    end
+    %% Nodes
+    Start([Start / Power On]) --> Setup[Setup: Init MPU6050, Pixy, Motors]
+    Setup --> Calib[Calibrate Gyroscope Offset]
+    Calib --> Button{Start Button<br>Pressed?}
+    
+    Button -- Yes --> ExitPark[Exit Parking Zone]
+    ExitPark --> Loop(Start Main Loop ~33Hz)
 
-    subgraph Navigation Phase
-        D --> E[Orientation Correction - MPU, PID, and Turns]
-        E --> F{Obstacle Detected<br/>by PixyCam2?}
-        F -- No --> G[Maintain Trajectory]
-        F -- Yes --> H{Obstacle in Region of Interest?}
-        H -- Yes --> I[Evasion Maneuver]
-        H -- No --> G
-        I --> J[Reacquire Trajectory - MPU and Ultrasonic]
-        J --> G
-        G --> F
+    subgraph "Navigation & Control Loop"
+        Loop --> Sense --> PID[PID Control: Maintain Yaw]
+        PID --> ParkMode{Parking Mode<br>Active?<br>}
+        
+        ParkMode -- Yes --> ParkMan[[Parallel Parking Routine]]
+        ParkMan --> End([End Program])
+        
+        ParkMode -- No --> ColorCheck{Floor Color<br>Detected?}
+        
+        ColorCheck -- Yes (Blue/Orange) --> TurnLogic[[Corner Turn Routine]]
+        TurnLogic --> UpdateLap[Update Lap Count]
+        
+        ColorCheck -- No --> ObsCheck{Obstacle in<br>ROI?}
+        
+        ObsCheck -- Yes (Red/Green) --> EvadeLogic[[Obstacle Evasion Routine]]
+        EvadeLogic --> Recenter[Recenter Trajectory]
+        Recenter --> Loop
+        
+        ObsCheck -- No --> Drive[Drive Forward]
+        Drive --> Loop
     end
-
-    subgraph Completion Phase
-        G --> K{Laps Completed?}
-        K -- Yes --> L[Parking Maneuver]
-        L --> M[Search for Magenta Wall]
-        M --> N[Execute Parking]
-    end
-
-    N --> O[Stop]
 
     %% Styling
-    style A fill:#4775d1,stroke:#333333,stroke-width:2px
-    style B fill:#284c94,stroke:#333333,stroke-width:2px
-    style C fill:#c9a126,stroke:#333333,stroke-width:2px
-    style D fill:#d61827,stroke:#333333,stroke-width:2px
-    style E fill:#4775d1,stroke:#333333,stroke-width:2px
-    style F fill:#eb1c34,stroke:#333333,stroke-width:2px
-    style G fill:#284c94,stroke:#333333,stroke-width:2px
-    style H fill:#00a7cc,stroke:#333333,stroke-width:2px
-    style I fill:#c9a126,stroke:#333333,stroke-width:2px
-    style J fill:#0ead46,stroke:#333333,stroke-width:2px
-    style K fill:#00a7cc,stroke:#333333,stroke-width:2px
-    style L fill:#c9a126,stroke:#333333,stroke-width:2px
-    style M fill:#d618d0,stroke:#333333,stroke-width:2px
-    style N fill:#0ead46,stroke:#333333,stroke-width:2px
-    style O fill:#d61827,stroke:#333333,stroke-width:2px
+    style Start fill:#90EE90,stroke:#333,stroke-width:2px,color:black
+    style End fill:#FF6961,stroke:#333,stroke-width:2px,color:black
+    style Button fill:#FFD700,stroke:#333,stroke-width:2px,color:black
+    style Loop fill:#C1E1C1,stroke:#333,stroke-width:2px,color:black
+    style ParkMode fill:#FFD700,stroke:#333,stroke-width:2px,color:black
+    style ColorCheck fill:#FFD700,stroke:#333,stroke-width:2px,color:black
+    style ObsCheck fill:#FFD700,stroke:#333,stroke-width:2px,color:black
+    
+    style Setup fill:#ADD8E6,stroke:#333,stroke-width:1px,color:black
+    style Calib fill:#ADD8E6,stroke:#333,stroke-width:1px,color:black
+    style ExitPark fill:#ADD8E6,stroke:#333,stroke-width:1px,color:black
+    style Sense fill:#adcae6,stroke:#333,stroke-width:1px,color:black
+    style Drive fill:#ADD8E6,stroke:#333,stroke-width:1px,color:black
+    style PID fill:#ADD8E6,stroke:#333,stroke-width:1px,color:black
+    style UpdateLap fill:#ADD8E6,stroke:#333,stroke-width:2px,color:black
+    style Recenter fill:#FF6961,stroke:#333,stroke-width:2px,color:black
+    
+    style ParkMan fill:#C1E1C1,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5,color:black
+    style TurnLogic fill:#C1E1C1,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5,color:black
+    style EvadeLogic fill:#C1E1C1,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5,color:black
 
+```
+
+```mermaid
+graph TD
+    A[Detect Floor Color] --> B{Is it Lap 0?}
+    B -- Yes --> C[Define Direction:<br>Blue=Left, Orange=Right]
+    B -- No --> D[Use Pre-defined Direction]
+    C & D --> E[Measure Front Distance]
+    E --> F{Wall Close?}
+    F -- Yes --> G[Tight Maneuver:<br>Back up & Turn]
+    F -- No --> H[Open Maneuver:<br>Smooth Turn]
+    G & H --> I[Update Target Yaw <br>+/- 90 deg]
+    
+    %% Styling
+    style A fill:#ADD8E6,color:black
+    style B fill:#FFD700,color:black
+    style C fill:#FF6961,color:black
+    style D fill:#C1E1C1,color:black
+    style E fill:#ADD8E6,color:black
+    style F fill:#FFD700,color:black
+    style G fill:#FFB347,color:black
+    style H fill:#FFB347,color:black
+    style I fill:#90EE90,color:black
+```
+
+```mermaid
+graph TD
+    E_A["Detect Blocks with Pixy"] --> E_B{"Color?"}
+    E_B -- Rojo --> E_C["Avoid to the RIGHT"]
+    E_B -- Verde --> E_D["Avoid to the LEFT"]
+    E_C --> E_E["Set Direction of Servomotor"]
+    E_D --> E_E
+    E_E --> E_F["Wait untill the block leaves vision"]
+    E_F --> E_G["Return to the trajectory"]
+
+    %% Styling
+    style E_A fill:#ADD8E6,color:black
+    style E_C fill:#DC143C,color:black
+    style E_D fill:#008000,color:black
+    style E_E fill:#FFB347,color:black
+    style E_F fill:#ADD8E6,color:black
+    style E_G fill:#90EE90,color:black
 ```
 
 [Back to Main README.md Index](../README.md)
