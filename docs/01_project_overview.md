@@ -68,7 +68,7 @@ This is the primary operational phase, a loop where the robot continuously check
 
 ## 1.5 General Workflow Diagram
 
-Made with Mermaid for GitHub. Visit [Workflow Diagram.png](./../assets/flowcharts/flowchart.png) if the image is distorted or not seen.
+Made with Mermaid for GitHub. Visit [Workflow Diagram](./../assets/flowcharts/) folder if the image is distorted or not seen.
 
 ```mermaid
 graph TD
@@ -167,5 +167,14 @@ graph TD
     style E_F fill:#ADD8E6,color:black
     style E_G fill:#90EE90,color:black
 ```
+Visit:
+
+[Main Workflow Diagram.png](./../assets/flowcharts/Workflow%20Diagram%20-%20Navigation.png)
+
+[Color and Ultrasonic Workflow Diagram.png](./../assets/flowcharts/Workflow%20Diagram%20-%20Color%20and%20Ultrasonic.png)
+
+[Main Workflow Diagram.png](./../assets/flowcharts/Workflow%20Diagram%20-%20Pixy.png) 
+
+If the image is distorted or not seen.
 
 [Back to Main README.md Index](../README.md)
