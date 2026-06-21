@@ -59,6 +59,8 @@ For an in-depth explanation into this and other concepts taken into consideratio
 
 [![ViZio IV](https://img.youtube.com/vi/X2UGbEu-D34/0.jpg)](https://www.youtube.com/watch?v=X2UGbEu-D34)
 
+[![ViZio IV](https://img.youtube.com/vi/0kR-c86Hjms/0.jpg)](https://www.youtube.com/watch?v=0kR-c86Hjms)
+
 ### 3D Viewer
 
 Take a better look at ViZio by visiting this interactive robot viewer!
