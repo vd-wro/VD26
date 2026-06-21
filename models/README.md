@@ -12,7 +12,7 @@ The designs included in this file directory are:
 
 | Old Model | New Robot | International Robot | 2026 Robot |
 | :----------------: |  :----------------: |  :----------------: |  :----------------: |
-| [Chassis](./chassis/chassis.stl) | [New Chassis](./chassis/chassis2.0.stl) | [International Chassis](./chassis/ViZioInternationalMotorFix.stl) | [2026 Chassis Moddels](./chassis/ViZioInternationalMotorFix.stl) |
+| [Chassis](./chassis/chassis.stl) | [New Chassis](./chassis/chassis2.0.stl) | [International Chassis](./chassis/ViZioInternationalMotorFix.stl) | [2026 Chassis Moddels](./../docs/10_3d_modeling.md#chassis) |
 | <img src="./chassis/Chassis.png" width="200"> | <img src="../assets/model_photos/imgchassisupd.png" width="200"> | <img src="../assets/model_photos/ChassisInternational.png" width="200"> |<img src="../assets/model_photos/ChassisIV.png" width="200">|
 | Visit the embed: [Chassis Embed](https://vd-wro.github.io/VD26/embeds/interactive_chassis)| Visit the updated embed: [Updated Chassis Embed](https://vd-wro.github.io/VD26/embeds/interactive_chassis2) | Visit the latest version: [International Chassis Embed](https://vd-wro.github.io/VD26/embeds/chassis_final) | [2026 Chassis Embed](https://vd-wro.github.io/VD26/embeds/chassis_26) |
 
