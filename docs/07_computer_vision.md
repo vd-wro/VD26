@@ -1,10 +1,10 @@
 # 7. Vision and Distance Sensing
 
-VizDrive utilizes the PixyCam 2.1 to detect and react to obstacles in real time.
+VizDrive now utilizes the OpenMV H7 Plus to detect and react to obstacles in real time.
 
 ---
 
-## 7.1 OpenMV H7 Plus 
+## 7.1 OpenMV H7 Plus (NEW!)
 The **OpenMV Cam** is a small, low power, microcontroller board uses machine vision in the real-world. For this instance, we are using blob based color detection, using LAB color space.
 
 ### Camera Configuration
