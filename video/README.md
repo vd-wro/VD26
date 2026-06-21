@@ -48,9 +48,13 @@ The second video explains all the changes made to our robot's updated version.
 
 [![Robot Animation Video2](https://img.youtube.com/vi/JOWvUNmzN1w/0.jpg)](https://www.youtube.com/watch?v=JOWvUNmzN1w) 
 
-This is the third video, explaining the building process of ViZio's latest version.
+This is the third video, explaining the building process of ViZio's 3rd version.
 
 [![Robot Animation Video3](https://img.youtube.com/vi/J1BOTFqHlQ4/0.jpg)](https://www.youtube.com/watch?v=J1BOTFqHlQ4) 
+
+Fourth video, an introduction of what our latest model's improvements
+
+[![ViZio IV](https://img.youtube.com/vi/X2UGbEu-D34/0.jpg)](https://www.youtube.com/watch?v=X2UGbEu-D34)
 
 # Music Creation Video (Easter egg!)
 

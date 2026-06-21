@@ -5,7 +5,7 @@ As well, you can find the test codes we used throughout the process of construct
 
 The directory is organized in the following way:
 
-## `src/computer_vision`
+## `src/07_computer_vision`
 
 You will find the test code for the Pixycam 2.1 artificial vision and color signature detection. 
 

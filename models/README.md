@@ -10,14 +10,11 @@ The designs included in this file directory are:
 ## 1. Chassis Model
 
 
-| Old Model | New Robot | International Robot |
-| :----------------: |  :----------------: |  :----------------: |
-| [Chassis](./chassis/chassis.stl) | [New Chassis](./chassis/chassis2.0.stl) | [International Chassis](./chassis/ViZioInternationalMotorFix.stl) | |
-| <img src="./chassis/Chassis.png" height="200"> | <img src="../assets/model_photos/imgchassisupd.png" height="200"> | <img src="../assets/model_photos/ChassisInternational.png" height="200"> |
-| Visit the embed: [Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis)| Visit the updated embed: [Updated Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis2) | Visit the latest version: [International Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/chassis_final) |
-
-
-
+| Old Model | New Robot | International Robot | 2026 Robot |
+| :----------------: |  :----------------: |  :----------------: |  :----------------: |
+| [Chassis](./chassis/chassis.stl) | [New Chassis](./chassis/chassis2.0.stl) | [International Chassis](./chassis/ViZioInternationalMotorFix.stl) | [2026 Chassis Moddels](./chassis/ViZioInternationalMotorFix.stl) |
+| <img src="./chassis/Chassis.png" width="200"> | <img src="../assets/model_photos/imgchassisupd.png" width="200"> | <img src="../assets/model_photos/ChassisInternational.png" width="200"> |<img src="../assets/model_photos/ChassisIV.png" width="200">|
+| Visit the embed: [Chassis Embed](https://vd-wro.github.io/VD26/embeds/interactive_chassis)| Visit the updated embed: [Updated Chassis Embed](https://vd-wro.github.io/VD26/embeds/interactive_chassis2) | Visit the latest version: [International Chassis Embed](https://vd-wro.github.io/VD26/embeds/chassis_final) | [2026 Chassis Embed](https://vd-wro.github.io/VD26/embeds/chassis_26) |
 
 
 ## 2. Steering
@@ -25,24 +22,24 @@ The designs included in this file directory are:
 ### 1. [Steering Rod and Camera Support](./steering/steering_rods.stl)
 <img src="./steering/SteeringandCamera.png" width="500">
 
-Visit the embed: [Steering Rod and Camera Support Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_steering_rods)
+Visit the embed: [Steering Rod and Camera Support Embed](https://vd-wro.github.io/VD26/embeds/interactive_steering_rods)
 
 ## 3. Wheels Models
 
 ### 1. [Wheel Hubs](./wheels/wheel_hub.stl)
 <img src="./wheels/Hubs.png" width="500">
 
-Visit the embed: [Wheels Hub Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_hub)
+Visit the embed: [Wheels Hub Embed](https://vd-wro.github.io/VD26/embeds/interactive_hub)
 
-### 2. [Rear Wheels](./wheels/encoder_wheel.stl)
+### 2. [Rear Wheels](./wheels/encoder_wheel.stl) - [Rear Wheels IV](./wheels/ViZio26CalcModel_WheeL.stl)
 <img src="./wheels/RearWheels.png" width="500">
 
-Visit the embed: [Rear Wheels Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_rear_wheels)
+Visit the embed: [Rear Wheels Embed](https://vd-wro.github.io/VD26/embeds/interactive_rear_wheels)
 
 ### 3. [Wheel Rims](./wheels/wheel_rims.stl)
 <img src="./wheels/Rims.png" width="500">
 
-Visit the embed: [Wheel Rims Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_rims)
+Visit the embed: [Wheel Rims Embed](https://vd-wro.github.io/VD26/embeds/interactive_rims)
 
 ---
 

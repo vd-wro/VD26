@@ -175,7 +175,7 @@ In the **Obstacle Challenge**, `handleColorAction()` executes a sequence of acti
 
     5.  **Function Exit**: In both turning scenarios, the function completes its execution, returning control to the main loop.
    
-     <img src="../assets/gif_animations/Turns.gif" width="400" alt="Turns">
+     <img src="../assets/animations_graphics/Turns.gif" width="400" alt="Turns">
 
 ### 9.3.2 For Open Challenge
 

@@ -13,27 +13,29 @@ On the other hand, the interactive circuit was designed using the **Cirkit Desig
 
 ## Visualize the different interactive components
 
-### [Robot Simulator with Unity](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Unity_simulator/)
+### [Robot Simulator with Unity](https://vd-wro.github.io/VD26/embeds/Unity_simulator/)
 
-### [Interactive Circuit Diagram](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_circuit)
+### [Interactive Circuit Diagram](https://vd-wro.github.io/VD26/embeds/interactive_circuit)
 
-### [Interactive Chassis](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis)
+### [Interactive Chassis](https://vd-wro.github.io/VD26/embeds/interactive_chassis)
 
-### [Updated Interactive Chassis](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis2)
+### [Updated Interactive Chassis](https://vd-wro.github.io/VD26/embeds/interactive_chassis2)
 
-### [International Interactive Chassis](https://vizdrive.github.io/VizDrive_WRO2025/embeds/chassis_final)
+### [International Interactive Chassis](https://vd-wro.github.io/VD26/embeds/chassis_final)
 
-### [Interactive Hub](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_hub)
+### [2026 Interactive Chassis](https://vd-wro.github.io/VD26/embeds/chassis_26)
 
-### [Interactive Rear Wheels](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_rear_wheels)
+### [Interactive Hub](https://vd-wro.github.io/VD26/embeds/interactive_hub)
 
-### [Interactive Rims](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_rims)
+### [Interactive Rear Wheels](https://vd-wro.github.io/VD26/embeds/interactive_rear_wheels)
 
-### [Interactive Steering Rod](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_steering_rods)
+### [Interactive Rims](https://vd-wro.github.io/VD26/embeds/interactive_rims)
 
-### [Interactive KiCad PCB](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Interactive_KiCad_PCB)
+### [Interactive Steering Rod](https://vd-wro.github.io/VD26/embeds/interactive_steering_rods)
 
-### [Interactive Robot Viewer](https://vizdrive.github.io/VizDrive_WRO2025/embeds/Robot)
+### [Interactive KiCad PCB](https://vd-wro.github.io/VD26/embeds/Interactive_KiCad_PCB)
+
+### [Interactive Robot Viewer](https://vd-wro.github.io/VD26/embeds/Robot)
 
 ## How These Embeds Work
 
