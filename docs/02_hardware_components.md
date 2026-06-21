@@ -275,7 +275,7 @@ We chose the Mega 2560 for **simplicity**, not because the microcontroller is si
 
 **Compared to other common options:**
 
-|    |   |
+| Component | Description |
 |:--:|:--|
 |**Arduino Uno**|Not compact enough, scarce pin availability.|
 |**Arduino Mega**|Very bulky.|
@@ -317,7 +317,7 @@ And full control over brightness, exposure, and AWB.
 
 Other camera alternatives we found (besides PixyCam 2.1):
 
-|   | |
+|Camera| Description|
 |:--:|:--|
 |**HuskyLens**|Low FPS, fixed camera lens.|
 |**PixyCam 2**|Fixed camera lens, similar bugs to the 2.1 version|
