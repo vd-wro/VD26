@@ -56,7 +56,7 @@ sensor.skip_frames(time=2000)
 clock = time.clock()
 ```
 
-Functions like AWB (auto-white-balance), auto-gain, and auto-exposure are disabled to maintain stable lighting during the whole trajectory. AWB and auto-gain coeficients are configured to a specific value, attempting to achieve similar conditions every time the camera boots; it is not possible to initialize the camera without a start-up AWB, gain, and exposure. For AWB specifically, red and blue gains are incremented, it balances out the initial start-up AWB. This balance is required since the robot starts with the magenta wall in front, and it is necesarry to boost these values to achieve a clean white balance.
+Functions like AWB (auto-white-balance), auto-gain, and auto-exposure are disabled to maintain stable lighting during the whole trajectory. Start-up AWB and auto-gain coeficients are configured to a specific value, attempting to achieve similar conditions every time the camera boots; it is not possible to initialize the camera without a start-up AWB, gain, and exposure. For this AWB specifically, red and blue gains are incremented, it balances out the initial start-up AWB. This balance is required since the robot starts with the magenta wall in front, and it is necesarry to boost these values to achieve a clean white balance.
 
 #### Color Detection Functions and Initialization
 
