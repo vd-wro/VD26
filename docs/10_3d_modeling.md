@@ -107,7 +107,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
     * **Miscellaneous** [Ligature 2](./../models/chassis/Lig2.stl)
     * **Miscellaneous** [Axle and Support](./../models/chassis/AxleAndSupport.stl)
   * **Interactive Models** 
-    * **ViZio IV** [Chassis Embed](https://vd-wro.github.io/VD26/embeds/chassis_final)
+    * **ViZio IV** [Chassis Embed](https://vd-wro.github.io/VD26/embeds/chassis_26)
 * **Printing Parameters:**
   * Infill Type: Honeycomb
   * Infill Density: 15%
