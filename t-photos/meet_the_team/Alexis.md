@@ -1,5 +1,4 @@
-# Meet Alexis Palacios Ng!
-### The mind behind the magic in the machine!
+# Meet the mind behind the magic in the machine, Alexis!
 
 Hello,
 

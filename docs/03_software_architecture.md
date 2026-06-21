@@ -14,7 +14,7 @@ VizDrive uses the following Arduino and Adafruit libraries to enable its functio
 * **`Adafruit_MPU6050.h`**: Provides the interface for the MPU6050 gyroscope and accelerometer.
 * **`Adafruit_Sensor.h`**: A core library supporting various Adafruit sensors, including the MPU6050.
 * **`Adafruit_TCS34725.h`**: Integrates the TCS3472 I2C color sensor (this library is compatible with both TCS3472 and TCS34725 color sensor).
-* **`Pixy2.h`**: Enables communication and data retrieval from the PixyCam 2.1. (V3 and older)
+* **`Pixy2.h`**: Enables communication and data retrieval from the PixyCam 2.1.
 
 ---
 
@@ -75,9 +75,9 @@ For a more detailed analysis of the ultrasonic sensors integration for each chal
 
 ---
 
-### Artificial Vision Obstacle Evasion
+### Vision-Based Obstacle Evasion
 
-VizDrive used the **PixyCam 2.1**, now powered by the **OpenMV H7 plus** to detect and react to colored obstacles in its path.
+VizDrive uses the **PixyCam 2.1** to detect and react to colored obstacles in its path.
 
 * **`obstacleDetected()`**: Determines whether an obstacle is within close proximity, based on its position in the camera's frame. Returns `true` if an object is found within a predefined vertical threshold, `false` otherwise.
 * **`handleEvasion()`**: Executes a blocking maneuver to steer the robot around an obstacle detected within close range. It identifies the largest obstacle within the ROI and adjusts the robot's steering based on the object's color signature:
@@ -86,15 +86,13 @@ VizDrive used the **PixyCam 2.1**, now powered by the **OpenMV H7 plus** to dete
 
 The function tracks the X-coordinate of the obstacle, and only considers the evasion maneuver complete if the obstacle is detected out of the robot's central path, according to the color signature (e.g., red to the left side, or green to the right side).
 
-**Debugging (Pixy Only):**
+**Debugging:**
 
 * **`debugPixy()`**: Provides serial output of all detected blocks, including their coordinates and signatures. This function is typically commented out in optimized code to conserve processing power but was used during calibration and troubleshooting.
 
 <img src="./../assets/software_photos/PIXY.png" width="500">
 
-
-
-For a comprehensive explanation of PixyCam 2.1 integration, OpenMV H7 plus integration, and computer vision principles, consult [**Computer Vision Functions**](./07_computer_vision.md).
+For a comprehensive explanation of PixyCam 2.1 integration and computer vision principles, consult [**Computer Vision Functions**](./07_pixycam_computer_vision.md).
 
 ---
 
@@ -111,7 +109,7 @@ This sensor, mounted underneath the robot, detects navigation cues on the track.
 * **`detectFloorColor()`**: Reads raw RGB data from the sensor and normalizes these readings using the clear channel value (`c`) to compensate for ambient light variations. It then compares normalized values against predefined color thresholds to identify the floor color. Importantly, during the robot's **first lap**, this function defines the `direction` variable: **-1 for counter-clockwise** (if blue is detected) and **+1 for clockwise** (if orange is detected).
 * **`handleColorAction()`**: Manages the robot's actions when a floor color is detected and no turn is currently in progress. It increments `lapTurnCount`, turns on an LED for visualization, and calculates the `turnTargetYaw` for a 90-degree turn based on the `direction`. It also sets `turningInProgress` to `true` to prevent re-triggering and increases `motorSpeed` to `250` for the turn. During the first lap turn, it includes a `safeDelay(500)` for initial adjustment.
 
-#### 2. Wall Detection (Dual TCS3200 Sensors) (Removed in ViZio 2.0)
+#### 2. Wall Detection (Dual TCS3200 Sensors) (Removed)
 
 Two digital TCS3200 sensors, positioned on the robot's sides, are used primarily for detecting the parking trigger.
 

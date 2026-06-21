@@ -1,5 +1,4 @@
-# Meet Carlo Ho Ng
-### The architect behind our circuits!
+# Meet Carlo Ho Ng, the architect behind our circuits!
 
 I'm **Carlo Ho Ng**, a 14-year-old student from Centro Cultural Chino Panameño, Instituto Sun Yat Sen. 
 

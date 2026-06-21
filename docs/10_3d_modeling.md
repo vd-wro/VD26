@@ -24,20 +24,20 @@ VizDrive's mechanical design prioritizes precise and stable locomotion, integrat
   * **Propulsion Motor**: A **Hobby Gearmotor with a 48:1 gearbox** is employed for the rear drive, selected for its ample torque suitable for various terrains.
   * **Steering Actuator**: A **Servo Motor SG90** is used to precisely control the angular position of the front steering wheels.
  
-| V1 | V2, V3 | V4 |
-| ---------------- | ---------------- | ---------------- |
-| <img src="./../assets/model_photos/3d_modeling_design.png" width="250"> | <img src="./../assets/model_photos/ViZio_Updated_Chassis.png" width="250"> |  <img src="./../assets/model_photos/ViZio_Updated_Chassis.png" width="250"> |
+| Old Robot | New Robot |
+| ---------------- | ---------------- |
+| <img src="./../assets/model_photos/3d_modeling_design.png" width="250"> | <img src="./../assets/model_photos/ViZio_Updated_Chassis.png" width="250"> |
 
 
 
 
 * **Light Frame Chassis**: The chassis is engineered as a lightweight beam structure. This compact design enhances driving precision and overall durability.
 
-  * **V1 Main Silhouette**:
+  * **Old Chassis**:
 
   <img src="./../assets/model_photos/light_frame.png" width="500">
 
-  * **Newer Models' Silhouette**:
+  * **New Chassis**:
 
   <img src="./../assets/model_photos/ViZio_chassis_new_version.png" width="500">
 
@@ -90,24 +90,12 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
 ### Chassis
 
 * **Description:** The primary structural frame, designed to be lightweight yet rigid, providing essential mounting points for motors, sensors, and the main controller.
-* **2025**
-  * **STL files**
-    * **3D Model (STL):** [Chassis](./../models/chassis/chassis.stl)
-    * **Updated 3D Model (STL):** [Chassis](./../models/chassis/chassis2.0.stl)
-    * **Final 3D Model (STL):** [Chassis](./../models/chassis/ViZioInternationalMotorFix.stl)
-  * **Interactivve Models**
-    * **Interactive 3D Model:** [Chassis Embed](https://vd-wro.github.io/VD26/embeds/interactive_chassis)
-    * **Interactive Updated 3D Model** [Updated Chassis Embed](https://vd-wro.github.io/VD26/embeds/interactive_chassis2)
-    * **International 3D Model** [International Chassis Embed](https://vd-wro.github.io/VD26/embeds/chassis_final)
-* **2026**
-  * **STL Files**
-    * **ViZio IV** [Chassis](./../models/chassis/ViZio26V4Chassis.stl)
-    * **Miscellaneous** [Miscellaneous Parts](./../models/chassis/ViZio26CalcModel_VXMisc.stl)
-    * **Miscellaneous** [Ligature 1](./../models/chassis/Lig1.stl)
-    * **Miscellaneous** [Ligature 2](./../models/chassis/Lig2.stl)
-    * **Miscellaneous** [Axle and Support](./../models/chassis/AxleAndSupport.stl)
-  * **Interactive Models** 
-    * **ViZio IV** [Chassis Embed](https://vd-wro.github.io/VD26/embeds/chassis_final)
+* **3D Model (STL):** [Chassis](./../models/chassis/chassis.stl)
+* **Updated 3D Model (STL):** [Chassis](./../models/chassis/chassis2.0.stl)
+* **Final 3D Model (STL):** [Chassis](./../models/chassis/ViZioInternationalMotorFix.stl)
+* **Interactive 3D Model:** [Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis)
+* **Interactive Updated 3D Model** [Updated Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_chassis2)
+* **International 3D Model** [International Chassis Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/chassis_final)
 * **Printing Parameters:**
   * Infill Type: Honeycomb
   * Infill Density: 15%
@@ -123,7 +111,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
 
 * **Description:** Custom-designed rims precisely shaped to fit into the wheel hubs.
 * **3D Model (STL):** [Wheels](./../models/wheels/wheel_rims.stl)
-* **Interactive 3D Model:** [Wheels Embed](https://vd-wro.github.io/VD26/embeds/interactive_rims)
+* **Interactive 3D Model:** [Wheels Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_rims)
 * **Printing Parameters:**
   * Infill Type: Honeycomb
   * Infill Density: 20%
@@ -139,7 +127,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
 
 * **Description:** Hubs designed to connect directly to the steering rod, incorporating integrated screws to securely hold the wheels in place.
 * **3D Model (STL):** [Wheel Hub](./../models/wheels/wheel_hub.stl)
-* **Interactive 3D Model:** [Wheel Hub Embed](https://vd-wro.github.io/VD26/embeds/interactive_hub)
+* **Interactive 3D Model:** [Wheel Hub Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_hub)
 * **Printing Parameters:**
   * Infill Type: Honeycomb
   * Infill Density: 15%
@@ -156,8 +144,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
 * **Description:** A precisely designed wheel featuring 16 distinct markings or slots, intended for use with an optical encoder sensor to ensure accurate odometry (distance and speed measurement). A standard rear wheel without an encoder rim is also used.
 * **Note:** It's important to **paint** the encoder wheel as shown in the image to ensure proper operation of the light-based encoder. Otherwise, light may pass through the thin plastic layer.
 * **3D Model (STL):** [Wheel Encoder](./../models/wheels/encoder_wheel.stl)
-* **3D Model 2026 (STL):** [Wheel](./../models/wheels/ViZio26CalcModel_WheeL.stl)
-* **Interactive 3D Model:** [Encoder Wheel Embed](https://vd-wro.github.io/VD26/embeds/interactive_rear_wheels)
+* **Interactive 3D Model:** [Encoder Wheel Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_rear_wheels)
 * **Printing Parameters:**
   * Infill Type: Honeycomb
   * Infill Density: 20%
@@ -173,7 +160,7 @@ All custom mechanical parts for VizDrive were designed in Blender and fabricated
 
 * **Description:** Components for the steering rods that connect to the wheels, along with a camera mount designed with a slight 15° pitch angle for optimal PixyCam positioning.
 * **3D Model (STL):** [Steering Rods](./../models/steering/steering_rods.stl)
-* **Interactive 3D Model:** [Steering Rods Embed](https://vd-wro.github.io/VD26/embeds/interactive_steering_rods)
+* **Interactive 3D Model:** [Steering Rods Embed](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_steering_rods)
 * **Printing Parameters:**
   * Infill Type: Honeycomb
   * Infill Density: 15%

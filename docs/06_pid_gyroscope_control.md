@@ -125,7 +125,7 @@ const float Ki = 0.0; // Integral gain (inactive)
     5. **Update Previous Error**:
           * `previousError = error;`: Stores the current `error` to be used as `previousError` in the next control cycle for the derivative calculation.
 
-  <img src="../assets/animations_graphics/GifKeepOrientation.gif" width="400" alt="KeepOrientation">
+  <img src="../assets/gif_animations/GifKeepOrientation.gif" width="400" alt="KeepOrientation">
 
 ### Exclusion of Integral Term (`Ki = 0`)
 

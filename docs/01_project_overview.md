@@ -1,9 +1,9 @@
 # 1. Project Overview
 
-## 1.1 Introduction to VizDrive 2026
+## 1.1 Introduction to VizDrive 2025
 
-ViZio is an autonomous robot developed by a Panamanian 🔴⚪🔵 Team VizDrive for the **2025 and 2026 World Robot Olympiad (WRO)**.
-Our project participates in the **Future Engineers** category. Our goal is to apply advanced robotics, data analysis, error management, and optimization principles to represent Panama again in the international field of robotics.
+ViZio is an autonomous robot developed by a Panamanian 🔴⚪🔵 Team VizDrive for the **2025 World Robot Olympiad (WRO)**, now **2026**.
+Our project participates in the **Future Engineers** category. Our goal is to apply advanced robotics, data analysis, error management, and optimization principles to represent Panama in the international field of robotics.
 
 ![Vizdrive Overview](../assets/hardware_photos/ViZio_2.0_Lights.JPG)
 
@@ -18,7 +18,7 @@ In the Future Engineers category, we compete in two distinct challenge rounds: t
 | **DC Motor** | Employed for rear-wheel drive (RWD) propulsion. |
 | **Wheel Encoder** | Measures the rotational pulses per revolution (PPR) of the wheels, used for odometry and precise maneuvers. |
 | **Servo Motor** | Utilized for steering control of the front wheels. |
-| **OpenMV H7 Plus** | Responsible for obstacle recognition and color-based detection. |
+| **PixyCam 2.1** | Responsible for obstacle recognition and color-based detection. |
 | **Ultrasonic Sensors** | Measures real-time distance to walls, used for turns and collision avoidance. |
 | **MPU Gyroscope with PID Control** | Provides continuous orientation data, which is processed by a Proportional-Integral-Derivative (PID) controller, to ensure stable and straight trajectory. |
 | **Color Sensor** | Employed for detecting specific colored lines marked on the circuit, signaling turns. |
@@ -30,9 +30,9 @@ Each of these parts have their own separated document, delving into their calibr
 | Specification | Information |
 | ---------------- | ---------- |
 | Height | 13 cm |
-| Width | 15 cm |
-| Length | 27 cm |
-| Weight | ~750 g |
+| Width | 14 cm |
+| Length | 26 cm |
+| Weight | 606 g |
 
 ---
 
@@ -54,9 +54,9 @@ This is the primary operational phase, a loop where the robot continuously check
   * This data is fed into a dedicated PID (Proportional-Integral-Derivative) controller, which compensates for any rotational drift, ensuring the robot maintains a stable and straight heading throughout its trajectory.
   * To correct the **MPU-6050's accumulated offset**, in the **Obstacle Challenge**, the robot uses the rear wall to **reset its yaw angle**. On the other hand, in the **Open Challenge**, it uses the robot's **parallel distance to the wall**.
 * **Obstacle Detection and Evasion (Conditional):**
-  * While maintaining trajectory, the **OpenMV H7** constantly scans the path ahead for obstacles.
+  * While maintaining trajectory, the **PixyCam 2.1** constantly scans the path ahead for obstacles.
   * If an obstacle is detected within the predefined **Region of Interest (ROI)** of the camera's field of view:
-    * **Evasion Maneuver:** the robot turns until the obstacle is no longer detected within the OpenMV's ROI. The objects enter a "safe area" depending on the color, which indicates s obstacles are already evaded.
+    * **Evasion Maneuver:** the robot turns until the obstacle is no longer detected within the PixyCam's ROI. The objects enter a "safe area" depending on the color, which indicates s obstacles are already evaded.
     * **Re-acquisition of Trajectory:** following an evasion maneuver, the robot re-establishes its MPU-based trajectory correction. Concurrently, side ultrasonic sensors are utilized to assist in re-centering the robot on its intended path.
 
 ### 3. **Completion Phase:**

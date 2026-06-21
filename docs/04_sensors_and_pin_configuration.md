@@ -14,20 +14,19 @@ The following table summarizes the primary pin assignments for all the component
 | Ultrasonic Front             | `D7` (Trigger), `D9` (Echo) | Distance measurement                |
 | Ultrasonic Left              | `D15` (Trigger), `D17` (Echo) | Distance measurement                 |
 | Ultrasonic Right             | `D11` (Trigger), `D13` (Echo) | Distance measurement                |
-| PixyCam 2.1 (REMOVED)                   | SPI Interface (Default)      | Communication (MISO, 5V, SCLK, MOSI, RESET, GND) |
-| OpenMV H7 plus                  | UART Interface (RX1: `D19` TX1: `D18`)  | Communication (TX, RX, 5V, GND) |
+| PixyCam 2.1                    | SPI Interface (Default)      | Communication (MISO, 5V, SCLK, MOSI, RESET, GND) |
 | MPU6050                      | I2C (SDA: `D20`, SCL: `D21`) | Accelerometer + Gyroscope data |
 | Bottom Color Sensor (I2C)    | I2C (SDA: `D20`, SCL: `D21`) | Floor color recognition        |
 | Left Color Sensor (TCS3200) (REMOVED) | `D51`, `D49`, `D50`, `D52` (S0, S1, S2, S3), `D48` (OUT) | Side color recognition used in our past prototype         |
 | Right Color Sensor (TCS3200) (REMOVED) | `D10`, `D8`, `D16`, `D14` (S0, S1, S2, S3), `D18` (OUT) | Side color recognition used in our past prototype          |
 | Pushbutton                   | `D3`                         | Start program trigger              |
 | LED Indicator                | `D23`                        | Program readiness signal           |
-| LED Headlights                | `D8`                        | Lighting for OpenMV H7 Plus         |
+| LED Headlights                | `D8`                        | Lighting for PixyCam          |
 
 **For the circuit design and electromechanical diagram:**
 
 * [General Electromechanical Diagram](../schemes/)
-* [Circuit Design (Cirkit)](https://vd-wro.github.io/VD26/embeds/interactive_circuit)
+* [Circuit Design (Cirkit)](https://vizdrive.github.io/VizDrive_WRO2025/embeds/interactive_circuit)
 * [KiCad Files](../src/kicad_pcb)
 
 ## 4.2 Detailed Sensor Information and Pin Configuration
@@ -37,7 +36,7 @@ The following table summarizes the primary pin assignments for all the component
 * **Functionality:** Operates on echolocation principles, emitting an ultrasonic pulse and measuring the time for its return echo to calculate distance. Used for obstacle avoidance.
 * **Role:** Three sensors are strategically placed:
   * **Front Ultrasonic Sensor:** Primary for detecting short distances to the wall during turns in the **Obstacle Challenge Round**. This helps execute the predefined turning maneuver.
-  * **Left & Right:** Used to adjust the robot's position parallel to the walls, correcting MPU6050 large offsets after laps. More details in [Sensor Placement Logic](#43-sensor-placement-logic)
+  * **Left & Right:** Used to adjust the robot's position parallel to the walls, correcting MPU6050 large offsets after laps.
 * **Pin Configuration:**
   * `VCC`: Connected to Arduino `5V`.
   * `GND`: Connected to Arduino `GND`.
@@ -76,29 +75,18 @@ For the main documentation on **Encoder and Mobility:**
 For the main documentation on **MPU Gyroscope and PID Control:**
 [**PID Control for the Gyroscope**](./06_pid_gyroscope_control.md)
 
-### ArtificialVision
+### PixyCam 2.1
 
 * **Functionality:** A fast vision sensor that performs on-board image processing to detect objects based on pre-trained color signatures. It reports object data (x, y position, width, height) to the microcontroller.
 * **Role:** Key for vision-based obstacle evasion. Detects red objects to initiate evasion to the right, and green objects to evade to the left.
-
-#### PixyCam 2.1 (Removed in ViZio IV)
-
 * **Pin Configuration:** Communicates via SPI interface (default).
   * `MISO`, `5V`, `SCLK`, `MOSI`, `RESET`, `GND`: Connected to the PixyCam 2.1 ISCP.
 * **Library:** Utilizes the `Pixy2` library for integration.
 
 <img src="../assets/hardware_photos/pixycam_pin.png" width="400" alt="PixyCam2 ICSP Protocol Pins">
 
-### OpenMV H7 plus
-
-
-* **Pin Configuration:** Communicates via UART interface (Serial1, UART3).
-  * `GND`, `5V`, `TX`, `RX`: Connected to the OpenMV H7 plus UART.
-* **Library:** Does not require a specific library to function.
-
-<img src="../assets/hardware_photos/pinout-openmv-cam-h7-ov7725.png" width="800" alt="PixyCam2 ICSP Protocol Pins">
-
-Main documentation [**Computer Vision Functions**](07_computer_vision.md).
+For the main documentation on **Computer Vision with PixyCam2:**
+[**Computer Vision Functions with PixyCam2**](07_pixycam_computer_vision.md)
 
 ### Color Sensors (TCS3472 & TCS3200)
 
@@ -121,34 +109,6 @@ Main documentation [**Computer Vision Functions**](07_computer_vision.md).
 
 For the main documentation on **Color Sensors and Calibration:**
 [**Color Detection Functions**](./09_color_detection.md)
-
-## 4.3 Sensor Placement Logic
-
-The following information details how sensors are strategically positioned for optimal operation of each function of the robot.
-
-### Ultrasonic Sensors 
-
-Front ultrasonic sensors were once placed in 45 degree angles from the center to detect walls when the robot was evading an obstacle, as shown in the following figure.
-
-<img src="../assets/hardware_photos/45_deg_US.png" width="400" alt="45 Degree Ultrasonic Sensors">
-
-This placement caused problems for front distance measurement; ultrasonic sensors have a limited working angle and these specific distances were no longer needed. 
-
-<img src="../assets/animations_graphics/US_Placement.png" width="400" alt="Ultrasonic Sensors Placement Considerations">
-
-Ultrasonic sensors are now positioned in the front and sideways for specific tasks (Red = sideways, Yellow = Front), more information in [05 Robot Mobility](../docs/05_robot_mobility.md).
-
-<img src="../assets/model_photos/USCurrentPlacement.png" width="600" alt="Ultrasonic Sensors Placement">
-
-### PCB Circuit
-
-All small modules, including drivers, gyroscopes, were placed onto the PCB for better organization and compactness, we highly suggest to visit [PCB Circuit](02_hardware_components.md#28-circuit-design).
-
-### Camera Pitch Angle
-
-The Camera pitch angle can be customized to improve system coordination, taking into consideration factors such as steering angle, camera FOV (field of view), lighting conditions, lens distortion (wrap), and other factors. We chose 35° as it worked the best for the robot's specifications, it also avoided detecting far obstacles and other objects outside the field. The following illustration highlights the focused object being detected, while the 2nd block is not withing the camera's view.
-
-![Camera Pitch Angle](../assets/model_photos/CameraAngle.png)
 
 ---
 
