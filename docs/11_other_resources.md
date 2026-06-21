@@ -295,7 +295,7 @@ The most updated robot. Many changes have been made.
 
 * **Improved Chassis**: Now made more durable, adapted to the mechanical differencial, and sharper steering implemented.
 
-* **Steering Range**: The steering angle has been increased to 50°, allowing for significantly sharper turning capability.
+* **Steering Range**: The steering angle has been increased to 55°, allowing for significantly sharper turning capability.
 
 ---
 
