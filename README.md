@@ -83,7 +83,7 @@ You can use this index to navigate through our robot's documentation. Each docum
 | ViZio V3                   |          Block color detection through Pixy, slower velocity.                | Fixed PCB, adaption to camera bug, new parallel parking logic that includes last block evasion.                 | 🇸🇬 WRO 2025 |
 | ViZio IV    |              N/a     | Changed camera, improved chassis, upgraded PCB, and added mechanical differential.      | 🇵🇦 Regionals 2026 |
 
-For better comprehension please visit [**Previous Versions of our Robot**](./assets/hardware_photos/README.md)
+For better comprehension please visit [**Previous Versions of our Robot**](./docs/11_other_resources.md#119-version-history)
 
 ---
 
