@@ -15,7 +15,7 @@ The following table summarizes the primary pin assignments for all the component
 | Ultrasonic Left              | `D15` (Trigger), `D17` (Echo) | Distance measurement                 |
 | Ultrasonic Right             | `D11` (Trigger), `D13` (Echo) | Distance measurement                |
 | PixyCam 2.1 (REMOVED)                   | SPI Interface (Default)      | Communication (MISO, 5V, SCLK, MOSI, RESET, GND) |
-| OpenMV H7 plus                  | UART Interface (RX1: `D19` TX1: `D18`)  | Communication (TX, RX, 5V, GND) |
+| OpenMV H7 Plus                  | UART Interface (RX1: `D19` TX1: `D18`)  | Communication (TX, RX, 5V, GND) |
 | MPU6050                      | I2C (SDA: `D20`, SCL: `D21`) | Accelerometer + Gyroscope data |
 | Bottom Color Sensor (I2C)    | I2C (SDA: `D20`, SCL: `D21`) | Floor color recognition        |
 | Left Color Sensor (TCS3200) (REMOVED) | `D51`, `D49`, `D50`, `D52` (S0, S1, S2, S3), `D48` (OUT) | Side color recognition used in our past prototype         |
