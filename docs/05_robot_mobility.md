@@ -341,7 +341,7 @@ It would proceed to perform the already explained [parking maneuver](#parking-ma
 ||Distance 2|Distance from the ultrasonic sensor to the wall.|
 ||Difference 3|Ideal distance from the center of the robot to the wall.|
 ||Difference 4|Distance from the ultrasonic sensor to the ideal position of the robot.|
-|**Straightening direction**||A small foward movement to align the robot parallel to the wall.|
+|**Straightening direction**||A small forward movement to align the robot parallel to the wall.|
 |**Reversing**||The drives backwards, positioning itself beside the parking area.|
 |**Fully Parked**||The robot parks driving backwards.|
 
