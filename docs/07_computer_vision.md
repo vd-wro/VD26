@@ -139,9 +139,9 @@ while True:
     green_led.off()   
 ```
 
-#### Size Filtering and Data Transmittion
+#### Size Filtering and Data Transmission
 
-This function is inside the main loop, and it filters out the prevously elected candidates, keeping only the one with the largest area. After the final blob is elected, the message is consturcted, consisting of 3 values: signature number, X-position, and Y-position. `(color, cx, cy)` and proceeds to send the mesage of the classified block through UART Serial communication.
+This function is inside the main loop, and it filters out the prevously elected candidates, keeping only the one with the largest area. After the final blob is elected, the message is constructed, consisting of 3 values: signature number, X-position, and Y-position. `(color, cx, cy)` and proceeds to send the message of the classified block through UART Serial communication.
 
 ```py
     # Process localized candidates if any have passed primary filtering criteria
