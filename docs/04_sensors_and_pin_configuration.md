@@ -92,7 +92,7 @@ For the main documentation on **MPU Gyroscope and PID Control:**
 ### OpenMV H7 Plus
 
 * **Pin Configuration:** Communicates via UART interface (Serial1, UART3).
-  * `GND`, `5V`, `TX`, `RX`: Connected to the OpenMV H7 plus UART.
+  * `GND`, `5V`, `TX`, `RX`: Connected to the OpenMV H7 Plus UART.
 * **Library:** Does not require a specific library to function.
 
 <img src="../assets/hardware_photos/pinout-openmv-cam-h7-ov7725.png" width="800" alt="PixyCam2 ICSP Protocol Pins">
