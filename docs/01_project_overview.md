@@ -29,10 +29,10 @@ Each of these parts have their own separated document, delving into their calibr
 
 | Specification | Information |
 | ---------------- | ---------- |
-| Height | 13 cm |
-| Width | 15 cm |
-| Length | 27 cm |
-| Weight | ~750 g |
+| Height | 15 cm |
+| Width | 14 cm |
+| Length | 26 cm |
+| Weight | 841 g |
 
 ---
 
