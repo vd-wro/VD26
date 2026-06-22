@@ -77,7 +77,7 @@ For a more detailed analysis of the ultrasonic sensors integration for each chal
 
 ### Artificial Vision Obstacle Evasion
 
-VizDrive used the **PixyCam 2.1**, now powered by the **OpenMV H7 plus** to detect and react to colored obstacles in its path.
+VizDrive used the **PixyCam 2.1**, now powered by the **OpenMV H7 Plus** to detect and react to colored obstacles in its path.
 
 * **`obstacleDetected()`**: Determines whether an obstacle is within close proximity, based on its position in the camera's frame. Returns `true` if an object is found within a predefined vertical threshold, `false` otherwise.
 * **`handleEvasion()`**: Executes a blocking maneuver to steer the robot around an obstacle detected within close range. It identifies the largest obstacle within the ROI and adjusts the robot's steering based on the object's color signature:
