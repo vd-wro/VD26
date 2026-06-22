@@ -230,7 +230,7 @@ This battery is dedicated to propulsion and lighting, ensuring that motor noise 
 * **Load:** [MEGA 2560 Pro](#component--mega-2560-pro-embed) (voltage regulator) + [OpenMV](#component-openmv-h7-plus) + [MPU6050](#component-mpu6050-accelerometer--gyroscope) + [Color Sensor](#component-tcs3472-color-sensor) + [Ultrasonics](#component-hc-sr04-ultrasonic-sensors)  
 * **Current Draw:**  
   * MEGA 2560 Pro: ~50–70 mA  
-  * PixyCam: ~140 mA  
+  * OpenMV H7: ~140 mA  
   * MPU6050: ~4 mA  
   * TCS3472 Color Sensor: ~0.24 mA  
   * Ultrasonic Sensors (x3): ~60 mA total  
