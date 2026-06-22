@@ -336,60 +336,6 @@ We had initially decided that we would use two color sensors: a TCS3472 for the 
 
 For a better understanding of the parking maneuver, please visit: [5.2 Driving Algorithm](./05_robot_mobility.md)
 
-## 2.8 Circuit Design
-
-### Original Manually Soldered Circuit
-
-We developed a custom shield circuit for the regionals, using a soldered Printed Circuit Board (PCB) to streamline the electrical connections, in order to reduce cable clutter, and minimize the overall weight, size, and complexity of the system. All components and routes were manually soldered onto the PCB to ensure a compact and custom integration of all components.
-
-![PCB VS Prototype Circuit](../assets/hardware_photos/imagen%20(6).jpg)
-
-* **Detailed Electromechanical Diagram:** For a more in-depth view of how all electronic and mechanical components are interconnected in the old PCB, refer to the the electromechanical diagram:
-
-![Electromechanical Diagram](./../schemes/electromechanical_diagram.png)
-
-You can also visit the detailed interactive visual representation in [Interactive Cirkit Circuit Design](https://vd-wro.github.io/VD26/embeds/interactive_circuit). It's an embedded webpage hosted on GitHub Pages.
-
-### Arduino MKR1010 Circuit PCB
-
-![MKR PCB](./../assets/hardware_photos/MKR_circuit.png)
-
-A version of our circuit was made for the Arduino MKR1010. The decision was made considering the potential advantages this microcontroller offers.
-
-* **Wi-Fi and Bluetooth connectivity**: This feature facilitates debugging during the development of our robot, providing important information during the robot's execution in the track.
-* **Processing Power**: The MKR1010 is powered by the SAMD21G18A — 32-bit ARM Cortex-M0+ chip, providing a 48 MHz clock speed, 32 KB SRAM (volatile memory / RAM), and excellent computing performance for demanding tasks.
-* **Compact and Lightweight**: Improving our robot's sensor usage optimization, less communications and peripherals were required, which allowed ViZio to decrease clutter and weight by using the small MKR1010.
-
-However, this version of the robot brought several limitations, encouraging us to use the old Mega 2560 Pro.
-
-* **Limited Power Supply**: The Arduino MKR1010 is an IoT board. These types of microcontrollers promote low ambiental impact and affect the MKR1010 with its limited power supply, providing insufficient current for our components.
-* **3V3 Logic**: Having a similar context from the previous point, we had to add logic shifters since the MKR1010 uses 3.3V logic, which consequently limited the amount of clutter reduced.
-* **Wi-Fi Limitations**: A web hosting was developed for debugging; however, updates were delayed and slow, so Wi-Fi communication was not useful anymore since precise and updated information was required for proper debugging.
-
-### National PCB Circuit
-
-The new robot uses a custom KiCad PCB circuit made for the Mega 2560 Pro. We designed a personalized KiCad circuit to improve the old version, adding durability, reliability and simplicity.
-
-![Updated PCB](./../assets/hardware_photos/UpdatedCircuitPCB.jpg)
-
-* **Planning and Design**: Components were slightly changed for this PCB, such as using a **self-locking pushbutton switch** instead of a toggle switch. Positioning was oriented to facilitate physical construction, simplifying wire routing.
-* **Track Routing**: Tracks were manually routed using two layers (rear layer and front layer).
-* **Track Thickness**: To enhance current capacity, the power tracks were widened, and the ground trace was designed with greater thickness.
-* **Border Thickness**: Durability was an important factor designing this PCB, so a broad border was left to protect the circuit.
-* **45° Corner Tracks**: Tracks were cornered with a 45° angle, further widening the corner's thickness and enhanced rigidity while also maintaining the electromagnetic field uniformity.
-* **THT Components**: THT components were preferred over SMD due to the ease of soldering, which is important for simpler builds and faster repairs.
-* **GND and 5V Tracks**: Power tracks surround the PCB, reducing the complexity of the components' routing.
-* **PCB Fabrication and Build**: The custom PCB was fabricated with our logo and components were soldered.
-
-![KiCad Diagram](./../assets/hardware_photos/KiCad.png)
-
-### Current PCB Circuit
-
-* **I2C Bus Fix:** A small fix was made in the PCB circuit, the I2C bus pins (SDA, SCL) were inverted. To fix the issue with the previous version, a small PCB was soldered to reposition the pins.
-
-| Inverted I2C Bus | Soldered MPU |
-| ---------------- | ---------------- |
-| <img src="./../assets/hardware_photos/OldPCB.jpg" height="250"> | <img src="./../assets/hardware_photos/SolderedPCB.jpg" height="250"> |  
 
 You can also download the fixed circuit files: [kicad_pcb](../src/kicad_pcb).
 
