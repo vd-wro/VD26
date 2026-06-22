@@ -6,7 +6,7 @@ VizDrive's autonomous navigation relies heavily on its ability to perceive cruci
 
 ## 9.1 Floor Color Sensor (I2C - Adafruit TCS3472)
 
-A dedicated TCS34725 color sensor is mounted on the underside of the robot. Its primary function is to detect colored lines on the circuit mat, which serve as strategic indicators for turns.
+A dedicated TCS3472 color sensor is mounted on the underside of the robot. Its primary function is to detect colored lines on the circuit mat, which serve as strategic indicators for turns.
 
 ### Global Object
 
