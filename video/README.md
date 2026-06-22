@@ -58,7 +58,7 @@ Fourth video, an introduction of what our latest model's improvements
 
 Differential assembly video, an animation of the building process of ViZio's new mechanical differential system.
 
-[![ViZio IV](https://img.youtube.com/vi/0kR-c86Hjms/0.jpg)](https://www.youtube.com/watch?v=0kR-c86Hjms)
+[![ViZio IV](https://img.youtube.com/vi/UHFCzMF-fk8/0.jpg)](https://www.youtube.com/watch?v=UHFCzMF-fk8)
 
 # Music Creation Video (Easter egg!)
 
