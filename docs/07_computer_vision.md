@@ -103,7 +103,7 @@ def is_true_red(img, blob):
 
 #### Blob Detection and Y-Bound Filter
 
-This is the main loop, it reads the sensor information and runs two separate blob detection functions, this is due to the limitations of a single function performing two readings at the same time: if both blobs are together, or overlap, none are returned from the function, so the two function approach was chosen. The only difference between the red and green funciton is in the hue factor, which is only applied to the red blob detection function. For all blobs inside the sensor frame, only the ones inside the Y-bound ROI are taken into consideration, and elected as **candidates**.
+This is the main loop, it reads the sensor information and runs two separate blob detection functions, this is due to the limitations of a single function performing two readings at the same time: if both blobs are together, or overlap, none are returned from the function, so the two-function approach was chosen. The only difference between the red and green function is in the hue factor, which is only applied to the red blob detection function. For all blobs inside the sensor frame, only the ones inside the Y-bound ROI are taken into consideration, and elected as **candidates**.
 
 ```py
 while True:
