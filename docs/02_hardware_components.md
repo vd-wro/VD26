@@ -58,16 +58,6 @@ This section provides a detailed enumeration and description of all hardware com
 
 ## 2.3 Sensor Suite
 
-### **Component:** **PixyCam 2.1 (Replaced by the OpenMV in ViZio IV)**
-
-* **Quantity:** 1
-* **Voltage:** 5V
-* **Current Consumption:** ~140 mA
-* **Interface:** ICSP
-* **Description:** Smart vision sensor for real-time color and object recognition. Used for obstacle detection. For information regarding removal, please refer to: [Component Selection](#27-component-selection).
-
-<img src="../assets/hardware_photos/pixycam.jpg" width="300">
-
 ### **Component:** **OpenMV H7 Plus**
 
 * **Quantity:** 1
@@ -87,16 +77,6 @@ This section provides a detailed enumeration and description of all hardware com
 * **Description:** High-resolution color sensor with IR filtering. Mounted underneath the robot to detect blue and orange floor lines that indicate turns.
 
 <img src="../assets/hardware_photos/tcs3472color.jpg" width="300">
-
-### **Component:** **TCS3200 Color Sensor (Removed in ViZio 2.0)**
-
-* **Quantity:** 2
-* **Voltage:** 2.7-5.5V
-* **Power Consumption:** ~10-50 mA
-* **Output:** Frequency proportional to color intensity
-* **Description:** Side-mounted color recognition sensors used for detecting the magenta signal for parking. Converts color input to frequency output.
-
-<img src="../assets/hardware_photos/tcs3200color.jpg" width="300">
 
 ### **Component:** **HC-SR04 Ultrasonic Sensors**
 
@@ -204,8 +184,29 @@ This section provides a detailed enumeration and description of all hardware com
   
   <img src="../assets/hardware_photos/resistor.jpg" width="300">
 
+## 2.6 Removed Components
 
-## 2.6 Power Management  
+### **Component:** **TCS3200 Color Sensor (Removed in ViZio 2.0)**
+
+* **Quantity:** 2
+* **Voltage:** 2.7-5.5V
+* **Power Consumption:** ~10-50 mA
+* **Output:** Frequency proportional to color intensity
+* **Description:** Side-mounted color recognition sensors used for detecting the magenta signal for parking. Converts color input to frequency output.
+
+<img src="../assets/hardware_photos/tcs3200color.jpg" width="300">
+
+### **Component:** **PixyCam 2.1 (Replaced by the OpenMV in ViZio IV)**
+
+* **Quantity:** 1
+* **Voltage:** 5V
+* **Current Consumption:** ~140 mA
+* **Interface:** ICSP
+* **Description:** Smart vision sensor for real-time color and object recognition. Used for obstacle detection. For information regarding removal, please refer to: [Component Selection](#27-component-selection).
+
+<img src="../assets/hardware_photos/pixycam.jpg" width="300">
+
+## 2.7 Power Management  
 
 The robot integrates a **dual-supply power architecture** to balance performance, efficiency, and protection of sensitive electronics:  
 
@@ -226,7 +227,7 @@ This battery is dedicated to propulsion and lighting, ensuring that motor noise 
 ### Logic and Sensor Power Supply
 
 * **Source:** [Rechargeable 9 V Battery (~600 mAh)](#component-rechargable-9v-battery)
-* **Load:** [MEGA 2560 Pro](#component--mega-2560-pro-embed) (voltage regulator) + [PixyCam](#component-pixycam-21-replaced-by-the-openmv-in-vizio-iv) + [MPU6050](#component-mpu6050-accelerometer--gyroscope) + [Color Sensor](#component-tcs3472-color-sensor) + [Ultrasonics](#component-hc-sr04-ultrasonic-sensors)  
+* **Load:** [MEGA 2560 Pro](#component--mega-2560-pro-embed) (voltage regulator) + [OpenMV](#component-openmv-h7-plus) + [MPU6050](#component-mpu6050-accelerometer--gyroscope) + [Color Sensor](#component-tcs3472-color-sensor) + [Ultrasonics](#component-hc-sr04-ultrasonic-sensors)  
 * **Current Draw:**  
   * MEGA 2560 Pro: ~50–70 mA  
   * PixyCam: ~140 mA  
@@ -260,9 +261,9 @@ This battery ensures clean and stable voltage delivery for sensors and the contr
 
 The system's autonomy is therefore governed by the 9V supply, after which recharging or replacement is required.
 
-## 2.7 Component Selection
+## 2.8 Component Selection
 
-In this section, we detail our component seleciton process, possible alternatives and workarounds.
+In this section, we detail our component selection process, possible alternatives and workarounds.
 
 ### **Controller:** Mega 2560 Pro Embed
 
