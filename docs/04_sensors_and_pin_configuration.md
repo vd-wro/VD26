@@ -76,7 +76,7 @@ For the main documentation on **Encoder and Mobility:**
 For the main documentation on **MPU Gyroscope and PID Control:**
 [**PID Control for the Gyroscope**](./06_pid_gyroscope_control.md)
 
-### ArtificialVision
+### Artificial Vision
 
 * **Functionality:** A fast vision sensor that performs on-board image processing to detect objects based on pre-trained color signatures. It reports object data (x, y position, width, height) to the microcontroller.
 * **Role:** Key for vision-based obstacle evasion. Detects red objects to initiate evasion to the right, and green objects to evade to the left.
@@ -89,8 +89,7 @@ For the main documentation on **MPU Gyroscope and PID Control:**
 
 <img src="../assets/hardware_photos/pixycam_pin.png" width="400" alt="PixyCam2 ICSP Protocol Pins">
 
-### OpenMV H7 plus
-
+### OpenMV H7 Plus
 
 * **Pin Configuration:** Communicates via UART interface (Serial1, UART3).
   * `GND`, `5V`, `TX`, `RX`: Connected to the OpenMV H7 plus UART.
