@@ -121,34 +121,6 @@ Main documentation [**Computer Vision Functions**](07_computer_vision.md).
 For the main documentation on **Color Sensors and Calibration:**
 [**Color Detection Functions**](./09_color_detection.md)
 
-## 4.3 Sensor Placement Logic
-
-The following information details how sensors are strategically positioned for optimal operation of each function of the robot.
-
-### Ultrasonic Sensors 
-
-Front ultrasonic sensors were once placed in 45 degree angles from the center to detect walls when the robot was evading an obstacle, as shown in the following figure.
-
-<img src="../assets/hardware_photos/45_deg_US.png" width="400" alt="45 Degree Ultrasonic Sensors">
-
-This placement caused problems for front distance measurement; ultrasonic sensors have a limited working angle and these specific distances were no longer needed. 
-
-<img src="../assets/animations_graphics/US_Placement.png" width="400" alt="Ultrasonic Sensors Placement Considerations">
-
-Ultrasonic sensors are now positioned in the front and sideways for specific tasks (Red = sideways, Yellow = Front), more information in [05 Robot Mobility](../docs/05_robot_mobility.md).
-
-<img src="../assets/model_photos/USCurrentPlacement.png" width="600" alt="Ultrasonic Sensors Placement">
-
-### PCB Circuit
-
-All small modules, including drivers, gyroscopes, were placed onto the PCB for better organization and compactness, we highly suggest to visit [PCB Circuit](02_hardware_components.md#28-circuit-design).
-
-### Camera Pitch Angle
-
-The Camera pitch angle can be customized to improve system coordination, taking into consideration factors such as steering angle, camera FOV (field of view), lighting conditions, lens distortion (wrap), and other factors. We chose 35° as it worked the best for the robot's specifications, it also avoided detecting far obstacles and other objects outside the field. The following illustration highlights the focused object being detected, while the 2nd block is not withing the camera's view.
-
-![Camera Pitch Angle](../assets/model_photos/CameraAngle.png)
-
 ---
 
 [Back to Main README.md Index](../README.md)
