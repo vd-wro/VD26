@@ -77,9 +77,9 @@ You can use this index to navigate through our robot's documentation. Each docum
 
 | Versions                  | Problems | Improvements made          | Used In          | 
 | :--------------------------- | :--------------------------- | :------------------------------------------- | :--------------------------------- | 
-| Prototype               |     Often finding disconnected components,                    | N/a               | First prototype made. |
-| ViZio                |     Gyroscope callibration, partial parking, connection problems due to cable wear, complications with the dual ultrasonic sensor radar.                    | Removed clutter with a hand-soldered PCB.                 | 🇵🇦 Regionals 2025 |
-| ViZio 2.0     |          Challenges with Pixy Parameters' callibration, incomplete parking maneuver, inverted SDA and SCL pins           | Improved PCB, kept one frontal ultrasonic, new logic for parallel parking,      | 🇵🇦 National 2025 |
+| Prototype               |     Often finding disconnected components.                    | N/a               | First prototype made. |
+| ViZio                |     Gyroscope calibration, partial parking, connection problems due to cable wear, complications with the dual ultrasonic sensor. radar.                    | Removed clutter with a hand-soldered PCB.                 | 🇵🇦 Regionals 2025 |
+| ViZio 2.0     |          Challenges with Pixy Parameters' calibration, incomplete parking maneuver, inverted SDA and SCL pins.          | Improved PCB, kept one frontal ultrasonic, new logic for parallel parking.      | 🇵🇦 National 2025 |
 | ViZio V3                   |          Block color detection through Pixy, slower velocity.                | Fixed PCB, adaption to camera bug, new parallel parking logic that includes last block evasion.                 | 🇸🇬 WRO 2025 |
 | ViZio IV    |              N/a     | Changed camera, improved chassis, upgraded PCB, and added mechanical differential.      | 🇵🇦 Regionals 2026 |
 
