@@ -173,7 +173,7 @@ Visit:
 
 [Color and Ultrasonic Workflow Diagram.png](./../assets/flowcharts/Workflow%20Diagram%20-%20Color%20and%20Ultrasonic.png)
 
-[Main Workflow Diagram.png](./../assets/flowcharts/Workflow%20Diagram%20-%20Pixy.png) 
+[OpenMV Workflow Diagram.png](./../assets/flowcharts/Workflow%20Diagram%20-%20OpenMV.png) 
 
 If the image is distorted or not seen.
 
