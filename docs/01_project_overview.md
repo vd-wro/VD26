@@ -92,13 +92,13 @@ graph TD
         ColorCheck -- Yes (Blue/Orange) --> TurnLogic[[Corner Turn Routine]]
         TurnLogic --> UpdateLap[Update Lap Count]
         
-        ColorCheck -- No --> ObsCheck{Obstacle in<br>ROI?}
+        ColorCheck -- No --> ObsCheck{Serial read...<br>Obstacle detected?}
         
-        ObsCheck -- Yes (Red/Green) --> EvadeLogic[[Obstacle Evasion Routine]]
+        ObsCheck -- Yes (R/G) --> EvadeLogic[[Obstacle Evasion Routine]]
         EvadeLogic --> Recenter[Recenter Trajectory]
         Recenter --> Loop
         
-        ObsCheck -- No --> Drive[Drive Forward]
+        ObsCheck -- No (C) --> Drive[Drive Forward]
         Drive --> Loop
     end
 
@@ -151,13 +151,13 @@ graph TD
 
 ```mermaid
 graph TD
-    E_A["Detect Blocks with Pixy"] --> E_B{"Color?"}
-    E_B -- Rojo --> E_C["Avoid to the RIGHT"]
-    E_B -- Verde --> E_D["Avoid to the LEFT"]
-    E_C --> E_E["Set Direction of Servomotor"]
+    E_A["Detect Blocks with OpenMV"] --> E_B{"Color?"}
+    E_B -- Red --> E_C["Avoid to the RIGHT 'R'"]
+    E_B -- Verde --> E_D["Avoid to the LEFT 'G'"]
+    E_C --> E_E["Send through serial"]
     E_D --> E_E
-    E_E --> E_F["Wait untill the block leaves vision"]
-    E_F --> E_G["Return to the trajectory"]
+    E_E --> E_F["When block exits ROI"]
+    E_F --> E_G["Send continue 'C'"]
 
     %% Styling
     style E_A fill:#ADD8E6,color:black
