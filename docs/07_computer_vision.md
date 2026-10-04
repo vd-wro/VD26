@@ -375,7 +375,7 @@ It finishes the evasion maneuver and breaks the evasion applying sideways correc
 
 A 10° angle was opted when choosing the optimal camera position, this angle permits the usage of the non-curve area of the camera (horizontal center line) during object tracking. Even though the Y-bound (a value used to detect only blocks that are near the robot, and discard those that are far away) could be assumed to be the centre, it was calculated to create micro adjustments:
 
-<img src="../assets/animation_graphics/Ycam.png" width="500">
+<img src="../assets/animations_graphics/Ycam.png" width="500">
 
 **Block Detection Distance Calculations**
 
