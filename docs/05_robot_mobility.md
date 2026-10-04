@@ -432,6 +432,14 @@ So:
 * The differential case is still being spun at a constant speed by the ring gear, but the inside axle is at a different speed. This speed forces the spider gears to begin spinning on their own internal shafts. Their rotation relative to the differential case is slower.
 * This spinning motion automatically transfers the lost speed directly to the outside side gear, causing the outside wheel to spin faster by the exact same amount the inside wheel slowed down.
 
+
+## 5.4 Centre of Mass
+
+During ViZio's development, many changes were made and different approaches were used to fine-tune our robot's mass. The resulting center of mass is aproximately in the following **green** dot.
+
+<img src="../assets/model_photos/COM.png" width="500">
+
+
 ---
 
 [Back to Main README.md Index](./../README.md)
