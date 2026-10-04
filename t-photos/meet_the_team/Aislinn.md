@@ -10,4 +10,4 @@ In my spare time, I devote myself to continue **learning** and **exploring** the
 
 I aspire to keep **discovering** new things, gaining new **skills** and **enhancing** the ones I have.
 
-![Aislinn Chawla](.././aislinn_2.jpg)
+![Aislinn Chawla](.././aislinn_4.jpg)
