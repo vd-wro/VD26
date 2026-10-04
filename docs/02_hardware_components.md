@@ -113,7 +113,7 @@ This section provides a detailed enumeration and description of all hardware com
 
 * **Quantity:** 2
 * **Voltage:** 4.2V fully charged, 3.7 nominal
-* **Capacity:** 8800 mAh, 5000 mAh
+* **Capacity:** 8800 mAh, 5000 mAh (~3000 mAh effective usable capacity)
 * **Discharge Current:** Up to 2A (depending on model)
 * **Description:** Power supply for the robot's DC motors and auxiliary LED headlights. Specifically, **Li-ion 18650 Battery 4.2V 8800 mAh** and **Li-ion 18650 Battery 3.7V 5000 mAh** are used alternatively.
 
@@ -127,6 +127,14 @@ This section provides a detailed enumeration and description of all hardware com
 * **Description:** A standard 9V battery used for the sensors and Arduino MEGA unit.
 
 <img src="../assets/hardware_photos/9Vbattery.jpg" width="300">
+
+### **Component:** **Buck Converter**
+
+* **Quantity:** 1
+* **Voltage:** ~8V to 5V
+* **Description:** A buck converter to step down voltage from the motor power supply (8.4V) to the servomotor (5V operation). 
+
+<img src="../assets/hardware_photos/BUCK.png" width="300">
 
 ## 2.5 Miscellaneous Components
 
@@ -211,16 +219,17 @@ This section provides a detailed enumeration and description of all hardware com
 The robot integrates a **dual-supply power architecture** to balance performance, efficiency, and protection of sensitive electronics:  
 
 ### Motor Power Supply  
-* **Source:** **2x** [4.2V 18650 Li-ion Battery (8800 mAh)](#component-42v-batteries37v)  
-* **Load:** [DC gearmotor](#component-hobby-gearmotor-with-481-gearbox), [L298N motor driver](#component-mini-l298n-motor-driver) + [LED Headlights](#component-headlight-leds) (optional)  
+* **Source:** **2x** [4.2V 18650 Li-ion Battery (~3000 mAh effective usable capacity)](#component-42v-batteries37v)  
+* **Load:** [DC gearmotor](#component-hobby-gearmotor-with-481-gearbox), [L298N motor driver](#component-mini-l298n-motor-driver) + [Servo Motor](#component-servo-motor-mg90s) + [LED Headlights](#component-headlight-leds) (optional)  
 * **Current Draw:**  
   * ~120 mA average during motion  
   * +40 mA with headlights (2 × 20 mA)  
-  * Up to ~1.6 A at stall (short bursts only)  
+  * Up to ~1.6 A at stall (short bursts only)
+  * Servomotor ~70–160 mA average
 * **Estimated Runtime:**  
-  * Continuous average draw (~120 mA): ~70 hours  
-  * With headlights (~160 mA): ~55 hours  
-  * Realistic mixed load with peaks: **~10–12 hours** of operation  
+  * Continuous average draw (~280 mA): ~70 hours  
+  * With headlights (~320 mA): ~55 hours  
+  * Realistic mixed load with peaks: **7-9 hours** of operation  
 
 This battery is dedicated to propulsion and lighting, ensuring that motor noise and current surges do not affect sensor accuracy or logic circuits while maintaining long-lasting illumination for optimal operation.
 
@@ -243,7 +252,8 @@ This battery ensures clean and stable voltage delivery for sensors and the contr
 
 ### Voltage Regulation
 
-* The **MEGA 2560 Pro** regulates the 9V input to 5V for its logic and peripherals.  
+* The **MEGA 2560 Pro** regulates the 9V input to 5V for its logic and peripherals.
+* The **Buck Converter** steps down the motor power supply from 8.4V to 5V for safe servomotor operation, this module avoids current loss in heat, improving the system's efficiency.
 * I²C devices (MPU6050, color sensors) operate safely at 3.3–5V.  
 
 ### Switching and Protection
@@ -256,7 +266,7 @@ This battery ensures clean and stable voltage delivery for sensors and the contr
 
 **Summary of Power Autonomy**  
 
-* **Motors (4.2V Li-ion):** 12–15 hours (practical runtime)
+* **Motors (4.2V Li-ion):** 7–9 hours
 * **Logic & Sensors (9V battery):** ~2 hours (main limiting factor)  
 
 The system's autonomy is therefore governed by the 9V supply, after which recharging or replacement is required.
