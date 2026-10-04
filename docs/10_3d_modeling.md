@@ -24,9 +24,9 @@ VizDrive's mechanical design prioritizes precise and stable locomotion, integrat
   * **Propulsion Motor**: A **Hobby Gearmotor with a 48:1 gearbox** is employed for the rear drive, selected for its ample torque suitable for various terrains.
   * **Steering Actuator**: A **Servo Motor SG90** is used to precisely control the angular position of the front steering wheels.
  
-| V1 | V2, V3 | V4 |
+| V1 | V2 - V3 | V4 - V5 |
 | ---------------- | ---------------- | ---------------- |
-| <img src="./../assets/model_photos/3d_modeling_design.png" width="250"> | <img src="./../assets/model_photos/ViZio_Updated_Chassis.png" width="250"> |  <img src="./../assets/model_photos/ViZio_Updated_Chassis.png" width="250"> |
+| <img src="./../assets/model_photos/3d_modeling_design.png" width="250"> | <img src="./../assets/model_photos/ViZio_Updated_Chassis.png" width="250"> |  <img src="./../assets/model_photos/ChassisV5.png" width="250"> |
 
 
 
@@ -37,9 +37,13 @@ VizDrive's mechanical design prioritizes precise and stable locomotion, integrat
 
   <img src="./../assets/model_photos/light_frame.png" width="500">
 
-  * **Newer Models' Silhouette**:
+  * **V2 - V3 Silhouette**:
 
   <img src="./../assets/model_photos/ViZio_chassis_new_version.png" width="500">
+
+  * **V4 - V5 Silhouette**:
+
+  <img src="./../assets/model_photos/ChassisV5Sil.png" width="500">
 
 * **Tolerance Management**: Strategic variations in manufacturing tolerances were applied during part design:
   * **Snug Fit**: Components secured by screws are designed for a tight fit to ensure rigidity.
@@ -82,6 +86,26 @@ VizDrive's mechanical design prioritizes precise and stable locomotion, integrat
 * **Double Camera Mount**: During the development of ViZio, multiple camera angles were tested to identify the best view. However, camera movement was restricted to a single fixed slot; hence, to further amplify flexibility, dual camera mounts were implemented into our new model.
 
 <img src="./../assets/model_photos/dual_camera_mount.png" width="500">
+
+* **Differential Case**: A precise differential and axle holder was designed to properly accommodate complex parts precisely.
+
+<img src="./../assets/model_photos/DifferentialCasing.png" width="500">
+
+* **Openable Hood**: a door type compartment was created to allow easy battery access and swapping, also permitting more flexible instalation and construction.
+
+<img src="./../assets/model_photos/OpenHood.png" width="500">
+
+* **Mass Support**: A countermass was placed in the front of the vehicle to improve the center of mass, giving front wheels more grip on the track; thus, making turns sharper.
+
+<img src="./../assets/model_photos/Mass.png" width="500">
+
+* **Separate Modules**: 3 separate supporting modules were printed: the front nose cone, which is holds the front color and ultrasonic sensors; a rear motor fixer, that tightly fastens the motor against the chassis, providing stable power throughout the track; and an encoder support, printed separately to build the differential system without disturbance and allow easy encoder installation.
+
+<img src="./../assets/model_photos/Modules.png" width="500">
+
+* **Smooth Edges**: This was an addition made to our V5 chassis, adding the deserved feel of a premium finish to our 2 time finalist robot.
+
+<img src="./../assets/model_photos/smoothEdge.png" width="500">
 
 ## 10.3 3D Printing and Parameters
 
