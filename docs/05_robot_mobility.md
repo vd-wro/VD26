@@ -389,7 +389,7 @@ Basic geometry tells us that when turning, the inner wheel travels a shorter pat
 
 To calculate wheel cornering dynamics, we are using a bicycle's kinematic model to calculate the central turning radius.
 
-<img src="../assets/animations_grahpics/WheelKinematicModels.png" width="500">
+<img src="../assets/animations_graphics/WheelKinematicModels.png" width="500">
 
 * Wheelbase: 10.5 cm
 * Track Width: 12 cm
