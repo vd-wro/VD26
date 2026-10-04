@@ -23,53 +23,53 @@ This section is a text description on ViZio´s construction process. There are f
 
 #### 2.1 Assemble Wheels
 
-  <img src="./../assets/animations_grahpics/AS1.png" width="500">
+  <img src="./../assets/animations_graphics/AS1.png" width="500">
 
 **Please note:** Front Screws and Rims are not symmetrical, notice there are left and right 3D models
 
 #### 2.2 Assemble Chassis
 
-  <img src="./../assets/animations_grahpics/AS2.png" width="500">
+  <img src="./../assets/animations_graphics/AS2.png" width="500">
 
 **Components in previous picture:** Nose Cone, M3 Screws, Axle Holder.
 
 #### 2.3 Assemble Rear Drive System
 
-  <img src="./../assets/animations_grahpics/AS3.png" width="500">
+  <img src="./../assets/animations_graphics/AS3.png" width="500">
 
-  <img src="./../assets/animations_grahpics/AS4.png" width="500">
+  <img src="./../assets/animations_graphics/AS4.png" width="500">
 
 #### 2.4 Assemble Encoder
 
-  <img src="./../assets/animations_grahpics/AS5.png" width="500">
+  <img src="./../assets/animations_graphics/AS5.png" width="500">
 
 #### 2.4 Secure Motor and Install Encoder
 
-  <img src="./../assets/animations_grahpics/AS6.png" width="500">
+  <img src="./../assets/animations_graphics/AS6.png" width="500">
 
-  <img src="./../assets/animations_grahpics/AS7.png" width="500">
+  <img src="./../assets/animations_graphics/AS7.png" width="500">
 
 #### 2.6 Build Front Axle
 
-  <img src="./../assets/animations_grahpics/AS8.png" width="500">
+  <img src="./../assets/animations_graphics/AS8.png" width="500">
 
 #### 2.7 Place Rear Electronics
 
 **Parts:** 2x rear ultrasonic, PCB, Mega2560, Mega2560 Plaftorm.
 
-  <img src="./../assets/animations_grahpics/AS9.png" width="500">
+  <img src="./../assets/animations_graphics/AS9.png" width="500">
 
 #### 2.7 Place Rear Electronics
 
 **Parts:** Front ultrasonic, floor color sensor, OpenMV.
 
-  <img src="./../assets/animations_grahpics/AS10.png" width="500">
+  <img src="./../assets/animations_graphics/AS10.png" width="500">
 
 #### 2.7 Place Batteries
 
 **Parts:** 9V batteries, 2x 4.2V/3.7V batteries.
 
-  <img src="./../assets/animations_grahpics/AS11.png" width="500">
+  <img src="./../assets/animations_graphics/AS11.png" width="500">
 
 ### Step 3 - PCB
 
