@@ -140,9 +140,9 @@ Flowcharts, circuits, and relevant data graphs.
 
 |                                                       |                                                              |                                                        |
 |:-----------------------------------------------------:|:-----------------------------------------------------------:|:-------------------------------------------------------:|
-| <img src="./t-photos/alexis_1.jpg" width="250">       | <img src="./t-photos/aislinn_4.jpg" width="250"> | <img src="./t-photos/carlo_1.jpg" width="250">             |
+| <img src="./t-photos/Alex_05.png" width="250">       | <img src="./t-photos/Ais_05.png" width="250"> | <img src="./t-photos/Carlo_05.png" width="250">             |
 | [**ALEXIS PALACIOS NG**](./t-photos/meet_the_team/Alexis.md) <br> *Software Engineer*       | [**AISLINN CHAWLA ARORA**](./t-photos/meet_the_team/Aislinn.md) <br> *Logistics and Creativity*        |  [**CARLO HO NG**](./t-photos/meet_the_team/Carlo.md) <br> *Hardware Engineer*   |
-Sensor Integration, <br>Firmware Architecture, <br>Code Logic, <br>Error Management, <br>Data Analysis, <br>GitHub Repository | Engineering Journal, <br>Photography and Film, <br>Competition Planning, <br>Drafting, <br>Soldering, <br>GitHub Repository|  Construction, <br>Wiring, <br>Circuit and PCB Design, <br>Power Management, <br>3D Modeling and Planning, <br>Animation and Illustration  |
+Sensor Integration, <br>Firmware Architecture, <br>Code Logic, <br>Error Management, <br>Data Analysis, <br>GitHub Repository | Engineering Journal, <br>Photography and Film, <br>Competition Planning, <br>Drafting, <br>Soldering, <br>GitHub Repository|  Construction, <br>Wiring, <br>Circuit and PCB Design, <br>Power Management, <br>3D Modeling and Planning, <br>Animation, Illustration, Editing  |
 
 ---
 
