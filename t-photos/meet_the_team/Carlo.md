@@ -24,4 +24,4 @@ On the other hand, I've been interested in sports for mental agility, like **che
 
 My versatile persona displays my abilities in multiple fields; this year, focusing on **robotics** with my objective of **learning and improving myself**.
 
-![Carlo Ho](.././carlo_4.jpg)
+![Carlo Ho](.././carlo_1.jpg)
