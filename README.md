@@ -85,7 +85,8 @@ You can use this index to navigate through our robot's documentation. Each docum
 | ViZio                |     Gyroscope calibration, partial parking, connection problems due to cable wear, complications with the dual ultrasonic sensor. radar.                    | Removed clutter with a hand-soldered PCB.                 | 🇵🇦 Regionals 2025 |
 | ViZio 2.0     |          Challenges with Pixy Parameters' calibration, incomplete parking maneuver, inverted SDA and SCL pins.          | Improved PCB, kept one frontal ultrasonic, new logic for parallel parking.      | 🇵🇦 National 2025 |
 | ViZio V3                   |          Block color detection through Pixy, slower velocity.                | Fixed PCB, adaption to camera bug, new parallel parking logic that includes last block evasion.                 | 🇸🇬 WRO 2025 |
-| ViZio IV    |              N/a     | Changed camera, improved chassis, upgraded PCB, and added mechanical differential.      | 🇵🇦 Regionals 2026 |
+| ViZio IV    |      Poor power distribution caused servo peaks to drain the battery     | Changed camera, improved chassis, upgraded PCB, and added mechanical differential.      | 🇵🇦 Regionals & National 2026 |
+| ViZio Phase V    |  N/a  | Coming soon...      | 🇵🇷 WRO 2026 |
 
 For better comprehension please visit [**Previous Versions of our Robot**](./docs/11_other_resources.md#119-version-history)
 
