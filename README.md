@@ -152,7 +152,7 @@ We are profoundly thankful to everyone who has supported us on our journey so fa
 
 Thank you all!
 
-![The Team](./t-photos/TeamPhotoSing.jpg)
+![The Team](./t-photos/TeamPhotoSing.png)
 
 ---
 
