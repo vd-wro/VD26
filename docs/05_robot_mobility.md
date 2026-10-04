@@ -395,7 +395,7 @@ To calculate wheel cornering dynamics, we are using a bicycle's kinematic model 
 * Track Width: 12 cm
 * Steering Angle: 55°
 
-* $$R_{\text{center}} = \frac{L}{\tan(\delta)}$$
+$$R_{\text{center}} = \frac{L}{\tan(\delta)}$$
 
 $$\tan(55^\circ) \approx 1.4281$$
 
@@ -403,22 +403,26 @@ $$R_{\text{center}} = \frac{10.5}{1.4281} \approx 7.35\text{ cm}$$
 
 Obtaining our central turning radius, we can calculate the maximum spin difference between the inner and the outer wheel to obtain a rough approximation of the wheels's speed relation:
 
-Rear Inner Wheel Radius:
-$$R_{\text{rear, inner}} = R_{\text{center}} - \frac{W}{2} = 7.35 - 6.0 = 1.35\text{ cm}$$
+* Rear Inner Wheel Radius:
 
-Rear Inner Wheel Circumference:
-$$C_{\text{rear, inner}} = 2 \pi R_{\text{rear, inner}} = 2 \pi (1.35) \approx 8.48\text{ cm}$$
+  $$R_{\text{rear, inner}} = R_{\text{center}} - \frac{W}{2} = 7.35 - 6.0 = 1.35\text{ cm}$$
 
-Rear Outer Wheel Radius:
-$$R_{\text{rear, outer}} = R_{\text{center}} + \frac{W}{2} = 7.35 + 6.0 = 13.35\text{ cm}$$
+  Rear Inner Wheel Circumference:
 
-Rear Outer Wheel Circumference:
-$$C_{\text{rear, outer}} = 2 \pi R_{\text{rear, outer}} = 2 \pi (13.35) \approx 83.88\text{ cm}$$
+  $$C_{\text{rear, inner}} = 2 \pi R_{\text{rear, inner}} = 2 \pi (1.35) \approx 8.48\text{ cm}$$
+
+* Rear Outer Wheel Radius:
+
+  $$R_{\text{rear, outer}} = R_{\text{center}} + \frac{W}{2} = 7.35 + 6.0 = 13.35\text{ cm}$$
+  
+  Rear Outer Wheel Circumference:
+
+  $$C_{\text{rear, outer}} = 2 \pi R_{\text{rear, outer}} = 2 \pi (13.35) \approx 83.88\text{ cm}$$
 
 We can then obtain an approximate proportion rounding our numbers to 1 significant figure:
 
-8.48 = 8x10⁰
-83.88 = 8x10¹
+* 8.48 = 8x10⁰
+* 83.88 = 8x10¹
 
 so:
 
