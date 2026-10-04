@@ -405,19 +405,19 @@ Obtaining our central turning radius, we can calculate the maximum spin differen
 
 * Rear Inner Wheel Radius:
 
-    $$R_{\text{rear, inner}} = R_{\text{center}} - \frac{W}{2} = 7.35 - 6.0 = 1.35\text{ cm}$$
+  * $$R_{\text{rear, inner}} = R_{\text{center}} - \frac{W}{2} = 7.35 - 6.0 = 1.35\text{ cm}$$
 
   Rear Inner Wheel Circumference:
 
-    $$C_{\text{rear, inner}} = 2 \pi R_{\text{rear, inner}} = 2 \pi (1.35) \approx 8.48\text{ cm}$$
+  * $$C_{\text{rear, inner}} = 2 \pi R_{\text{rear, inner}} = 2 \pi (1.35) \approx 8.48\text{ cm}$$
 
 * Rear Outer Wheel Radius:
 
-    $$R_{\text{rear, outer}} = R_{\text{center}} + \frac{W}{2} = 7.35 + 6.0 = 13.35\text{ cm}$$
+  * $$R_{\text{rear, outer}} = R_{\text{center}} + \frac{W}{2} = 7.35 + 6.0 = 13.35\text{ cm}$$
   
   Rear Outer Wheel Circumference:
 
-    $$C_{\text{rear, outer}} = 2 \pi R_{\text{rear, outer}} = 2 \pi (13.35) \approx 83.88\text{ cm}$$
+  * $$C_{\text{rear, outer}} = 2 \pi R_{\text{rear, outer}} = 2 \pi (13.35) \approx 83.88\text{ cm}$$
 
 We can then obtain an approximate proportion rounding our numbers to 1 significant figure:
 
