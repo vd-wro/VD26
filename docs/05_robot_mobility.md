@@ -369,6 +369,8 @@ Consists of:
 The power flows in a specific sequence:
 **Motor** &rarr; **Pinion** &rarr; **Ring Gear** &rarr; **Differential Housing** &rarr; **Spider Gears** &rarr; **Side Gears** &rarr; **Wheels**.
 
+<img src="../assets/hardware_photos/differencial.jpg" width="500">
+
 ### Principal Core
 
 The entire mechanism functions based on the resistance encountered by the wheels.
@@ -384,6 +386,43 @@ When the vehicle moves straight ahead, both wheels experience the same amount of
 #### Cornering Dynamics
 
 Basic geometry tells us that when turning, the inner wheel travels a shorter path, experiencing more resistance, skidding, and forcing it to slow down.
+
+To calculate wheel cornering dynamics, we are using a bicycle's kinematic model to calculate the central turning radius.
+
+<img src="../assets/animations_grahpics/WheelKinematicModels.png" width="500">
+
+* Wheelbase: 10.5 cm
+* Track Width: 12 cm
+* Steering Angle: 55°
+
+* $$R_{\text{center}} = \frac{L}{\tan(\delta)}$$
+
+$$\tan(55^\circ) \approx 1.4281$$
+
+$$R_{\text{center}} = \frac{10.5}{1.4281} \approx 7.35\text{ cm}$$
+
+Obtaining our central turning radius, we can calculate the maximum spin difference between the inner and the outer wheel to obtain a rough approximation of the wheels's speed relation:
+
+Rear Inner Wheel Radius:
+$$R_{\text{rear, inner}} = R_{\text{center}} - \frac{W}{2} = 7.35 - 6.0 = 1.35\text{ cm}$$
+
+Rear Inner Wheel Circumference:
+$$C_{\text{rear, inner}} = 2 \pi R_{\text{rear, inner}} = 2 \pi (1.35) \approx 8.48\text{ cm}$$
+
+Rear Outer Wheel Radius:
+$$R_{\text{rear, outer}} = R_{\text{center}} + \frac{W}{2} = 7.35 + 6.0 = 13.35\text{ cm}$$
+
+Rear Outer Wheel Circumference:
+$$C_{\text{rear, outer}} = 2 \pi R_{\text{rear, outer}} = 2 \pi (13.35) \approx 83.88\text{ cm}$$
+
+We can then obtain an approximate proportion rounding our numbers to 1 significant figure:
+
+8.48 = 8x10⁰
+83.88 = 8x10¹
+
+so:
+
+8x10⁰/8x10¹ = **1:10** 
 
 * The inside axle slows down, causing the attached gear to slow down too.
 * The differential case is still being spun at a constant speed by the ring gear, but the inside axle is at a different speed. This speed forces the spider gears to begin spinning on their own internal shafts. Their rotation relative to the differential case is slower.
