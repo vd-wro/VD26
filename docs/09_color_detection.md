@@ -15,7 +15,7 @@ static Adafruit_TCS34725 floorTcs(TCS34725_INTEGRATIONTIME_2_4MS, TCS34725_GAIN_
 ```
 
 This object is initialized with parameters that control the sensor's light exposure and sensitivity:
-* An integration time of 2.4 milliseconds, this is the fastest configuration (1 reading) which is the ideal time to quickly detect floor lines. Other configurations (24 ms, 50 ms, etc) were avoided to prevent any latency or slow reading during operation.
+* An integration time of 2.4 milliseconds, this is the fastest configuration (1 reading) which is the ideal time to quickly detect floor lines. Configurations that provided better read quality (24 ms, 50 ms, etc.) were avoided to prevent latency during operation, accepting a trade-off in read quality.
 * gain of 1X to maintain natural light data.
 
 ### Communication
