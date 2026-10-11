@@ -273,7 +273,7 @@ The system's autonomy is therefore governed by the 9V supply, after which rechar
 
 ## 2.8 Circuit Design
 
-The robot utilizes a custom-made PCB, avoiding unnecessary clutter and improving overall order.
+The robot utilizes a custom-made PCB, avoiding unnecessary clutter and improving overall order. Please refer to our engineering journal at the beginning of this repository for more information.
 
 <img src="./../assets/hardware_photos/SolderedPCB.jpg" height="500">
 
