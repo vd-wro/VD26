@@ -47,9 +47,9 @@ NewPing sonarFront(US_FRONT_TRIG, US_FRONT_ECHO, MAX_DISTANCE); // Front ultraso
      * The non-blocking `safeDelay(3);` is introduced between pings to prevent echo interference and ensure measurement stability.
      * Each reading `d` is checked against `MIN_VALID_DISTANCE` (e.g., 4 cm) and `MAX_VALID_DISTANCE` (e.g., 80 cm). Readings outside this valid range (e.g., sensor errors, objects too close/far) are **discarded**.
        * Justification of Limits:
-         1. **Lower Limit (4 cm):**
+         * **Lower Limit (4 cm):**
            * **Physical Reason:** Established to avoid the transducer's blind zone (dead zone) and prevent false readings caused by multiple reflections or near-field echoes that can saturate the receiver immediately after pulse emission.
-         2. **Upper Limit (80 cm):**
+         * **Upper Limit (80 cm):**
            * **Operational and Environmental Reason:** Given the dimensions of the competition track and the requirements for local navigation, readings beyond this threshold are outside our operational interest. Furthermore, capping the maximum range mitigates the impact of electromagnetic noise induced by high-power drive motors and eliminates phantom echoes or interference from distant room walls outside the arena.
      * Valid readings are stored in a `samples` array, and their sum is accumulated. `validCount` tracks how many valid readings were obtained.
      * If `validCount` is zero (no valid readings), the function returns 0.
