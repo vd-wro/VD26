@@ -5,7 +5,20 @@ VizDrive now utilizes the OpenMV H7 Plus to detect and react to obstacles in rea
 ---
 
 ## 7.1 OpenMV H7 Plus
-The **OpenMV Cam** is a small, low power, microcontroller board uses machine vision in the real-world. For this instance, we are using blob based color detection, using LAB color space.
+The **OpenMV Cam** is a small, low power, microcontroller board uses machine vision in the real-world. For this instance, we are opting for blob based color detection, using LAB color space.
+
+### Integration Architecture
+
+To optimize the robot's real-time performance and prevent computational bottlenecks, we implemented a decentralized processing architecture separating computer vision tasks from low-level motor control.
+
+* **On-Camera Processing** (OpenMV Cam)
+    * **Dedicated Vision Engine:** The OpenMV camera executes its blob detection vision algorithms directly on its onboard 32-bit ARM Cortex microcontroller.
+    * **Pixel-to-Data Reduction:** Instead of streaming raw, high-resolution video frames (which would saturate a microcontroller's memory and bandwidth), OpenMV processes the image locally and evaluates the right driving decision (left, right, or straight), sending the instruction directly to the Arduino via serial port.
+
+* **Communication and Microcontroller Offloading** (Serial Interface)
+    * **Reduced Latency for Arduino:** The Arduino is completely freed nor just from image processing, but also decision taking, since the OpenMV already sends the right driving instruction.
+    * **Lightweight Serial Stream:** OpenMV transmits only compact data packets: G, left; R, right; C, centre.
+    * **Reaction Time Optimization:** By shifting processing to the camera module, the Arduino's main loop remains dedicated exclusively to time-critical tasks like sensor filtering, odometry, and PID control loops, drastically improving the overall reaction time and system stability.
 
 ### Camera Configuration
 
