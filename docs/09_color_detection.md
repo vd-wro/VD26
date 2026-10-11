@@ -14,7 +14,9 @@ A dedicated TCS3472 color sensor is mounted on the underside of the robot. Its p
 static Adafruit_TCS34725 floorTcs(TCS34725_INTEGRATIONTIME_2_4MS, TCS34725_GAIN_1X); // I2C color sensor object
 ```
 
-This object is initialized with an integration time of 2.4 milliseconds and a gain of 1X, parameters that control the sensor's light exposure and sensitivity.
+This object is initialized with parameters that control the sensor's light exposure and sensitivity:
+* An integration time of 2.4 milliseconds, this is the fastest configuration (1 reading) which is the ideal time to quickly detect floor lines. Other configurations (24 ms, 50 ms, etc) were avoided to prevent any latency or slow reading during operation.
+* gain of 1X to maintain natural light data.
 
 ### Communication
 
