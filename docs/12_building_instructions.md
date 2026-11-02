@@ -1,6 +1,12 @@
 # 11.0 Building Instructions
 
-This section is a text description on ViZio´s construction process. There are four main steps: Printing, Assembling, Circuits, and Software.
+This document is intended to be used as a complete guide to build our robot. We have complemented this section with a building video, infographics, and comprehensive text for better replication.
+
+Video: 
+
+[![Obstacle Challenge Video1](https://img.youtube.com/vi/_eFCITJSd0o/0.jpg)](https://www.youtube.com/watch?v=_eFCITJSd0o)
+
+The following is the text description of ViZio's construction process. There are four main steps: Printing, Assembling, Circuits, and Software.
 
 ## Step 1 - Print 3D models
 
