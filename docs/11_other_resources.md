@@ -2,7 +2,7 @@
 
 This section provides links to supplementary materials, diagrams, and other relevant resources that offer further insight into the VizDrive robot's design, construction, and operation.
 
-This document is primarily intended to serve as a **user manual**, with the set of instructions to build, calibrate, and operate our robot.
+This document is primarily intended to serve as a **user manual**, with the set of instructions to calibrate and operate our robot.
 
 ## 11.1 3D Models
 
@@ -50,6 +50,8 @@ We've also created a custom KiCad PCB to improve durability, reliability and sim
 We created 3D animations that showcase the detailed building instructions for all the components into our robot. The videos also include information about the different versions of the robot.
 
 For an in-depth explanation into this and other concepts taken into consideration during the planification of 3D parts, you can visit the [3D Modeling](./10_3d_modeling.md) document, which details the principles used during the construction of our robot.
+
+[![Building Instructions Phase 5](https://img.youtube.com/vi/_eFCITJSd0o/0.jpg)](https://www.youtube.com/watch?v=_eFCITJSd0o)
 
 [![Building Instructions](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
 
