@@ -43,7 +43,7 @@ The following is the text description of ViZio's construction process. There are
 
   <img src="./../assets/animations_graphics/AS5.png" width="500">
 
-### 2.4 Secure Motor and Install Encoder
+### 2.5 Secure Motor and Install Encoder
 
   <img src="./../assets/animations_graphics/AS6.png" width="500">
 
@@ -59,13 +59,13 @@ The following is the text description of ViZio's construction process. There are
 
   <img src="./../assets/animations_graphics/AS9.png" width="500">
 
-### 2.7 Place Rear Electronics
+### 2.8 Place Rear Electronics
 
 **Parts:** Front ultrasonic, floor color sensor, OpenMV.
 
   <img src="./../assets/animations_graphics/AS10.png" width="500">
 
-### 2.7 Place Batteries
+### 2.9 Place Batteries
 
 **Parts:** 9V batteries, 2x 4.2V/3.7V batteries.
 
