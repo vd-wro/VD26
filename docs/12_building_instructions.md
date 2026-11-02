@@ -1,4 +1,4 @@
-# 11.0 Building Instructions
+# 12.0 Building Instructions
 
 This document is intended to be used as a complete guide to build our robot. We have complemented this section with a building video, infographics, and comprehensive text for better replication.
 
