@@ -123,6 +123,8 @@ For more information, refer to our documentation on the [**Software Architecture
 
 * **Pixy Calibration**: It’s crucial to cover the Pixy’s lens with your finger during initialization to calibrate its brightness and avoid variable exposition due to slight lighting changes during power-up.
 
+Other smaller technical issues were documented in our Engineering Journal.
+
 ---
 
 If you notice any inconsistency on this code functionality, feel free to contact us via email: **<vizdrive.wro@gmail.com>**!
