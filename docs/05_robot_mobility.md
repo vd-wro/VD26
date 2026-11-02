@@ -435,7 +435,7 @@ So:
 
 ## 5.4 Centre of Mass
 
-During ViZio's development, many changes were made and different approaches were used to fine-tune our robot's mass. We had to place a 50 g mass on top of the servo to counter balance the heavy metal differential. The resulting center of mass is aproximately just before the rear axle, giving enough grip to the front wheels to steer, and also enough rear grip to get effective differential action.
+During ViZio's development, many changes were made and different approaches were used to fine-tune our robot's mass. We had to place a 50 g mass, as already explained in [Hardware Components](./02_hardware_components.md) on top of the servo to counter balance the heavy metal differential. The resulting center of mass is aproximately just before the rear axle, giving enough grip to the front wheels to steer, and also enough rear grip to get effective differential action.
 
 ---
 
