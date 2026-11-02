@@ -4,7 +4,7 @@ This document is intended to be used as a complete guide to build our robot. We 
 
 Video: 
 
-[![Obstacle Challenge Video1](https://img.youtube.com/vi/_eFCITJSd0o/0.jpg)](https://www.youtube.com/watch?v=_eFCITJSd0o)
+[![Building Instructions Phase 5](https://img.youtube.com/vi/_eFCITJSd0o/0.jpg)](https://www.youtube.com/watch?v=_eFCITJSd0o)
 
 The following is the text description of ViZio's construction process. There are four main steps: Printing, Assembling, Circuits, and Software.
 
