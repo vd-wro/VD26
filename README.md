@@ -70,10 +70,12 @@ You can use this index to navigate through our robot's documentation. Each docum
   * Details the 3D design process, mechanical characteristics, and fabrication parameters.
   * [3D Models STL](./models/)
 * [**11. Other Resources and User Manual**](./docs/11_other_resources.md)
-  * User manual for robot's construction and operation.
+  * User manual for robot's operation and calibration.
   * Summarized documentation and additional relevant resources and materials.
-  * Evolution and improvements made within the versions of the robot.
-  * Technical issues and applied fixes.
+  * Highlighted technical issues and applied fixes.
+* [**12. Building Instructions**](./docs/12_building_instruction.md)
+  * Visual resources and explanations for ViZio's construction.
+  * Construction animations and renders.
 
 ---
 
