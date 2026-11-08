@@ -40,7 +40,13 @@ You can also check our YouTube channel for more Obstacle Challenge videos.
 
 These videos serve as supplementary material and explanations of the robot's assembly.
 
-This video shows how to assemble all ViZio's parts and components into the chassis 3D Model.
+These videos show how to assemble all ViZio's parts and components into the chassis 3D Model.
+
+Vizio IV, Phase 5:
+
+[![Building Instructions Phase 5](https://img.youtube.com/vi/_eFCITJSd0o/0.jpg)](https://www.youtube.com/watch?v=_eFCITJSd0o)
+
+ViZio V3 or older:
 
 [![Robot Animation Video1](https://img.youtube.com/vi/Cte4G7Wkx94/0.jpg)](https://www.youtube.com/watch?v=Cte4G7Wkx94)
 
