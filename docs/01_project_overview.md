@@ -31,7 +31,7 @@ Each of these parts have their own separated document, delving into their calibr
 | ---------------- | ---------- |
 | Height | 15 cm |
 | Width | 14 cm |
-| Length | 26 cm |
+| Length | 27 cm |
 | Weight | 841 g |
 
 ---
@@ -42,22 +42,29 @@ The robot's operation can be divided into three phases:
 
 ### 1. **Initialization Phase (Setup):**
 
-* **Power-Up**, **Self-Checks** and **Calibration:** upon power-up, the robot ensures all sensors and actuators are operational, and calibrates the MPU gyroscope yaw angle for orientation. If a sensor is not initialized correctly, the program will not start.
+* **Power-Up** and **Hardware Initialization:** upon power-up, the robot ensures all sensors and actuators are operational. If a sensor is not initialized correctly, the program will not start.
+
+* **Gyroscope Callibration:** the MPU gyroscope offset is calibrated to ensure orientation accuracy before entering the main control loop.
+
 * **Waiting for Start:** when the robot is ready for operation an LED indicator illuminates to signal readiness, and the program starts upon a button press.
 
 ### 2. **Autonomous Navigation Phase:**
 
-This is the primary operational phase, a loop where the robot continuously checks and adapts to its environment:
+This is the primary operational phase, running in a continuous **33 Hz** main loop where the robot senses and adapts to its environment:
 
 * **Orientation Correction (Continuous):**
   * The **MPU-6050** provides real-time orientation data.
   * This data is fed into a dedicated PID (Proportional-Integral-Derivative) controller, which compensates for any rotational drift, ensuring the robot maintains a stable and straight heading throughout its trajectory.
   * To correct the **MPU-6050's accumulated offset**, in the **Obstacle Challenge**, the robot uses the rear wall to **reset its yaw angle**. On the other hand, in the **Open Challenge**, it uses the robot's **parallel distance to the wall**.
+* **Floor Color and Corner Navigation (Conditional):**
+* The system checks if floor color is detected. If blue or orange is detected, the robot executes a corner turn routine.
+* For corner turns, the system checks if it is Lap 0 to define the direction (Blue=Left, Orange=Right) or uses a pre-defined direction for subsequent laps. It then measures the front wall distance to execute either a tight maneuver (backing up and turning) or an open smooth turn, and updates the target yaw by ±90°.
+
 * **Obstacle Detection and Evasion (Conditional):**
-  * While maintaining trajectory, the **OpenMV H7** constantly scans the path ahead for obstacles.
-  * If an obstacle is detected within the predefined **Region of Interest (ROI)** of the camera's field of view:
-    * **Evasion Maneuver:** the robot turns until the obstacle is no longer detected within the OpenMV's ROI. The objects enter a "safe area" depending on the color, which indicates s obstacles are already evaded.
-    * **Re-acquisition of Trajectory:** following an evasion maneuver, the robot re-establishes its MPU-based trajectory correction. Concurrently, side ultrasonic sensors are utilized to assist in re-centering the robot on its intended path.
+  * While maintaining trajectory, if no floor color is detected, the **OpenMV H7** constantly scans the path ahead for obstacles.
+  * When a block is detected, the camera evaluates its color (Red for right evasion 'R', Green for left evasion 'G') and transmits the command through serial.
+  * The robot executes the obstacle evasion routine while recentering its trajectory until the block exits the ROI, at which point a continue command ('C') is sent.
+  * If no obstacle is detected, the robot continues driving forward while recentering its trajectory.
 
 ### 3. **Completion Phase:**
 

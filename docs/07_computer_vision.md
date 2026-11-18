@@ -378,41 +378,6 @@ It finishes the evasion maneuver and breaks the evasion applying sideways correc
     }
 ```
 
-### Camera Positioning
-
-#### X Axis
-
-**Recentering Maneuver:** A fisheye lens adds complex distortion that hinders accurate object tracking. Our solution to maintain accurate detection when obstacles are off-view was maintaining the default 2.8 mm lens and adding a [recentering maneuver](05_robot_mobility.md).
-
-#### Y Axis
-
-A 10° angle was opted when choosing the optimal camera position, this angle permits the usage of the non-curve area of the camera (horizontal center line) during object tracking. Even though the Y-bound (a value used to detect only blocks that are near the robot, and discard those that are far away) could be assumed to be the centre, it was calculated to create micro adjustments:
-
-<img src="../assets/animations_graphics/Ycam.png" width="500">
-
-**Block Detection Distance Calculations**
-
-**Parameters & Constants:**
-
-* **FOV:** $52^\circ$
-* **Y-bound:** $0.40$
-* **Camera Height:** $11\text{ cm}$
-* **Target Point Height:** $5\text{ cm}$ (center of $10\text{ cm}$ block)
-
-**Calculations:**
-
-1. **Upper FOV Angle:**
-   $$52^\circ \cdot 0.40 = 21^\circ \quad \text{(upper part)}$$
-
-2. **Half FOV Angle:**
-   $$\frac{52^\circ}{2} = 26^\circ$$
-
-3. **Offset from Center:**
-   $$26^\circ - 21^\circ = 5^\circ \quad \text{(offset from center)}$$
-
-4. **Block Detection Distance:**
-   $$\text{Block detection distance} = \frac{(11 - 5)\text{ cm}}{\tan(10^\circ - 5^\circ)} \approx 69\text{ cm}$$
-
 ## 7.2 PixyCam 2.1 for Vision-Based Obstacle Evasion
 
 The **PixyCam 2.1** is an intelligent, compact vision sensor that provides rapid object recognition based on pre-trained color signatures. Its integrated processor significantly offloads computational burden from the main microcontroller, enabling real-time obstacle detection.

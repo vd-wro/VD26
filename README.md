@@ -47,7 +47,7 @@ You can use this index to navigate through our robot's documentation. Each docum
   * [KiCad Files](./src/kicad_pcb)
 * [**3. Software Architecture**](./docs/03_software_architecture.md)
   * Overview of software libraries, core functionalities, and code structure.
-  * [Autonomous Driving Code](./src/main_control/Vizdrive_WRO_code.ino)
+  * [Autonomous Driving Code](./src/main_control/)
 * [**4. Sensor and Pin Configurations**](./docs/04_sensors_and_pin_configuration.md)
   * In-depth review of each sensor, its role in the functionality, and Arduino pin assignments.
   * [Sensors' Test Codes](./src/test_code/)
